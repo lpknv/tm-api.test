@@ -13,8 +13,8 @@ $age_info = false;
     <link rel="canonical" href="https://efg-hueckelhoven.de/">
     <link rel="shortlink" href="https://efg-hueckelhoven.de/">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="icon" href="/cropped-efg-favicon-32x32.png" sizes="32x32">
-    <link rel="icon" href="/cropped-efg-favicon-192x192.png" sizes="192x192">
+    <link rel="icon" href="cropped-efg-favicon-32x32.png" sizes="32x32">
+    <link rel="icon" href="cropped-efg-favicon-192x192.png" sizes="192x192">
     <link rel="stylesheet" href="./assets/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/main.css">
   </head>
