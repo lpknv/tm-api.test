@@ -10,43 +10,52 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-//Load Composer's autoloader
 require 'PHPMailer.php';
 require 'SMTP.php';
 require 'Exception.php';
 
+$is_dev = getenv('APP_ENV') === 'dev';
 
-$familienname       = trim($_POST['familienname'] ?? '');
-$email              = trim($_POST['email'] ?? '');
-$telefonnummer       = trim($_POST['telefonnummer'] ?? '');
-$strasse_hausnummer  = trim($_POST['strasse_hausnummer'] ?? '');
-$plz                = trim($_POST['plz'] ?? '');
-$ort                = trim($_POST['ort'] ?? '');
+$smtp_debug = $is_dev ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
 
-$name1              = trim($_POST['name1'] ?? '');
-$alter1             = trim($_POST['alter1'] ?? '');
-$heimweg1           = trim($_POST['heimweg1'] ?? '');
-$tshirt1            = trim($_POST['tshirt1'] ?? '');
+if ($is_dev) {
+  ini_set('display_errors', '1');
+  error_reporting(E_ALL);
+} else {
+  ini_set('display_errors', '0');
+}
 
-$name2              = trim($_POST['name2'] ?? '');
-$alter2             = trim($_POST['alter2'] ?? '');
-$heimweg2           = trim($_POST['heimweg2'] ?? '');
-$tshirt2            = trim($_POST['tshirt2'] ?? '');
+$familienname       = trim($_POST['familienname']);
+$email              = trim($_POST['email']);
+$telefonnummer       = trim($_POST['telefonnummer']);
+$strasse_hausnummer  = trim($_POST['strasse_hausnummer']);
+$plz                = trim($_POST['plz']);
+$ort                = trim($_POST['ort']);
 
-$name3              = trim($_POST['name3'] ?? '');
-$alter3             = trim($_POST['alter3'] ?? '');
-$heimweg3           = trim($_POST['heimweg3'] ?? '');
-$tshirt3            = trim($_POST['tshirt3'] ?? '');
+$name1              = trim($_POST['name1']);
+$alter1             = trim($_POST['alter1']);
+$heimweg1           = trim($_POST['heimweg1']);
+$tshirt1            = trim($_POST['tshirt1']);
 
-$name4              = trim($_POST['name4'] ?? '');
-$alter4             = trim($_POST['alter4'] ?? '');
-$heimweg4           = trim($_POST['heimweg4'] ?? '');
-$tshirt4            = trim($_POST['tshirt4'] ?? '');
+$name2              = trim($_POST['name2']);
+$alter2             = trim($_POST['alter2']);
+$heimweg2           = trim($_POST['heimweg2']);
+$tshirt2            = trim($_POST['tshirt2']);
 
-$name5              = trim($_POST['name5'] ?? '');
-$alter5             = trim($_POST['alter5'] ?? '');
-$heimweg5           = trim($_POST['heimweg5'] ?? '');
-$tshirt5            = trim($_POST['tshirt5'] ?? '');
+$name3              = trim($_POST['name3']);
+$alter3             = trim($_POST['alter3']);
+$heimweg3           = trim($_POST['heimweg3']);
+$tshirt3            = trim($_POST['tshirt3']);
+
+$name4              = trim($_POST['name4']);
+$alter4             = trim($_POST['alter4']);
+$heimweg4           = trim($_POST['heimweg4']);
+$tshirt4            = trim($_POST['tshirt4']);
+
+$name5              = trim($_POST['name5']);
+$alter5             = trim($_POST['alter5']);
+$heimweg5           = trim($_POST['heimweg5']);
+$tshirt5            = trim($_POST['tshirt5']);
 
 $marketing = $_POST['marketing'];
 $infos = $_POST['infos'];
@@ -71,9 +80,11 @@ function respond($message, $statusCode = 200, $success = false)
   exit;
 }
 
-$hp = trim($_POST['hp'] ?? '');
-if (!empty($hp)) {
-  respond('Ooops!', 200, true);
+$hp = trim($_POST['hp']);
+
+if ($hp !== '') {
+  respond('adsdadas', 200, true);
+  exit;
 }
 
 if (
@@ -249,22 +260,16 @@ $nachrichtAnTeilnehmer = "<html>
 $mail = new PHPMailer();
 
 try {
-  $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+  $mail->SMTPDebug = $smtp_debug;
   $mail->CharSet = getenv('SMTP_CHARSET');
   $mail->Host = getenv('SMTP_HOST');
   $mail->SMTPAuth = true;
   $mail->Port = getenv('SMTP_PORT');
   $mail->Username = getenv('SMTP_USER');
   $mail->Password = getenv('SMTP_PASSWORD');
-  // $mail->SMTPDebug = SMTP::DEBUG_OFF;
-  // $mail->isSMTP();
-  // $mail->CharSet = 'UTF-8';
-  // $mail->Host       = 'smtp.ionos.de';
-  // $mail->SMTPAuth   = true;
-  // $mail->Username   = 'baseballcamp@efg-hueckelhoven.de';
-  // $mail->Password   = 'Baal.BBC.2024';
-  // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-  // $mail->Port       = 587;
+  if(!$is_dev) {
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+  }
 
   $mail->setFrom('baseballcamp@efg-hueckelhoven.de');
   $mail->addAddress($email);
@@ -275,10 +280,14 @@ try {
   $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
   $mail->Body .= $anmeldedaten;
 
+  $text = $nachrichtAnTeilnehmer;
+  $text .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
+  $text .= $anmeldedaten;
+
   // $mail->send();
   // var_dump($anmeldedaten);
   // die();
-  respond('Vielen Dank für deine Anmeldung!', 200, true);
+  respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
 } catch (Exception $e) {
   respond("Oops! Etwas ist schief gelaufen. Versuche es später erneut. {$mail->ErrorInfo}", 400);
 }
@@ -286,22 +295,16 @@ try {
 $mail1 = new PHPMailer();
 
 try {
-  $mail1->SMTPDebug = SMTP::DEBUG_SERVER;
+  $mail1->SMTPDebug = $smtp_debug;
   $mail1->CharSet = getenv('SMTP_CHARSET');
   $mail1->Host = getenv('SMTP_HOST');
   $mail1->SMTPAuth = true;
   $mail1->Port = getenv('SMTP_PORT');
   $mail1->Username = getenv('SMTP_USER');
   $mail1->Password = getenv('SMTP_PASSWORD');
-  // $mail1->SMTPDebug = SMTP::DEBUG_OFF;
-  // $mail1->isSMTP();
-  // $mail1->CharSet = 'UTF-8';
-  // $mail1->Host       = 'smtp.ionos.de';
-  // $mail1->SMTPAuth   = true;
-  // $mail1->Username   = 'baseballcamp@efg-hueckelhoven.de';
-  // $mail1->Password   = 'Baal.BBC.2024';
-  // $mail1->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-  // $mail1->Port       = 587;
+  if(!$is_dev) {
+    $mail1->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+  }
 
   $mail1->setFrom('baseballcamp@efg-hueckelhoven.de');
   $mail1->addAddress('baseballcamp@efg-hueckelhoven.de');
@@ -314,7 +317,8 @@ try {
   // $mail1->send();
   // var_dump($anmeldedaten);
   // die();
-  respond("Vielen Dank für deine Anmeldung!", 200, true);
+
+  respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
 } catch (Exception $e) {
   respond("Oops! Etwas ist schief gelaufen. Versuche es später erneut. {$mail->ErrorInfo}", 400);
 }

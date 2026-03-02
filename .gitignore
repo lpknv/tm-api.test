@@ -473,5 +473,5 @@ composer.lock
 *.scss.map
 
 
-.env
-!.env.*
+.env*
+!.env.example

@@ -1,5 +1,6 @@
 <?php
 $showContent = true;
+$age_info = false;
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +28,7 @@ $showContent = true;
       Solltest du Fragen haben, so melde dich gerne bei Melanie Pfaffenrot unter der E-Mail Adresse
       <a href="mailto:baseballcamp@efg-hueckelhoven.de">baseballcamp@efg-hueckelhoven.de</a>
     </p>
+    <?php if ($age_info): ?>
     <div class="alert alert-warning d-inline-flex align-items-center" role="alert">
       <svg class="me-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
         <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
@@ -36,6 +38,7 @@ $showContent = true;
         Anmeldungen für die Altersgruppe von 12 bis 18 Jahren sind nicht mehr möglich.
       </div>
     </div>
+    <?php endif; ?>
     <form class="contact-form py-5">
       <input type="hidden" name="hp">
       <div class="row">
