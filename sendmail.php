@@ -71,13 +71,11 @@ function respond($message, $statusCode = 200, $success = false)
   exit;
 }
 
-// Honeypot (früh, bevor du arbeitest)
 $hp = trim($_POST['hp'] ?? '');
 if (!empty($hp)) {
-  respond('Ooops!', 200, true); // Fake success
+  respond('Ooops!', 200, true);
 }
 
-// Pflichtfelder prüfen (einmal reicht!)
 if (
   $familienname === '' || $email === '' || $telefonnummer === '' || $strasse_hausnummer === '' ||
   $plz === '' || $ort === '' || $name1 === '' || $alter1 === '' || $heimweg1 === '' || $tshirt1 === ''
