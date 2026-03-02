@@ -1,29 +1,36 @@
 <?php
-session_start();
 
-require __DIR__ . '/vendor/autoload.php';
+declare(strict_types=1);
 
-$dotenv = Dotenv\Dotenv::createMutable(__DIR__);
-$dotenv->load();
-
+use Dotenv\Dotenv;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer.php';
-require 'SMTP.php';
-require 'Exception.php';
+require __DIR__ . '/vendor/autoload.php';
 
-$is_dev = getenv('APP_ENV') === 'dev';
+Dotenv::createImmutable(__DIR__)->load();
+
+$is_dev = (getenv('APP_ENV') === 'dev');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  respond('Method not allowed', 405, false);
+}
 
 $smtp_debug = $is_dev ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
 
 if ($is_dev) {
   ini_set('display_errors', '1');
-  error_reporting(E_ALL);
 } else {
   ini_set('display_errors', '0');
+  error_reporting(E_ALL);
 }
+
+$hp = trim($_POST['hp'] ?? '');
+if ($hp !== '') {
+  respond('Vielen Dank für deine Anmeldung!', 200, true);
+}
+
 
 $familienname       = trim($_POST['familienname']);
 $email              = trim($_POST['email']);
@@ -77,13 +84,6 @@ function respond($message, $statusCode = 200, $success = false)
       'success' => (bool)$success,
       'message' => $message
   ], JSON_UNESCAPED_UNICODE);
-  exit;
-}
-
-$hp = trim($_POST['hp']);
-
-if ($hp !== '') {
-  respond('adsdadas', 200, true);
   exit;
 }
 
@@ -284,9 +284,6 @@ try {
   $text .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
   $text .= $anmeldedaten;
 
-  // $mail->send();
-  // var_dump($anmeldedaten);
-  // die();
   respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
 } catch (Exception $e) {
   respond("Oops! Etwas ist schief gelaufen. Versuche es später erneut. {$mail->ErrorInfo}", 400);
@@ -313,10 +310,6 @@ try {
   $mail1->Subject = "Neue Baseballcamp Anmeldung $year";
   $mail1->Body    = "<h3 style='text-decoration:underline'>Neue Baseballcamp Anmeldung $year</h3>";;
   $mail1->Body    .= $anmeldedaten;
-
-  // $mail1->send();
-  // var_dump($anmeldedaten);
-  // die();
 
   respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
 } catch (Exception $e) {
