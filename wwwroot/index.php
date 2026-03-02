@@ -1,11 +1,20 @@
 <?php
-$showContent = true;
+$showContent = false;
 $age_info = false;
 ?>
 
 <!DOCTYPE html>
 <html lang="de">
   <head>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Baseballcamp Anmeldung | EFG Hückelhoven-Baal">
+    <meta property="og:description" content="Baseballcamp 2026 Anmeldung | EFG Hückelhoven-Baal">
+    <meta property="og:image" content="https://efg-hueckelhoven.de/wp-content/uploads/2022/08/cropped-efg-logo.png">
+    <link rel="canonical" href="https://efg-hueckelhoven.de/">
+    <link rel="shortlink" href="https://efg-hueckelhoven.de/">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="/cropped-efg-favicon-32x32.png" sizes="32x32">
+    <link rel="icon" href="/cropped-efg-favicon-192x192.png" sizes="192x192">
     <link rel="stylesheet" href="./assets/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/main.css">
   </head>
