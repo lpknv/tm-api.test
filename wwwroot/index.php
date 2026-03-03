@@ -500,9 +500,28 @@ Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
       });
 
       $(document).on('click', '.remove-kid', function () {
-        $(this).closest('.kid').remove();
-        kidIndex--;
+        const $removedKid = $(this).closest('.kid');
+        const $allKids = $('#kids-container .kid');
+
+        $removedKid.remove();
+
         reindexKids();
+        updateAddButton();
+
+        const $remainingKids = $('#kids-container .kid');
+
+        if ($remainingKids.length > 0) {
+          const lastKid = $remainingKids.last()[0];
+          lastKid.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        } else {
+          $('#add-kid')[0].scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       });
     });
 
