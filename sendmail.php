@@ -93,7 +93,7 @@ if (
 
 $preis = 70;
 
-$year = date('Y');
+$year = CURRENT_YEAR;
 
 $anmeldedaten = "
 <p>

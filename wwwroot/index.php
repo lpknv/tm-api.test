@@ -24,7 +24,7 @@ $age_info = false;
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
       <div><img width="180" src="./assets/logo.png" alt="">
-        <p>Baseballcamp <?= date('Y') ?> Anmeldung</p>
+        <p>Baseballcamp <?= CURRENT_YEAR ?> Anmeldung</p>
       </div>
       <a href="https://efg-hueckelhoven.de">
         Zur Webseite
@@ -32,7 +32,7 @@ $age_info = false;
     </div>
   </nav>
   <div class="container">
-    <?php if ($showContent): ?>
+    <?php if (true): ?>
     <h3 class="mt-5">Willkommen zu der Baseballcamp Anmeldung</h3>
     <p class="lead">Bitte nutze das Formular unten, um dich für die Veranstaltung anzumelden.
       <br />
@@ -98,178 +98,7 @@ $age_info = false;
           <h5 class="mt-5">Teilnehmer hinzufügen</h5>
         </div>
       </div>
-      <div id="kids-container" class="row g-4">
-          <!-- <div class="col-sm-6">
-            <h5 class="mt-5">Kind 1</h5>
-            <h6>Kosten: 70,- Euro</h6>
-            <div class="mb-3">
-              <label for="name1" class="form-label required">Name</label>
-              <input required type="text" class="form-control" name="name1" id="name1">
-            </div>
-            <div class="mb-3">
-              <label for="alter1" class="form-label required">Alter</label>
-              <select name="alter1" id="alter1" class="form-select">
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="heimweg1" class="form-label required">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-              <select name="heimweg1" id="heimweg1" class="form-select">
-                <option value="Ja">Ja</option>
-                <option value="Nein">Nein</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="tshirt1" class="form-label required">T-Shirt-Größe</label>
-              <select name="tshirt1" id="tshirt1" class="form-select">
-                <option value="Kids M">Kids M</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <h5 class="mt-5">Kind 2</h5>
-            <h6>Kosten: 60,- Euro</h6>
-            <div class="mb-3">
-              <label for="name2" class="form-label">Name</label>
-              <input type="text" class="form-control" name="name2" id="name2">
-            </div>
-            <div class="mb-3">
-              <label for="alter2" class="form-label">Alter</label>
-              <select name="alter2" id="alter2" class="form-select">
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="heimweg2" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-              <select name="heimweg2" id="heimweg2" class="form-select">
-                <option value="Ja">Ja</option>
-                <option value="Nein">Nein</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="tshirt2" class="form-label">T-Shirt-Größe</label>
-              <select name="tshirt2" id="tshirt2" class="form-select">
-                <option value="Kids M">Kids M</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <h5 class="mt-5">Kind 3</h5>
-            <h6>Kosten: 60,- Euro</h6>
-            <div class="mb-3">
-              <label for="name3" class="form-label">Name</label>
-              <input type="text" class="form-control" name="name3" id="name3">
-            </div>
-            <div class="mb-3">
-              <label for="alter3" class="form-label">Alter</label>
-              <select name="alter3" id="alter3" class="form-select">
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="heimweg3" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-              <select name="heimweg3" id="heimweg3" class="form-select">
-                <option value="Ja">Ja</option>
-                <option value="Nein">Nein</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="tshirt3" class="form-label">T-Shirt-Größe</label>
-              <select name="tshirt3" id="tshirt3" class="form-select">
-                <option value="Kids M">Kids M</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <h5 class="mt-5">Kind 4</h5>
-            <h6>Kosten: 60,- Euro</h6>
-            <div class="mb-3">
-              <label for="name4" class="form-label">Name</label>
-              <input type="text" class="form-control" name="name4" id="name4">
-            </div>
-            <div class="mb-3">
-              <label for="alter4" class="form-label">Alter</label>
-              <select name="alter4" id="alter4" class="form-select">
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="heimweg4" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-              <select name="heimweg4" id="heimweg4" class="form-select">
-                <option value="Ja">Ja</option>
-                <option value="Nein">Nein</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="tshirt4" class="form-label">T-Shirt-Größe</label>
-              <select name="tshirt4" id="tshirt4" class="form-select">
-                <option value="Kids M">Kids M</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <h5 class="mt-5">Kind 5</h5>
-            <h6>Kosten: 60,- Euro</h6>
-            <div class="mb-3">
-              <label for="name5" class="form-label">Name</label>
-              <input type="text" class="form-control" name="name5" id="name5">
-            </div>
-            <div class="mb-3">
-              <label for="alter5" class="form-label">Alter</label>
-              <select name="alter5" id="alter5" class="form-select">
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="heimweg5" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-              <select name="heimweg5" id="heimweg5" class="form-select">
-                <option value="Ja">Ja</option>
-                <option value="Nein">Nein</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="tshirt5" class="form-label">T-Shirt-Größe</label>
-              <select name="tshirt5" id="tshirt5" class="form-select">
-                <option value="Kids M">Kids M</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-              </select>
-            </div>
-          </div> -->
-      </div>
+      <div id="kids-container" class="row g-4"></div>
       <button type="button" id="add-kid" class="btn btn-outline-success w-100 mt-4">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM18 17V14H20V17H23V19H20V22H18V19H15V17H18Z"></path></svg>
         Weiteres Kind
@@ -315,16 +144,13 @@ $age_info = false;
       </div>
     </form>
     <?php else: ?>
-      <h1 class="mt-5">Herzliche Einladung zum
-Baseballcamp 2026</h1>
+      <h1 class="mt-5">Herzliche Einladung zum Baseballcamp <?= CURRENT_YEAR ?></h1>
       <strong class="d-block mt-4">20. - 25. Juli 2026</strong>
-
-      <p>Das Baseballcamp 2026 rückt näher - und die Vorfreude steigt! ⚾️✨<br/> Wir sind mitten in den Vorbereitungen und planen schon fleißig.
-Die Anmeldungen werden in Kürze freigeschaltet!</p>
-
-      <p>In diesem Jahr findet das Baseballcamp an folgender Adresse statt:
-Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
-      
+      <p>
+        Das Baseballcamp 2026 rückt näher - und die Vorfreude steigt! ⚾️✨<br/> Wir sind mitten in den Vorbereitungen und planen schon fleißig.
+        Die Anmeldungen werden in Kürze freigeschaltet!
+      </p>
+      <p>In diesem Jahr findet das Baseballcamp an folgender Adresse statt: Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
       <p>Bei Fragen melde dich gerne bei Melanie Pfaffenrot unter der E-Mail Adresse
       <a href="mailto:baseballcamp@efg-hueckelhoven.de">baseballcamp@efg-hueckelhoven.de</a></p>
     </p>
@@ -345,8 +171,50 @@ Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
   <script src="./assets/bootstrap.min.js"></script>
   <script src="./assets/main.js"></script>
   <script>
+    
+    <?php if(IS_DEV): ?>
+      $('.contact-form').find(':input[name]').each(function () {
+        if (this.name === 'hp') {
+          return;
+        }
+        let $el = $(this);
+        if ($el.is(':checkbox, :radio')) {
+          $el.prop('checked', true);
+        }
+        else if ($el.is('select')) {
+          $el.prop('selectedIndex', 1);
+        }
+        else {
+          $el.val('test_' + this.name + '@aasd.de');
+        }
+      }); 
+    <?php endif; ?>
+
     const maxKids = <?= MAX_KIDS_NUMBER ?>;
     let kidIndex = 0;
+
+    function restoreFormState() {
+      const saved = localStorage.getItem('campFormData');
+      if (!saved) return;
+
+      const data = JSON.parse(saved);
+
+      data.forEach(field => {
+        const $elements = $('[name="' + field.name + '"]');
+
+        if (!$elements.length) return;
+
+        const type = $elements.first().attr('type');
+
+        if (type === 'radio') {
+          $elements.filter('[value="' + field.value + '"]').prop('checked', true);
+        } else if (type === 'checkbox') {
+          $elements.prop('checked', true);
+        } else {
+          $elements.val(field.value);
+        }
+      });
+    }
 
     function updateAddButton() {
       if (getKidCount() >= maxKids) {
@@ -488,65 +356,67 @@ Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
       return $('#kids-container .kid').length;
     }
 
-    $(function () {
-      $('#kids-container').html(kidTemplate(0));
-      kidIndex = 1;
+    function saveFormState() {
+      const data = $('.contact-form').serializeArray();
+      localStorage.setItem('campFormData', JSON.stringify(data));
+      localStorage.setItem('kidCount', $('#kids-container .kid').length);
+    }
 
-      $('#add-kid').on('click', function () {
-        const index = getKidCount();
-        if (index >= maxKids) return;
+    function saveKidCount() {
+      localStorage.setItem('kidCount', $('#kids-container .kid').length);
+    }
 
-        const newKid = $(kidTemplate(index));
-        $('#kids-container').append(newKid);
+    $(document).on('input change', '.contact-form input, .contact-form select, .contact-form textarea', function () {
+      saveFormState();
+    });
+    
+    const savedCount = parseInt(localStorage.getItem('kidCount')) || 1;
 
-        updateAddButton();
+    for (let i = 0; i < savedCount; i++) {
+      $('#kids-container').append(kidTemplate(i));
+    }
 
-        newKid[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+    kidIndex = 1;
 
-      $(document).on('click', '.remove-kid', function () {
-        const $removedKid = $(this).closest('.kid');
-        const $allKids = $('#kids-container .kid');
+    $('#add-kid').on('click', function () {
+      const index = getKidCount();
+      if (index >= maxKids) return;
 
-        $removedKid.remove();
+      const newKid = $(kidTemplate(index));
+      $('#kids-container').append(newKid);
 
-        reindexKids();
-        updateAddButton();
+      updateAddButton();
 
-        const $remainingKids = $('#kids-container .kid');
-
-        if ($remainingKids.length > 0) {
-          const lastKid = $remainingKids.last()[0];
-          lastKid.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        } else {
-          $('#add-kid')[0].scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+      saveFormState();
+      newKid[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    <?php if (IS_DEV): ?>
-      $('.contact-form').find(':input[name]').each(function () {
-        if (this.name === 'hp') {
-          return;
-        }
-        let $el = $(this);
-        if ($el.is(':checkbox, :radio')) {
-          $el.prop('checked', true);
-        }
-        else if ($el.is('select')) {
-          $el.prop('selectedIndex', 1);
-        }
-        else {
-          $el.val('test_' + this.name + '@aasd.de');
-        }
-      }); 
-    <?php endif; ?>
+    $(document).on('click', '.remove-kid', function () {
+      const $removed_kid = $(this).closest('.kid');
+      const $all_kids = $('#kids-container .kid');
+
+      $removed_kid.remove();
+
+      reindexKids();
+      updateAddButton();
+
+      const $remaining_kids = $('#kids-container .kid');
+
+      if ($remaining_kids.length > 0) {
+        const lastKid = $remaining_kids.last()[0];
+        lastKid.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      } else {
+        $('#add-kid')[0].scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      saveFormState();
+    });
+    restoreFormState();
   </script>
 </body>
 
