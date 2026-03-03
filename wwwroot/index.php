@@ -32,7 +32,7 @@ $age_info = false;
     </div>
   </nav>
   <div class="container">
-    <?php if (true): ?>
+    <?php if (IS_DEV): ?>
     <h3 class="mt-5">Willkommen zu der Baseballcamp Anmeldung</h3>
     <p class="lead">Bitte nutze das Formular unten, um dich für die Veranstaltung anzumelden.
       <br />
