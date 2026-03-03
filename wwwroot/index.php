@@ -345,10 +345,15 @@ Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
   <script src="./assets/bootstrap.min.js"></script>
   <script src="./assets/main.js"></script>
   <script>
-    const maxKids = 5;
+    const maxKids = <?= MAX_KIDS_NUMBER ?>;
     let kidIndex = 0;
 
     function updateAddButton() {
+      if (getKidCount() >= maxKids) {
+        $('#add-kid').hide();
+      } else {
+        $('#add-kid').show();
+      }
       $('#add-kid').prop('disabled', getKidCount() >= maxKids);
     }
 
@@ -358,79 +363,79 @@ Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
       const showRemove = (n !== 1);
 
       return `
-      <div class="col-lg-6 col-md-12 kid" data-i="${i}">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <h5 class="mb-0">Kind ${n}</h5>
-                <small class="text-muted">Kosten: ${cost},- Euro</small>
-              </div>
-              ${showRemove ? `
-              <button type="button" class="btn btn-sm btn-outline-danger remove-kid">
-                Entfernen
-              </button>` : ``}
-            </div>
-            <div class="row g-3">
-              <div class="col-12">
-                <label for="kid${i}_name" class="form-label">Name</label>
-                <input 
-                  type="text"
-                  class="form-control"
-                  id="kid${i}_name"
-                  name="kids[${i}][name]"
-                  required>
-              </div>
-              <div class="col-12">
-                <label for="kid${i}_alter" class="form-label">Alter</label>
-                <select 
-                  class="form-select"
-                  id="kid${i}_alter"
-                  name="kids[${i}][alter]"
-                  required>
-                  <option selected disabled value="">Bitte wählen...</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                </select>
-              </div>
-              <div class="col-12">
-                <label class="form-label d-block">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-
-                <div class="btn-group w-100" role="group">
-                  
-                  <input 
-                    type="radio"
-                    class="btn-check"
-                    name="kids[${i}][heimweg]"
-                    id="kid${i}_heimweg_ja"
-                    value="Ja"
-                    required>
-                  <label 
-                    class="btn btn-outline-secondary w-50"
-                    for="kid${i}_heimweg_ja">
-                    Ja
-                  </label>
-
-                  <input 
-                    type="radio"
-                    class="btn-check"
-                    name="kids[${i}][heimweg]"
-                    id="kid${i}_heimweg_nein"
-                    value="Nein"
-                    required>
-                  <label 
-                    class="btn btn-outline-secondary w-50"
-                    for="kid${i}_heimweg_nein">
-                    Nein
-                  </label>
-
+        <div class="col-lg-6 col-md-12 kid" data-i="${i}">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <h5 class="mb-0">Kind ${n}</h5>
+                  <small class="text-muted">Kosten: ${cost},- Euro</small>
                 </div>
+                ${showRemove ? `
+                <button type="button" class="btn btn-sm btn-outline-danger remove-kid">
+                  Entfernen
+                </button>` : ``}
               </div>
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="kid${i}_name" class="form-label">Name</label>
+                  <input 
+                    type="text"
+                    class="form-control"
+                    id="kid${i}_name"
+                    name="kids[${i}][name]"
+                    required>
+                </div>
+                <div class="col-12">
+                  <label for="kid${i}_alter" class="form-label">Alter</label>
+                  <select 
+                    class="form-select"
+                    id="kid${i}_alter"
+                    name="kids[${i}][alter]"
+                    required>
+                    <option selected disabled value="">Bitte wählen...</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label d-block">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+
+                  <div class="btn-group w-100" role="group">
+                    
+                    <input 
+                      type="radio"
+                      class="btn-check"
+                      name="kids[${i}][heimweg]"
+                      id="kid${i}_heimweg_ja"
+                      value="Ja"
+                      required>
+                    <label 
+                      class="btn btn-outline-secondary w-50"
+                      for="kid${i}_heimweg_ja">
+                      Ja
+                    </label>
+
+                    <input 
+                      type="radio"
+                      class="btn-check"
+                      name="kids[${i}][heimweg]"
+                      id="kid${i}_heimweg_nein"
+                      value="Nein"
+                      required>
+                    <label 
+                      class="btn btn-outline-secondary w-50"
+                      for="kid${i}_heimweg_nein">
+                      Nein
+                    </label>
+
+                  </div>
+                </div>
+            </div>
           </div>
-        </div>
-      </div>`;
+        </div>`;
     }
 
     function reindexKids() {
