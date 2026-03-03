@@ -1,6 +1,7 @@
 $(document).ready(function () {
   let $form = $('.contact-form'); // ID anpassen
   let $submit = $("#submit")
+  let $loader = $("#loader")
 
   $form.submit(function (e) {
     e.preventDefault();
@@ -9,7 +10,7 @@ $(document).ready(function () {
 
     $.post('/ajax/sendmail_handler.php', formData, function (res) {
       $submit.hide()
-      $submit.show()
+      $loader.show()
       if (res.success) {
         $form.slideUp(400, function () {
           $(`<div class="alert alert-success d-inline-flex align-items-center" role="alert">
@@ -25,17 +26,14 @@ $(document).ready(function () {
       }
     }, 'json')
       .fail(function (data) {
-        $form.slideUp(400, function () {
-          $(`<div class="alert alert-danger d-inline-flex align-items-center" role="alert">
+        $(`<div class="alert alert-danger d-inline-flex align-items-center" role="alert">
               <svg class="me-2" style="width: 24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM17.4571 9.45711L16.0429 8.04289L11 13.0858L8.20711 10.2929L6.79289 11.7071L11 15.9142L17.4571 9.45711Z"></path></svg>
               <div>
                 Oops! Etwas ist schief gelaufen. Versuche es später erneut.
               </div>
             </div>`)
-            .hide()
-            .insertAfter($form)
-            .fadeIn(400);
-        });
+          .insertAfter($form)
+          .fadeIn(400);
       })
 
   });

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
 
-$showContent = true;
+$showContent = IS_DEV;
 $age_info = false;
 ?>
 
@@ -60,7 +60,7 @@ $age_info = false;
             </svg>
             <span>Bitte fülle alle Felder mit * aus</span>
           </p>
-          <h5 class="mt-2">Allgemeine Daten</h5>
+          <h5 class="mt-5">Allgemeine Daten</h5>
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-3">
@@ -94,209 +94,218 @@ $age_info = false;
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6">
-          <h5 class="mt-5">Kind 1</h5>
-          <h6>Kosten: 70,- Euro</h6>
-          <div class="mb-3">
-            <label for="name1" class="form-label required">Name</label>
-            <input required type="text" class="form-control" name="name1" id="name1">
-          </div>
-          <div class="mb-3">
-            <label for="alter1" class="form-label required">Alter</label>
-            <select name="alter1" id="alter1" class="form-select">
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="heimweg1" class="form-label required">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-            <select name="heimweg1" id="heimweg1" class="form-select">
-              <option value="Ja">Ja</option>
-              <option value="Nein">Nein</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="tshirt1" class="form-label required">T-Shirt-Größe</label>
-            <select name="tshirt1" id="tshirt1" class="form-select">
-              <option value="Kids M">Kids M</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <h5 class="mt-5">Kind 2</h5>
-          <h6>Kosten: 60,- Euro</h6>
-          <div class="mb-3">
-            <label for="name2" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name2" id="name2">
-          </div>
-          <div class="mb-3">
-            <label for="alter2" class="form-label">Alter</label>
-            <select name="alter2" id="alter2" class="form-select">
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="heimweg2" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-            <select name="heimweg2" id="heimweg2" class="form-select">
-              <option value="Ja">Ja</option>
-              <option value="Nein">Nein</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="tshirt2" class="form-label">T-Shirt-Größe</label>
-            <select name="tshirt2" id="tshirt2" class="form-select">
-              <option value="Kids M">Kids M</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <h5 class="mt-5">Kind 3</h5>
-          <h6>Kosten: 60,- Euro</h6>
-          <div class="mb-3">
-            <label for="name3" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name3" id="name3">
-          </div>
-          <div class="mb-3">
-            <label for="alter3" class="form-label">Alter</label>
-            <select name="alter3" id="alter3" class="form-select">
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="heimweg3" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-            <select name="heimweg3" id="heimweg3" class="form-select">
-              <option value="Ja">Ja</option>
-              <option value="Nein">Nein</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="tshirt3" class="form-label">T-Shirt-Größe</label>
-            <select name="tshirt3" id="tshirt3" class="form-select">
-              <option value="Kids M">Kids M</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <h5 class="mt-5">Kind 4</h5>
-          <h6>Kosten: 60,- Euro</h6>
-          <div class="mb-3">
-            <label for="name4" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name4" id="name4">
-          </div>
-          <div class="mb-3">
-            <label for="alter4" class="form-label">Alter</label>
-            <select name="alter4" id="alter4" class="form-select">
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="heimweg4" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-            <select name="heimweg4" id="heimweg4" class="form-select">
-              <option value="Ja">Ja</option>
-              <option value="Nein">Nein</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="tshirt4" class="form-label">T-Shirt-Größe</label>
-            <select name="tshirt4" id="tshirt4" class="form-select">
-              <option value="Kids M">Kids M</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <h5 class="mt-5">Kind 5</h5>
-          <h6>Kosten: 60,- Euro</h6>
-          <div class="mb-3">
-            <label for="name5" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name5" id="name5">
-          </div>
-          <div class="mb-3">
-            <label for="alter5" class="form-label">Alter</label>
-            <select name="alter5" id="alter5" class="form-select">
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="heimweg5" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-            <select name="heimweg5" id="heimweg5" class="form-select">
-              <option value="Ja">Ja</option>
-              <option value="Nein">Nein</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="tshirt5" class="form-label">T-Shirt-Größe</label>
-            <select name="tshirt5" id="tshirt5" class="form-select">
-              <option value="Kids M">Kids M</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-            </select>
-          </div>
+        <div class="col-12">
+          <h5 class="mt-5">Teilnehmer hinzufügen</h5>
         </div>
       </div>
+      <div id="kids-container" class="row g-4">
+          <!-- <div class="col-sm-6">
+            <h5 class="mt-5">Kind 1</h5>
+            <h6>Kosten: 70,- Euro</h6>
+            <div class="mb-3">
+              <label for="name1" class="form-label required">Name</label>
+              <input required type="text" class="form-control" name="name1" id="name1">
+            </div>
+            <div class="mb-3">
+              <label for="alter1" class="form-label required">Alter</label>
+              <select name="alter1" id="alter1" class="form-select">
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="heimweg1" class="form-label required">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+              <select name="heimweg1" id="heimweg1" class="form-select">
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tshirt1" class="form-label required">T-Shirt-Größe</label>
+              <select name="tshirt1" id="tshirt1" class="form-select">
+                <option value="Kids M">Kids M</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h5 class="mt-5">Kind 2</h5>
+            <h6>Kosten: 60,- Euro</h6>
+            <div class="mb-3">
+              <label for="name2" class="form-label">Name</label>
+              <input type="text" class="form-control" name="name2" id="name2">
+            </div>
+            <div class="mb-3">
+              <label for="alter2" class="form-label">Alter</label>
+              <select name="alter2" id="alter2" class="form-select">
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="heimweg2" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+              <select name="heimweg2" id="heimweg2" class="form-select">
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tshirt2" class="form-label">T-Shirt-Größe</label>
+              <select name="tshirt2" id="tshirt2" class="form-select">
+                <option value="Kids M">Kids M</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h5 class="mt-5">Kind 3</h5>
+            <h6>Kosten: 60,- Euro</h6>
+            <div class="mb-3">
+              <label for="name3" class="form-label">Name</label>
+              <input type="text" class="form-control" name="name3" id="name3">
+            </div>
+            <div class="mb-3">
+              <label for="alter3" class="form-label">Alter</label>
+              <select name="alter3" id="alter3" class="form-select">
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="heimweg3" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+              <select name="heimweg3" id="heimweg3" class="form-select">
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tshirt3" class="form-label">T-Shirt-Größe</label>
+              <select name="tshirt3" id="tshirt3" class="form-select">
+                <option value="Kids M">Kids M</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h5 class="mt-5">Kind 4</h5>
+            <h6>Kosten: 60,- Euro</h6>
+            <div class="mb-3">
+              <label for="name4" class="form-label">Name</label>
+              <input type="text" class="form-control" name="name4" id="name4">
+            </div>
+            <div class="mb-3">
+              <label for="alter4" class="form-label">Alter</label>
+              <select name="alter4" id="alter4" class="form-select">
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="heimweg4" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+              <select name="heimweg4" id="heimweg4" class="form-select">
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tshirt4" class="form-label">T-Shirt-Größe</label>
+              <select name="tshirt4" id="tshirt4" class="form-select">
+                <option value="Kids M">Kids M</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h5 class="mt-5">Kind 5</h5>
+            <h6>Kosten: 60,- Euro</h6>
+            <div class="mb-3">
+              <label for="name5" class="form-label">Name</label>
+              <input type="text" class="form-control" name="name5" id="name5">
+            </div>
+            <div class="mb-3">
+              <label for="alter5" class="form-label">Alter</label>
+              <select name="alter5" id="alter5" class="form-select">
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="heimweg5" class="form-label">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+              <select name="heimweg5" id="heimweg5" class="form-select">
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tshirt5" class="form-label">T-Shirt-Größe</label>
+              <select name="tshirt5" id="tshirt5" class="form-select">
+                <option value="Kids M">Kids M</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </div>
+          </div> -->
+      </div>
+      <button type="button" id="add-kid" class="btn btn-outline-success w-100 mt-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM18 17V14H20V17H23V19H20V22H18V19H15V17H18Z"></path></svg>
+        Weiteres Kind
+      </button>
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-12">
           <h5 class="mt-5">Allgemeine Informationen</h5>
-          <div class="mb-3">
-            <label for="marketing" class="form-label">Wie bist du auf unser Baseballcamp aufmerksam geworden?</label>
-            <select name="marketing" id="marketing" class="form-select">
-              <option disabled selected>-</option>
-              <option value="Internet">Internet</option>
-              <option value="Freunde">Freunde</option>
-              <option value="Familie">Familie</option>
-              <option value="Webseite">Webseite</option>
-            </select>
-          </div>
-          <div class="mb-5">
-            <label for="infos" class="form-label">Weitere Informationen (Krankheiten, Allergien usw.):</label>
-            <textarea class="form-control" name="infos" id="infos" rows="3"></textarea>
-          </div>
-          <div class="mb-3">
-            <input class="form-check-input" required type="checkbox" id="datenschutz" name="datenschutz">
-            <label class="form-check-label required" for="datenschutz">
-              Ich habe die <a target="_blank" href="https://efg-hueckelhoven.de/datenschutz">Datenschutzerklärung</a> gelesen und bin damit einverstanden
-            </label>
-          </div>
-          <div class="mb-3">
-            <input class="form-check-input" required type="checkbox" id="agb" name="agb">
-            <label class="form-check-label required" for="agb">
-              Ich habe die <a target="_blank" href="https://efg-hueckelhoven.de/baseballcamp-agb">AGB</a> gelesen und bin damit einverstanden
-            </label>
+          <div class="row g-3">
+            <div>
+              <label for="marketing" class="form-label">Wie bist du auf unser Baseballcamp aufmerksam geworden?</label>
+              <select name="marketing" id="marketing" class="form-select">
+                <option disabled selected>-</option>
+                <option value="Internet">Internet</option>
+                <option value="Freunde">Freunde</option>
+                <option value="Familie">Familie</option>
+                <option value="Webseite">Webseite</option>
+              </select>
+            </div>
+            <div>
+              <label for="infos" class="form-label">Weitere Informationen (Krankheiten, Allergien usw.):</label>
+              <textarea class="form-control" name="infos" id="infos" rows="3"></textarea>
+            </div>
+            <div>
+              <input class="form-check-input" required type="checkbox" id="datenschutz" name="datenschutz">
+              <label class="form-check-label required" for="datenschutz">
+                Ich habe die <a target="_blank" href="https://efg-hueckelhoven.de/datenschutz">Datenschutzerklärung</a> gelesen und bin damit einverstanden
+              </label>
+            </div>
+            <div>
+              <input class="form-check-input" required type="checkbox" id="agb" name="agb">
+              <label class="form-check-label required" for="agb">
+                Ich habe die <a target="_blank" href="https://efg-hueckelhoven.de/baseballcamp-agb">AGB</a> gelesen und bin damit einverstanden
+              </label>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
         <div class="col-12">
           <button id="submit-button" class="btn btn-primary" type="submit">
             <span id="submit">Jetzt anmelden</span>
@@ -306,7 +315,6 @@ $age_info = false;
       </div>
     </form>
     <?php else: ?>
-      
       <h1 class="mt-5">Herzliche Einladung zum
 Baseballcamp 2026</h1>
       <strong class="d-block mt-4">20. - 25. Juli 2026</strong>
@@ -336,25 +344,186 @@ Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
   <script src="./assets/notify.min.js"></script>
   <script src="./assets/bootstrap.min.js"></script>
   <script src="./assets/main.js"></script>
-  <?php if (IS_DEV): ?>
   <script>
-    $('.contact-form').find(':input[name]').each(function () {
-      if (this.name === 'hp') {
-        return;
-      }
-      let $el = $(this);
-      if ($el.is(':checkbox, :radio')) {
-        $el.prop('checked', true);
-      }
-      else if ($el.is('select')) {
-        $el.prop('selectedIndex', 1);
-      }
-      else {
-        $el.val('test_' + this.name + '@aasd.de');
-      }
-    }); 
+    const maxKids = 5;
+    let kidIndex = 0;
+
+    function updateAddButton() {
+      $('#add-kid').prop('disabled', getKidCount() >= maxKids);
+    }
+
+    function kidTemplate(i) {
+      const n = i + 1;
+      const cost = (n === 1) ? 70 : 60;
+      const showRemove = (n !== 1);
+
+      return `
+      <div class="col-lg-6 col-md-12 kid" data-i="${i}">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="mb-0">Kind ${n}</h5>
+                <small class="text-muted">Kosten: ${cost},- Euro</small>
+              </div>
+              ${showRemove ? `
+              <button type="button" class="btn btn-sm btn-outline-danger remove-kid">
+                Entfernen
+              </button>` : ``}
+            </div>
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="kid${i}_name" class="form-label">Name</label>
+                <input 
+                  type="text"
+                  class="form-control"
+                  id="kid${i}_name"
+                  name="kids[${i}][name]"
+                  required>
+              </div>
+              <div class="col-12">
+                <label for="kid${i}_alter" class="form-label">Alter</label>
+                <select 
+                  class="form-select"
+                  id="kid${i}_alter"
+                  name="kids[${i}][alter]"
+                  required>
+                  <option selected disabled value="">Bitte wählen...</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label d-block">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+
+                <div class="btn-group w-100" role="group">
+                  
+                  <input 
+                    type="radio"
+                    class="btn-check"
+                    name="kids[${i}][heimweg]"
+                    id="kid${i}_heimweg_ja"
+                    value="Ja"
+                    required>
+                  <label 
+                    class="btn btn-outline-secondary w-50"
+                    for="kid${i}_heimweg_ja">
+                    Ja
+                  </label>
+
+                  <input 
+                    type="radio"
+                    class="btn-check"
+                    name="kids[${i}][heimweg]"
+                    id="kid${i}_heimweg_nein"
+                    value="Nein"
+                    required>
+                  <label 
+                    class="btn btn-outline-secondary w-50"
+                    for="kid${i}_heimweg_nein">
+                    Nein
+                  </label>
+
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function reindexKids() {
+      $('#kids-container .kid').each(function (newIndex) {
+        const $kid = $(this);
+        const n = newIndex + 1;
+        const cost = (n === 1) ? 70 : 60;
+
+        // data-i + Überschrift + Kosten
+        $kid.attr('data-i', newIndex);
+        $kid.find('h5').text(`Kind ${n}`);
+        $kid.find('small.text-muted').text(`Kosten: ${cost},- Euro`);
+
+        // Remove-Button nur ab Kind 2
+        const $removeBtn = $kid.find('.remove-kid');
+        if (n === 1) $removeBtn.remove();
+        else if ($removeBtn.length === 0) {
+          // optional: falls du den Button wieder hinzufügen willst
+          // (nur nötig, wenn dein Template ihn nicht immer rendert)
+        }
+
+        // 1) NAME-Attribute: kids[OLD] -> kids[newIndex]
+        $kid.find('[name]').each(function () {
+          const $el = $(this);
+          const name = $el.attr('name');
+          const newName = name.replace(/^kids\[\d+]/, `kids[${newIndex}]`);
+          $el.attr('name', newName);
+        });
+
+        // 2) ID-Attribute: kidOLD_... -> kidNEW_...
+        $kid.find('[id]').each(function () {
+          const $el = $(this);
+          const id = $el.attr('id');
+          const newId = id.replace(/^kid\d+_/, `kid${newIndex}_`);
+          $el.attr('id', newId);
+        });
+
+        // 3) LABEL for= aktualisieren (wichtig für btn-check!)
+        $kid.find('label[for]').each(function () {
+          const $label = $(this);
+          const f = $label.attr('for');
+          const newFor = f.replace(/^kid\d+_/, `kid${newIndex}_`);
+          $label.attr('for', newFor);
+        });
+      });
+      updateAddButton();
+    }
+
+    function getKidCount() {
+      return $('#kids-container .kid').length;
+    }
+
+    $(function () {
+      $('#kids-container').html(kidTemplate(0));
+      kidIndex = 1;
+
+      $('#add-kid').on('click', function () {
+        const index = getKidCount();
+        if (index >= maxKids) return;
+
+        const newKid = $(kidTemplate(index));
+        $('#kids-container').append(newKid);
+
+        updateAddButton();
+
+        newKid[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      $(document).on('click', '.remove-kid', function () {
+        $(this).closest('.kid').remove();
+        kidIndex--;
+        reindexKids();
+      });
+    });
+
+    <?php if (IS_DEV): ?>
+      $('.contact-form').find(':input[name]').each(function () {
+        if (this.name === 'hp') {
+          return;
+        }
+        let $el = $(this);
+        if ($el.is(':checkbox, :radio')) {
+          $el.prop('checked', true);
+        }
+        else if ($el.is('select')) {
+          $el.prop('selectedIndex', 1);
+        }
+        else {
+          $el.val('test_' + this.name + '@aasd.de');
+        }
+      }); 
+    <?php endif; ?>
   </script>
-  <?php endif; ?>
 </body>
 
 </html>
