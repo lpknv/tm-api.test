@@ -1,25 +1,22 @@
 <?php
-
 declare(strict_types=1);
 
-use Dotenv\Dotenv;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require __DIR__ . '/vendor/autoload.php';
-
-Dotenv::createImmutable(__DIR__)->load();
-
-$is_dev = (getenv('APP_ENV') === 'dev');
+require_once __DIR__ . '/bootstrap.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  respond('Method not allowed', 405, false);
+    respond('Method not allowed', 405, false);
 }
 
-$smtp_debug = $is_dev ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
+ini_set('display_errors', IS_DEV ? '1' : '0');
+error_reporting(E_ALL);
 
-if ($is_dev) {
+$smtp_debug = IS_DEV ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
+
+if (IS_DEV) {
   ini_set('display_errors', '1');
 } else {
   ini_set('display_errors', '0');
@@ -81,8 +78,8 @@ function respond($message, $statusCode = 200, $success = false)
   header('Content-Type: application/json; charset=utf-8');
 
   echo json_encode([
-      'success' => (bool)$success,
-      'message' => $message
+    'success' => (bool)$success,
+    'message' => $message
   ], JSON_UNESCAPED_UNICODE);
   exit;
 }
@@ -267,7 +264,7 @@ try {
   $mail->Port = getenv('SMTP_PORT');
   $mail->Username = getenv('SMTP_USER');
   $mail->Password = getenv('SMTP_PASSWORD');
-  if(!$is_dev) {
+  if(!IS_DEV) {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
   }
 
@@ -299,7 +296,7 @@ try {
   $mail1->Port = getenv('SMTP_PORT');
   $mail1->Username = getenv('SMTP_USER');
   $mail1->Password = getenv('SMTP_PASSWORD');
-  if(!$is_dev) {
+  if(!IS_DEV) {
     $mail1->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
   }
 

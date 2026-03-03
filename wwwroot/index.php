@@ -1,5 +1,7 @@
 <?php
-$showContent = false;
+require_once __DIR__ . '/../bootstrap.php';
+
+$showContent = true;
 $age_info = false;
 ?>
 
@@ -334,6 +336,25 @@ Hückelhoven - Am Schacht 3 (Glück-auf-Stadion) </p>
   <script src="./assets/notify.min.js"></script>
   <script src="./assets/bootstrap.min.js"></script>
   <script src="./assets/main.js"></script>
+  <?php if (IS_DEV): ?>
+  <script>
+    $('.contact-form').find(':input[name]').each(function () {
+      if (this.name === 'hp') {
+        return;
+      }
+      let $el = $(this);
+      if ($el.is(':checkbox, :radio')) {
+        $el.prop('checked', true);
+      }
+      else if ($el.is('select')) {
+        $el.prop('selectedIndex', 1);
+      }
+      else {
+        $el.val('test_' + this.name + '@aasd.de');
+      }
+    }); 
+  </script>
+  <?php endif; ?>
 </body>
 
 </html>
