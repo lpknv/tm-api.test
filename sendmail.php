@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -8,58 +9,30 @@ use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . '/bootstrap.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    respond('Method not allowed', 405, false);
+  respond('Method not allowed', 405, false);
 }
 
 ini_set('display_errors', IS_DEV ? '1' : '0');
-error_reporting(E_ALL);
+error_reporting(IS_DEV ? E_ALL : 0);
 
 $smtp_debug = IS_DEV ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
-
-if (IS_DEV) {
-  ini_set('display_errors', '1');
-} else {
-  ini_set('display_errors', '0');
-  error_reporting(E_ALL);
-}
 
 $hp = trim($_POST['hp'] ?? '');
 if ($hp !== '') {
   respond('Vielen Dank für deine Anmeldung!', 200, true);
 }
 
+if (count($_POST['kids']) > MAX_KIDS_NUMBER) {
+  respond("Error!", 400);
+}
 
 $familienname       = trim($_POST['familienname']);
-$email              = trim($_POST['email']);
+$email              = trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
 $telefonnummer       = trim($_POST['telefonnummer']);
 $strasse_hausnummer  = trim($_POST['strasse_hausnummer']);
 $plz                = trim($_POST['plz']);
 $ort                = trim($_POST['ort']);
-
-$name1              = trim($_POST['name1']);
-$alter1             = trim($_POST['alter1']);
-$heimweg1           = trim($_POST['heimweg1']);
-$tshirt1            = trim($_POST['tshirt1']);
-
-$name2              = trim($_POST['name2']);
-$alter2             = trim($_POST['alter2']);
-$heimweg2           = trim($_POST['heimweg2']);
-$tshirt2            = trim($_POST['tshirt2']);
-
-$name3              = trim($_POST['name3']);
-$alter3             = trim($_POST['alter3']);
-$heimweg3           = trim($_POST['heimweg3']);
-$tshirt3            = trim($_POST['tshirt3']);
-
-$name4              = trim($_POST['name4']);
-$alter4             = trim($_POST['alter4']);
-$heimweg4           = trim($_POST['heimweg4']);
-$tshirt4            = trim($_POST['tshirt4']);
-
-$name5              = trim($_POST['name5']);
-$alter5             = trim($_POST['alter5']);
-$heimweg5           = trim($_POST['heimweg5']);
-$tshirt5            = trim($_POST['tshirt5']);
+$kids_array = $_POST['kids'];
 
 $marketing = $_POST['marketing'];
 $infos = $_POST['infos'];
@@ -67,10 +40,19 @@ $infos = $_POST['infos'];
 $datenschutz = $_POST['datenschutz'];
 $agb = $_POST['agb'];
 
+if (
+  $familienname === '' || $email === '' || $telefonnummer === '' || $strasse_hausnummer === '' ||
+  $plz === '' || $ort === '' || empty($kids_array)
+) {
+  respond('Bitte fülle alle Pflichtfelder aus', 400, false);
+}
+
 $response = [
   'message' => '',
   'success' => false,
 ];
+
+$anmeldedaten = "";
 
 function respond($message, $statusCode = 200, $success = false)
 {
@@ -84,16 +66,25 @@ function respond($message, $statusCode = 200, $success = false)
   exit;
 }
 
-if (
-  $familienname === '' || $email === '' || $telefonnummer === '' || $strasse_hausnummer === '' ||
-  $plz === '' || $ort === '' || $name1 === '' || $alter1 === '' || $heimweg1 === '' || $tshirt1 === ''
-) {
-  respond('Bitte fülle alle Pflichtfelder aus', 400, false);
+$price_per_kid = FIRST_KID_PRICE;
+
+$more_than_one_kid = count($kids_array) > 1;
+
+$total_pricing = FIRST_KID_PRICE;
+
+if ($more_than_one_kid) {
+  $total_pricing += NTH_KID_PRICE;
 }
 
-$preis = 70;
-
-$year = CURRENT_YEAR;
+function kid_template($kid, $index, $price)
+{
+  return "\r<p>
+    <strong>Kind " . $index . "</strong><br/>
+    <strong>Name (Kosten " . $price . ",- Euro):</strong> " . $kid['name'] . "<br/>
+    <strong>Alter:</strong> " . $kid['alter'] . "<br/>
+    <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> " . $kid['heimweg'] . "<br/>
+    <strong>T-Shirt-Größe:</strong> " . $kid['tshirt'] . "\r\n</p>";
+}
 
 $anmeldedaten = "
 <p>
@@ -102,102 +93,21 @@ $anmeldedaten = "
   <strong>Telefonnummer / Handynummer der Eltern:</strong> $telefonnummer<br/>
   <strong>Straße + Hausnummer:</strong> $strasse_hausnummer<br/>
   <strong>Postleitzahl:</strong> $plz<br/>
-  <strong>Ort:</strong> $ort
-</p>
- 
-<p>
-  <strong>Kind 1</strong><br/>
-  <strong>Name (Kosten 70,- Euro):</strong> $name1<br/>
-  <strong>Alter:</strong> $alter1<br/>
-  <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> $heimweg1<br/>
-  <strong>T-Shirt-Größe:</strong> $tshirt1<br/>
+  <strong>Ort:</strong> $ort<br/>
 </p>
 ";
 
-if (!empty($name2) && isset($name2)) {
-  if (
-    !isset($alter2) || !isset($heimweg2) || !isset($tshirt2)
-  ) {
-    respond('Bitte fülle alle Pflichtfelder aus', 400);
+foreach ($kids_array as $key => $kid) {
+  if ($kid['name'] === '' || $kid['alter'] === '' || $kid['heimweg'] === '' || $kid['tshirt'] === '' || $kid['heimweg'] === '') {
+    respond('Bitte fülle alle Pflichtfelder aus', 400, false);
   }
-
-  $preis += 60;
-
-  $anmeldedaten .= "
-  <p>
-    <strong>Kind 2</strong><br/>
-    <strong>Name (Kosten 60,- Euro):</strong> $name2<br/>
-    <strong>Alter:</strong> $alter2<br/>
-    <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> $heimweg2<br/>
-    <strong>T-Shirt-Größe:</strong> $tshirt2<br/>
-  </p>
-  ";
-}
-
-if (!empty($name3) && isset($name3)) {
-  if (
-    !isset($alter3) || !isset($heimweg3) || !isset($tshirt3)
-  ) {
-    respond('Bitte fülle alle Pflichtfelder aus', 400);
-  }
-
-  $preis += 60;
-
-  $anmeldedaten .= "
-  <p>
-    <strong>Kind 3</strong><br/>
-    <strong>Name (Kosten 60,- Euro):</strong> $name3<br/>
-    <strong>Alter:</strong> $alter3<br/>
-    <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> $heimweg3<br/>
-    <strong>T-Shirt-Größe:</strong> $tshirt3<br/>
-  </p>
-  ";
-}
-
-if (!empty($name4) && isset($name4)) {
-  if (
-    !isset($alter4) || !isset($heimweg4) || !isset($tshirt4)
-  ) {
-    respond('Bitte fülle alle Pflichtfelder aus', 400);
-  }
-
-  $preis += 60;
-
-  $anmeldedaten .= "
-  <p>
-    <strong>Kind 4</strong><br/>
-    <strong>Name (Kosten 60,- Euro):</strong> $name4<br/>
-    <strong>Alter:</strong> $alter4<br/>
-    <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> $heimweg4<br/>
-    <strong>T-Shirt-Größe:</strong> $tshirt4<br/>
-  </p>
-  ";
-}
-
-if (!empty($name5) && isset($name5)) {
-  if (
-    !isset($alter5) || !isset($heimweg5) || !isset($tshirt5)
-  ) {
-    respond('Bitte fülle alle Pflichtfelder aus', 400);
-  }
-
-  $preis += 60;
-
-  $anmeldedaten .= "
-  <p>
-    <strong>Kind 5</strong><br/>
-    <strong>Name (Kosten 60,- Euro):</strong> $name5<br/>
-    <strong>Alter:</strong> $alter5<br/>
-    <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> $heimweg5<br/>
-    <strong>T-Shirt-Größe:</strong> $tshirt5<br/>
-  </p>
-  ";
+  $anmeldedaten .= kid_template($kid, $key + 1, $key > 0 ? NTH_KID_PRICE : FIRST_KID_PRICE);
 }
 
 $datenschutzAkzeptiert = isset($datenschutz) ? "✅" : "❌";
 $agbAkzeptiert = isset($agb) ? "✅" : "❌";
 
-$gesamtbetrag = "<p><strong>Zu zahlender Gesamtbetrag: $preis,- Euro</strong></p>";
+$gesamtbetrag = "<p><strong>Zu zahlender Gesamtbetrag: $total_pricing,- Euro</strong></p>";
 
 $anmeldedaten .= "<h4>Allgemeine Informationen</h4>
 <p>
@@ -212,14 +122,19 @@ $infos
 
 $nachrichtAnTeilnehmer = "<html>
 <head>
-  <title>Baseballcamp $year</title>
+  <title>Baseballcamp " . CURRENT_YEAR . "</title>
+  <style>
+    html, body {
+      font-family: Inter, sans-serif;
+    }
+  </style>
 </head>            
 <body>
   <p>
     Hallo Familie $familienname,
   </p>
   <p>
-    Herzlich Willkommen zum Baseballcamp $year!
+    Herzlich Willkommen zum Baseballcamp " . CURRENT_YEAR . "!
     <br/>
     <br/>
     Hiermit bestätigen wir die Anmeldung und freuen uns schon auf das Event.
@@ -246,68 +161,62 @@ $nachrichtAnTeilnehmer = "<html>
     <br/>
     Kreditinstitut: Kreisparkasse Heinsberg
     <br/>
-    Verwendung: Baseball Camp $year und $familienname
+    Verwendung: Baseball Camp " . CURRENT_YEAR . " und $familienname
     <br/>
-    Berechnung des Betrags: 1. Kind EUR 70,- (Geschwisterkinder: EUR 60,-)
+    Berechnung des Betrags: 1. Kind EUR " . FIRST_KID_PRICE . ",- (Geschwisterkinder: EUR " . NTH_KID_PRICE . ",-)
   </p>
 </body>
 </html>
 ";
 
-$mail = new PHPMailer();
+$mail = new PHPMailer(true);
 
 try {
+  $mail->isSMTP();
   $mail->SMTPDebug = $smtp_debug;
-  $mail->CharSet = getenv('SMTP_CHARSET');
-  $mail->Host = getenv('SMTP_HOST');
+  $mail->CharSet = 'UTF-8';
+  $mail->Host = $_ENV['SMTP_HOST'];
   $mail->SMTPAuth = true;
-  $mail->Port = getenv('SMTP_PORT');
-  $mail->Username = getenv('SMTP_USER');
-  $mail->Password = getenv('SMTP_PASSWORD');
-  if(!IS_DEV) {
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-  }
+  $mail->Port = $_ENV['SMTP_PORT'];
+  $mail->Username = $_ENV['SMTP_USER'];
+  $mail->Password = $_ENV['SMTP_PASSWORD'];
 
   $mail->setFrom('baseballcamp@efg-hueckelhoven.de');
   $mail->addAddress($email);
 
   $mail->isHTML(true);
-  $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp $year";
+  $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR . "";
   $mail->Body = $nachrichtAnTeilnehmer;
   $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
   $mail->Body .= $anmeldedaten;
 
-  $text = $nachrichtAnTeilnehmer;
-  $text .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
-  $text .= $anmeldedaten;
-
+  $mail->send();
   respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
 } catch (Exception $e) {
   respond("Oops! Etwas ist schief gelaufen. Versuche es später erneut. {$mail->ErrorInfo}", 400);
 }
 
-$mail1 = new PHPMailer();
+$mail1 = new PHPMailer(true);
 
 try {
+  $mail1->isSMTP();
   $mail1->SMTPDebug = $smtp_debug;
-  $mail1->CharSet = getenv('SMTP_CHARSET');
-  $mail1->Host = getenv('SMTP_HOST');
+  $mail1->CharSet = 'UTF-8';
+  $mail1->Host = $_ENV['SMTP_HOST'];
   $mail1->SMTPAuth = true;
-  $mail1->Port = getenv('SMTP_PORT');
-  $mail1->Username = getenv('SMTP_USER');
-  $mail1->Password = getenv('SMTP_PASSWORD');
-  if(!IS_DEV) {
-    $mail1->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-  }
+  $mail1->Port = $_ENV['SMTP_PORT'];
+  $mail1->Username = $_ENV['SMTP_USER'];
+  $mail1->Password = $_ENV['SMTP_PASSWORD'];
 
   $mail1->setFrom('baseballcamp@efg-hueckelhoven.de');
-  $mail1->addAddress('baseballcamp@efg-hueckelhoven.de');
+  $mail1->addAddress($email);
 
   $mail1->isHTML(true);
-  $mail1->Subject = "Neue Baseballcamp Anmeldung $year";
-  $mail1->Body    = "<h3 style='text-decoration:underline'>Neue Baseballcamp Anmeldung $year</h3>";;
+  $mail1->Subject = "Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "";
+  $mail1->Body    = "<h3 style='text-decoration:underline'>Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "</h3>";
   $mail1->Body    .= $anmeldedaten;
 
+  $mail1->send();
   respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
 } catch (Exception $e) {
   respond("Oops! Etwas ist schief gelaufen. Versuche es später erneut. {$mail->ErrorInfo}", 400);

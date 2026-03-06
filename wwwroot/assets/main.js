@@ -23,6 +23,7 @@ $(document).ready(function () {
             .insertAfter($form)
             .fadeIn(400);
         });
+        $form.reset();
       }
     }, 'json')
       .fail(function (data) {
