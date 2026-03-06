@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 ini_set('display_errors', IS_DEV ? '1' : '0');
 error_reporting(IS_DEV ? E_ALL : 0);
 
-$smtp_debug = IS_DEV ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
+$smtp_debug = IS_DEBUG ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
 
 $hp = trim($_POST['hp'] ?? '');
 if ($hp !== '') {

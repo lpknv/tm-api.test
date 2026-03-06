@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
 
-$showContent = IS_DEV;
 $age_info = false;
 ?>
 
@@ -232,7 +231,7 @@ $age_info = false;
 
     function kidTemplate(i) {
       const n = i + 1;
-      const cost = (n === 1) ? 70 : 60;
+      const cost = (n === 1) ? <?= FIRST_KID_PRICE ?> : <?= NTH_KID_PRICE ?>;
       const showRemove = (n !== 1);
 
       return `
