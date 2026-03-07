@@ -8,9 +8,11 @@ $age_info = false;
 <html lang="de">
 
 <head>
+  <title>Baseballcamp <?= CURRENT_YEAR ?> Anmeldung | EFG Hückelhoven-Baal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Baseballcamp Anmeldung | EFG Hückelhoven-Baal">
-  <meta property="og:description" content="Baseballcamp 2026 Anmeldung | EFG Hückelhoven-Baal">
+  <meta property="og:site_name" content="Baseballcamp  <?= CURRENT_YEAR ?> Anmeldung | EFG Hückelhoven-Baal">
+  <meta property="og:description" content="Baseballcamp <?= CURRENT_YEAR ?> Anmeldung | EFG Hückelhoven-Baal">
   <meta property="og:image" content="https://efg-hueckelhoven.de/wp-content/uploads/2022/08/cropped-efg-logo.png">
   <link rel="canonical" href="https://efg-hueckelhoven.de/">
   <link rel="shortlink" href="https://efg-hueckelhoven.de/">
@@ -51,6 +53,17 @@ $age_info = false;
           </div>
         </div>
       <?php endif; ?>
+      <div id="form-errors" class="alert alert-danger d-none">
+        <div>
+          <h5 class="fw-semibold mb-2 d-flex align-items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="bi flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            </svg>
+            <span>Bitte überprüfe deine Eingaben</span>
+          </h5>
+          <ul id="error-list" class="ps-0 mb-0"></ul>
+        </div>
+      </div>
       <form class="contact-form py-5">
         <input type="hidden" name="hp">
         <div class="row">
@@ -113,11 +126,10 @@ $age_info = false;
               <div>
                 <label for="marketing" class="form-label">Wie bist du auf unser Baseballcamp aufmerksam geworden?</label>
                 <select name="marketing" id="marketing" class="form-select">
-                  <option disabled selected>-</option>
-                  <option value="Internet">Internet</option>
-                  <option value="Freunde">Freunde</option>
-                  <option value="Familie">Familie</option>
-                  <option value="Webseite">Webseite</option>
+                  <option disabled selected value="">-</option>
+                  <?php foreach ($marketing as $item): ?>
+                    <option value="<?= $item ?>"><?= $item ?></option>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <div>
@@ -139,9 +151,16 @@ $age_info = false;
             </div>
           </div>
           <div class="col-12 mt-5">
-            <button id="submit-button" class="btn btn-primary" type="submit">
+            <button id="submit-button" class="btn btn-primary btn-lg" type="submit">
               <span id="submit">Jetzt anmelden</span>
-              <span id="loader">Wird gesendet...</span>
+              <span id="loader">
+                <span class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Wird gesendet...</span>
+                </span>
+                <span>
+                  Wird gesendet...
+                </span>
+              </span>
             </button>
           </div>
         </div>
@@ -176,7 +195,12 @@ $age_info = false;
   <script src="./assets/bootstrap.min.js"></script>
   <script src="./assets/main.js"></script>
   <script>
-    <?php if (IS_DEV): ?>
+    const maxKids = <?= MAX_KIDS_NUMBER ?>;
+    const first_kid_price = <?= FIRST_KID_PRICE ?>;
+    const nth_kid_price = <?= NTH_KID_PRICE ?>;
+    let kidIndex = 0;
+
+    <?php if (IS_DEBUG): ?>
       $('.contact-form').find(':input[name]').each(function() {
         if (this.name === 'hp') {
           return;
@@ -190,12 +214,7 @@ $age_info = false;
           $el.val('test_' + this.name + '@aasd.de');
         }
       });
-
     <?php endif; ?>
-
-
-    const maxKids = <?= MAX_KIDS_NUMBER ?>;
-    let kidIndex = 0;
 
     function restoreFormState() {
       const saved = localStorage.getItem('campFormData');
@@ -229,9 +248,10 @@ $age_info = false;
       $('#add-kid').prop('disabled', getKidCount() >= maxKids);
     }
 
+
     function kidTemplate(i) {
-      const n = i + 1;
-      const cost = (n === 1) ? <?= FIRST_KID_PRICE ?> : <?= NTH_KID_PRICE ?>;
+      let n = i + 1;
+      let cost = (i === 0) ? first_kid_price : nth_kid_price;
       const showRemove = (n !== 1);
 
       return `
@@ -240,25 +260,24 @@ $age_info = false;
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <div>
-                  <h5 class="mb-0">Kind ${n}</h5>
-                  <small class="text-muted">Kosten: ${cost},- Euro</small>
+                  <h5 class="mb-0">Kind ${i+1}</h5>
+                  <span class="badge text-bg-secondary">Kosten: ${cost},- Euro</span>
                 </div>
                 ${showRemove ? `
                 <button type="button" class="btn btn-sm btn-outline-danger remove-kid">
                   Entfernen
                 </button>` : ``}
               </div>
-              <div class="row g-3">
+              <div class="row g-4">
                 <div class="col-12">
-                  <label for="kid${i}_name" class="form-label">Name</label>
-                  <input 
-                    type="text"
-                    class="form-control"
-                    id="kid${i}_name"
-                    name="kids[${i}][name]"
-                    required>
+                    <label for="kid${i}_name" class="form-label">Name</label>
+                    <input 
+                      type="text"
+                      class="form-control"
+                      id="kid${i}_name"
+                      name="kids[${i}][name]"
+                      required>
                 </div>
-                <div class="row">
                 <div class="col-12 col-md-6">
                   <label for="kid${i}_alter" class="form-label">Alter</label>
                   <select 
@@ -289,12 +308,9 @@ $age_info = false;
                     <option value="XXL">XXL</option>
                   </select>
                 </div>
-                </div>
                 <div class="col-12">
                   <label class="form-label d-block">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
-
                   <div class="btn-group w-100" role="group">
-                    
                     <input 
                       type="radio"
                       class="btn-check"
@@ -307,7 +323,6 @@ $age_info = false;
                       for="kid${i}_heimweg_ja">
                       Ja
                     </label>
-
                     <input 
                       type="radio"
                       class="btn-check"
@@ -320,58 +335,12 @@ $age_info = false;
                       for="kid${i}_heimweg_nein">
                       Nein
                     </label>
-
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>`;
-    }
-
-    function reindexKids() {
-      $('#kids-container .kid').each(function(newIndex) {
-        const $kid = $(this);
-        const n = newIndex + 1;
-        const cost = (n === 1) ? 70 : 60;
-
-        // data-i + Überschrift + Kosten
-        $kid.attr('data-i', newIndex);
-        $kid.find('h5').text(`Kind ${n}`);
-        $kid.find('small.text-muted').text(`Kosten: ${cost},- Euro`);
-
-        // Remove-Button nur ab Kind 2
-        const $removeBtn = $kid.find('.remove-kid');
-        if (n === 1) $removeBtn.remove();
-        else if ($removeBtn.length === 0) {
-          // optional: falls du den Button wieder hinzufügen willst
-          // (nur nötig, wenn dein Template ihn nicht immer rendert)
-        }
-
-        // 1) NAME-Attribute: kids[OLD] -> kids[newIndex]
-        $kid.find('[name]').each(function() {
-          const $el = $(this);
-          const name = $el.attr('name');
-          const newName = name.replace(/^kids\[\d+]/, `kids[${newIndex}]`);
-          $el.attr('name', newName);
-        });
-
-        // 2) ID-Attribute: kidOLD_... -> kidNEW_...
-        $kid.find('[id]').each(function() {
-          const $el = $(this);
-          const id = $el.attr('id');
-          const newId = id.replace(/^kid\d+_/, `kid${newIndex}_`);
-          $el.attr('id', newId);
-        });
-
-        // 3) LABEL for= aktualisieren (wichtig für btn-check!)
-        $kid.find('label[for]').each(function() {
-          const $label = $(this);
-          const f = $label.attr('for');
-          const newFor = f.replace(/^kid\d+_/, `kid${newIndex}_`);
-          $label.attr('for', newFor);
-        });
-      });
-      updateAddButton();
     }
 
     function getKidCount() {
@@ -415,18 +384,15 @@ $age_info = false;
     });
 
     $(document).on('click', '.remove-kid', function() {
-      const $removed_kid = $(this).closest('.kid');
-      const $all_kids = $('#kids-container .kid');
+      $(this).closest('.kid').remove();
 
-      $removed_kid.remove();
-
-      reindexKids();
       updateAddButton();
 
       const $remaining_kids = $('#kids-container .kid');
 
       if ($remaining_kids.length > 0) {
         const lastKid = $remaining_kids.last()[0];
+
         lastKid.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
@@ -439,15 +405,127 @@ $age_info = false;
       }
       saveFormState();
     });
+
     restoreFormState();
 
-    <?php if (IS_DEV): ?>
-      $('#kids-container')
-        .find('input, select, textarea')
-        .each((i, el) => {
-          console.log(el.name, $(el).val())
-        });
-    <?php endif; ?>
+    $(document).ready(function() {
+      let $form = $('.contact-form');
+      let $submit = $("#submit");
+      let $loader = $("#loader");
+
+      let $error_list = $('#error-list');
+
+      $form.submit(function(e) {
+        e.preventDefault();
+
+        let formData = $(this).serialize();
+
+        $submit.hide()
+        $loader.show()
+
+        $.post('/ajax/sendmail_handler.php', formData, function(res) {
+            console.log(res);
+            // $("#formAlert").remove()
+            // $(".invalid-feedback.server-error").remove()
+            // $form.find(".is-invalid").removeClass("is-invalid")
+
+            // if (res.success) {
+
+            //   $form.slideUp(100, function() {
+            //     $(`<div class="alert alert-success d-inline-flex align-items-center" role="alert">
+            //         <div>${res.message}</div>
+            //       </div>
+            //     `)
+            //       .hide()
+            //       .insertAfter($form)
+            //       .fadeIn(100);
+            //   });
+
+            //   $form[0].reset()
+
+            // } else {
+
+            //   let errors = res.errors || {}
+            //   let listHtml = ""
+
+            //   Object.entries(errors).forEach(([field, messages]) => {
+
+            //     if (!Array.isArray(messages)) return
+
+            //     messages.forEach(msg => {
+            //       listHtml += `<li>${msg}</li>`
+            //     })
+
+            //     let $field = $form.find(`[name="${field}"]`).first()
+
+            //     if ($field.length) {
+
+            //       $field.addClass("is-invalid")
+
+            //       let msg = messages[0]
+
+            //       let $feedback = $field.next(".invalid-feedback.server-error")
+
+            //       if (!$feedback.length) {
+            //         $feedback = $('<div class="invalid-feedback server-error"></div>')
+            //         $feedback.insertAfter($field)
+            //       }
+
+            //       $feedback.text(msg).show()
+            //     }
+
+            //   })
+
+            //   let $alert = $(`
+            //     <div id="formAlert" class="alert alert-danger">
+            //       <b>Bitte überprüfe deine Eingaben:</b>
+            //       <ul class="mb-0"></ul>
+            //     </div>
+            //   `)
+
+            //   $alert.find("ul").html(listHtml)
+
+            //   $alert.insertBefore($form).hide().fadeIn(150)
+
+            //   $("html, body").animate({
+            //     scrollTop: $alert.offset().top - 20
+            //   }, 200)
+
+            //   $loader.hide()
+            //   $submit.show()
+            // }
+          }, 'json')
+          .fail(function(res) {
+            let data = res.responseJSON
+            let $error_box = $("#form-errors")
+            let $error_list = $("#error-list")
+
+            $error_box.addClass("d-none")
+            $error_list.empty()
+
+            Object.entries(data.errors).forEach(([key, messages]) => {
+
+              let html = `
+              <li class="list-group-item">
+                <strong>${data.labels[key]}</strong>
+                <ul class="ps-2 mt-1 mb-0">`;
+
+              messages.forEach(msg => {
+                html += `<li class="list-group-item">${msg}</li>`
+              })
+
+              html += `</ul></li>`
+
+              $error_list.append(html)
+            })
+            $error_box.removeClass("d-none")
+
+            $("html, body").animate({
+              scrollTop: $error_list.offset().top - 100
+            }, 200)
+          })
+      });
+    });
   </script>
 </body>
 

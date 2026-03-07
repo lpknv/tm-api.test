@@ -11,3 +11,10 @@ define('CURRENT_YEAR', date('Y'));
 define('FIRST_KID_PRICE', 80);
 define('NTH_KID_PRICE', 70);
 define('IS_DEBUG', false);
+
+$marketing = [
+  'Freunde',
+  'Internet',
+  'Familie',
+  'Webseite'
+];

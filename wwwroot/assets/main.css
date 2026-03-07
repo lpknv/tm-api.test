@@ -34,3 +34,13 @@ footer {
   width: 1.1rem;
   height: 1.1rem;
 }
+
+h5, label {
+  font-weight: 600;
+  /* margin-top: 4px; */
+}
+
+#error-list ul li {
+  list-style-type: none;
+  list-style: none;
+}
