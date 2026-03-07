@@ -78,12 +78,21 @@ if ($more_than_one_kid) {
 
 function kid_template($kid, $index, $price)
 {
-  return "\r<p>
-    <strong>Kind " . $index . "</strong><br/>
-    <strong>Name (Kosten " . $price . ",- Euro):</strong> " . $kid['name'] . "<br/>
-    <strong>Alter:</strong> " . $kid['alter'] . "<br/>
-    <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> " . $kid['heimweg'] . "<br/>
-    <strong>T-Shirt-Größe:</strong> " . $kid['tshirt'] . "\r\n</p>";
+  return sprintf(
+    "\r<p>
+      <strong>Kind %d</strong><br/>
+      <strong>Name (Kosten %d,- Euro):</strong> %s<br/>
+      <strong>Alter:</strong> %s<br/>
+      <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> %s<br/>
+      <strong>T-Shirt-Größe:</strong> %s
+    </p>\r\n",
+    $index,
+    $price,
+    $kid['name'],
+    $kid['alter'],
+    $kid['heimweg'],
+    $kid['tshirt']
+  );
 }
 
 $anmeldedaten = "
@@ -106,8 +115,6 @@ foreach ($kids_array as $key => $kid) {
 
 $datenschutzAkzeptiert = isset($datenschutz) ? "✅" : "❌";
 $agbAkzeptiert = isset($agb) ? "✅" : "❌";
-
-$gesamtbetrag = "<p><strong>Zu zahlender Gesamtbetrag: $total_pricing,- Euro</strong></p>";
 
 $anmeldedaten .= "<h4>Allgemeine Informationen</h4>
 <p>
@@ -134,22 +141,27 @@ $nachrichtAnTeilnehmer = "<html>
     Hallo Familie $familienname,
   </p>
   <p>
-    Herzlich Willkommen zum Baseballcamp " . CURRENT_YEAR . "!
+    herzlich Willkommen zum Baseballcamp " . CURRENT_YEAR . "!
     <br/>
     <br/>
     Hiermit bestätigen wir die Anmeldung und freuen uns schon auf das Event.
+    <br/>
     <br/>
     Bitte überweißt den unten genannten Betrag, damit die Anmeldung abgeschlossen werden kann.
     <br/>
     Solltet ihr noch Fragen oder Korrektur zu Anmeldedaten haben, dann schreibt uns gerne per E-mail an.
     <br/>
+    <br/>
     Nach Zahlungseingang erhaltet ihr dann eine Zahlungsbestätigung von uns.
     <br/>
+    <br/>
     Das BBC-Team freut sich auf eine tolle und spannende Zeit 🙂
+    <br/>
+    <br/>
   </p>
 
   <h3>Ihre Anmeldung im Überblick:</h3>
-  $gesamtbetrag
+  <p><strong>Zu zahlender Gesamtbetrag: $total_pricing,- Euro</strong></p>
   <p>
     <strong>Unsere Bankverbindung:</strong>
     <br/>
@@ -182,42 +194,47 @@ try {
   $mail->Password = $_ENV['SMTP_PASSWORD'];
 
   $mail->setFrom('baseballcamp@efg-hueckelhoven.de');
-  $mail->addAddress($email);
-
   $mail->isHTML(true);
-  $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR . "";
+
+  $mail->addAddress($email);
+  $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR;
   $mail->Body = $nachrichtAnTeilnehmer;
   $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
   $mail->Body .= $anmeldedaten;
-
   $mail->send();
-  respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
+
+  $mail->clearAddresses();
+  $mail->clearCCs();
+  $mail->clearBCCs();
+  $mail->clearReplyTos();
+  $mail->clearAttachments();
+
+  $mail->addAddress('baseballcamp@efg-hueckelhoven.de');
+  $mail->Subject = "Neue Baseballcamp Anmeldung " . CURRENT_YEAR;
+  $mail->Body = "<h3 style='text-decoration:underline'>Neue Anmeldung</h3>";
+  $mail->Body .= "
+    <html>
+      <head>
+        <title>Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "</title>
+        <style>
+          html, body {
+            font-family: Inter, sans-serif;
+          }
+        </style>
+      </head>            
+    <body>";
+  $mail->Body .= $anmeldedaten;
+  $mail->Body .= "</body></html>";
+  $mail->send();
+
+  respond(
+    "Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.",
+    200,
+    true
+  );
 } catch (Exception $e) {
-  respond("Oops! Etwas ist schief gelaufen. Versuche es später erneut. {$mail->ErrorInfo}", 400);
-}
-
-$mail1 = new PHPMailer(true);
-
-try {
-  $mail1->isSMTP();
-  $mail1->SMTPDebug = $smtp_debug;
-  $mail1->CharSet = 'UTF-8';
-  $mail1->Host = $_ENV['SMTP_HOST'];
-  $mail1->SMTPAuth = true;
-  $mail1->Port = $_ENV['SMTP_PORT'];
-  $mail1->Username = $_ENV['SMTP_USER'];
-  $mail1->Password = $_ENV['SMTP_PASSWORD'];
-
-  $mail1->setFrom('baseballcamp@efg-hueckelhoven.de');
-  $mail1->addAddress($email);
-
-  $mail1->isHTML(true);
-  $mail1->Subject = "Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "";
-  $mail1->Body    = "<h3 style='text-decoration:underline'>Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "</h3>";
-  $mail1->Body    .= $anmeldedaten;
-
-  $mail1->send();
-  respond("Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.", 200, true);
-} catch (Exception $e) {
-  respond("Oops! Etwas ist schief gelaufen. Versuche es später erneut. {$mail->ErrorInfo}", 400);
+  respond(
+    "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",
+    400
+  );
 }
