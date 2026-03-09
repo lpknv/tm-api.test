@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   respond('Method not allowed', 405);
 }
 
-$smtp_debug = IS_DEBUG ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
+$smtp_debug = IS_DEBUG === true ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
 
 $hp = trim($_POST['hp'] ?? '');
 if ($hp !== '') {
@@ -203,13 +203,12 @@ $nachrichtAnTeilnehmer = "<html>
 </html>
 ";
 
-
 if ($validation->fails()) {
   $errors = $validation->errors();
   respond(['errors' => $errors->all()], 400);
 } else {
 
-  if (IS_DEBUG) {
+  if (IS_DEBUG === true) {
     respond(['message' => $anmeldedaten . "\r\n\r\n" . $nachrichtAnTeilnehmer]);
   } else {
     $mail = new PHPMailer(true);
