@@ -14,10 +14,6 @@
   display: none;
 }
 
-svg {
-  width: 16px !important;
-}
-
 footer {
   padding: 2rem 0;
   background: #f8f9fa;
@@ -37,10 +33,13 @@ footer {
 
 h5, label {
   font-weight: 600;
-  /* margin-top: 4px; */
 }
 
 #error-list ul li {
   list-style-type: none;
   list-style: none;
+}
+
+svg {
+  width: 18px;
 }

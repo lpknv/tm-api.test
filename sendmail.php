@@ -8,73 +8,75 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__ . '/bootstrap.php';
 require_once __DIR__ . '/Validator.php';
+require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  respond('Method not allowed', 405, false);
+  respond('Method not allowed', 405);
 }
-
-ini_set('display_errors', IS_DEV ? '1' : '0');
-error_reporting(IS_DEV ? E_ALL : 0);
 
 $smtp_debug = IS_DEBUG ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
 
 $hp = trim($_POST['hp'] ?? '');
 if ($hp !== '') {
-  respond('Vielen Dank für deine Anmeldung!', 200, true);
+  respond('Vielen Dank für deine Anmeldung!', 200);
 }
 
 if (count($_POST['kids']) > MAX_KIDS_NUMBER) {
   respond("Oops!", 400);
 }
 
-$familienname       = trim($_POST['familienname']);
-$email              = trim(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
-$telefonnummer       = trim($_POST['telefonnummer']);
-$strasse_hausnummer  = trim($_POST['strasse_hausnummer']);
-$plz                = trim($_POST['plz']);
-$ort                = trim($_POST['ort']);
 $kids_array = $_POST['kids'];
-
-$how_did_you_find_out_about_us = trim($_POST['marketing'] ?? '');
+$how_did_you_find_out_about_us = trim($_POST['how_did_you_find_out_about_us'] ?? '');
 $infos = trim($_POST['infos']) ?? '';
-
-$datenschutz = $_POST['datenschutz'];
-$agb = $_POST['agb'];
-
-$errors = [];
 
 $validator = new Validator($_POST, [
   'familienname' => [
     'label' => 'Familienname',
-    'rules' => [
-      'required' => 'Bitte :label eingeben',
-      'min:2' => ':label muss mindestens :param Zeichen haben',
-      'max:50' => ':label darf maximal :param Zeichen haben',
-    ],
+    'rules' => 'required|min:2|max:50',
   ],
   'email' => [
     'label' => 'E-Mail-Adresse',
-    'rules' => [
-      'required' => 'Bitte :label eingeben',
-      'email' => 'Bitte eine gültige :label eingeben',
-    ],
+    'rules' => 'required|email',
   ],
   'telefonnummer' => [
     'label' => 'Telefonnummer',
-    'rules' => [
-      'required' => 'Bitte :label eingeben',
-      'min:6' => ':label ist zu kurz',
-    ],
+    'rules' => 'required|min:6|max:50',
+  ],
+  'strasse_hausnummer' => [
+    'label' => 'Straße + Hausnummer',
+    'rules' => 'required|min:1|max:100',
+  ],
+  'plz' => [
+    'label' => 'Postleitzahl',
+    'rules' => 'required|min:1|max:50',
   ],
   'ort' => [
     'label' => 'Ort',
-    'rules' => [
-      'required' => 'Bitte :label eingeben',
-      'min:6' => ':label ist zu kurz',
-      'max:50' => ':label ist zu lang',
-    ],
+    'rules' => 'required|min:6|max:50',
+  ],
+  'datenschutz' => [
+    'label' => 'Datenschutz',
+    'rules' => 'accepted',
+  ],
+  'agb' => [
+    'label' => 'AGB',
+    'rules' => 'accepted',
+  ],
+  'kids' => [
+    'label' => 'Teilnehmer',
+    'rules' => 'required|max:' . MAX_KIDS_NUMBER,
+    'keys' => [
+      'name' => 'required|min:6|max:50',
+      'alter' => 'required|min:1|max:2',
+      'tshirt' => 'required',
+      'heimweg' => 'required'
+    ]
   ],
 ]);
+
+var_dump($validator->validate());
+die;
 
 if (!$validator->validate()) {
   respond([
@@ -84,96 +86,21 @@ if (!$validator->validate()) {
   ], 400, false);
 }
 
-// if (
-//   $familienname === '' || $email === '' || $telefonnummer === '' || $strasse_hausnummer === '' ||
-//   $plz === '' || $ort === '' || empty($kids_array)
-// ) {
-//   respond('Bitte fülle alle Pflichtfelder aus', 400, false);
-// }
-
-// if (mb_strlen($familienname) < 2 || mb_strlen($familienname) > 80) {
-//   $errors['Familienname'][] = 'Bitte einen gültigen Familiennamen eingeben.';
-// }
-
-// if (
-//   mb_strlen($telefonnummer) < 6 ||
-//   mb_strlen($telefonnummer) > 25
-// ) {
-//   $errors['Telefonnummer / Handynummer der Eltern'][] = 'Bitte eine gültige Telefonnummer eingeben.';
-// }
-
-// if (mb_strlen($strasse_hausnummer) < 2 || mb_strlen($strasse_hausnummer) > 50) {
-//   $errors['Straße + Hausnummer'][] = 'Bitte eine gültige Straße und Hausnummer eingeben.';
-// }
-
-// if (
-//   mb_strlen($plz) < 2 ||
-//   mb_strlen($plz) > 30
-// ) {
-//   $errors['Postleitzahl'][] = 'Bitte eine gültige Postleitzahl eingeben.';
-// }
-
-// if (
-//   mb_strlen($ort) < 1 ||
-//   mb_strlen($ort) > 50
-// ) {
-//   $errors['Ort'][] = 'Bitte einen gültigen Ort eingeben.';
-// }
-
-// if (
-//   $how_did_you_find_out_about_us !== '' && !key_exists($how_did_you_find_out_about_us, $marketing)
-// ) {
-//   respond("Ungültiger Eingabewert!", 400);
-// }
-
-// if (!empty($errors)) {
-//   respond('Bitte überprüfe deine Eingaben', 400, false, $errors);
-// }
-
-$response = [
-  'message' => '',
-  'success' => false,
-];
-
-$anmeldedaten = "";
-
-function respond($message = null, $statusCode = 200, $success = true, $errors = [])
-{
-  http_response_code($statusCode);
-  header('Content-Type: application/json; charset=utf-8');
-
-  echo json_encode($message, JSON_UNESCAPED_UNICODE);
-
-  exit;
-}
-
-$price_per_kid = FIRST_KID_PRICE;
+$familienname = $validator->data()['familienname'];
+$email = $validator->data()['email'];
+$telefonnummer = $validator->data()['telefonnummer'];
+$strasse_hausnummer = $validator->data()['strasse_hausnummer'];
+$plz = $validator->data()['plz'];
+$ort = $validator->data()['ort'];
+$datenschutz = $validator->data()['datenschutz'];
+$agb = $validator->data()['agb'];
+$kids = $validator->data()['kids'];
 
 $more_than_one_kid = count($kids_array) > 1;
-
 $total_pricing = FIRST_KID_PRICE;
 
 if ($more_than_one_kid) {
   $total_pricing += NTH_KID_PRICE;
-}
-
-function kid_template($kid, $index, $price)
-{
-  return sprintf(
-    "\r<p>
-      <strong>Kind %d</strong><br/>
-      <strong>Name (Kosten %d,- Euro):</strong> %s<br/>
-      <strong>Alter:</strong> %s<br/>
-      <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> %s<br/>
-      <strong>T-Shirt-Größe:</strong> %s
-    </p>\r\n",
-    $index,
-    $price,
-    $kid['name'],
-    $kid['alter'],
-    $kid['heimweg'],
-    $kid['tshirt']
-  );
 }
 
 $anmeldedaten = "
@@ -187,9 +114,9 @@ $anmeldedaten = "
 </p>
 ";
 
-foreach ($kids_array as $key => $kid) {
+foreach ($kids as $key => $kid) {
   if ($kid['name'] === '' || $kid['alter'] === '' || $kid['heimweg'] === '' || $kid['tshirt'] === '' || $kid['heimweg'] === '') {
-    respond('Bitte fülle alle Pflichtfelder aus', 400, false);
+    respond('Bitte fülle alle Pflichtfelder aus', 400);
   }
   $anmeldedaten .= kid_template($kid, $key + 1, $key > 0 ? NTH_KID_PRICE : FIRST_KID_PRICE);
 }
@@ -262,8 +189,8 @@ $nachrichtAnTeilnehmer = "<html>
 </html>
 ";
 
-if (IS_DEV) {
-  respond("Top!" . $anmeldedaten . "\r\n\r\n" . $nachrichtAnTeilnehmer, 200, true);
+if (IS_DEBUG) {
+  respond(['message' => $anmeldedaten . "\r\n\r\n" . $nachrichtAnTeilnehmer]);
 } else {
   $mail = new PHPMailer(true);
 
@@ -277,7 +204,7 @@ if (IS_DEV) {
     $mail->Username = $_ENV['SMTP_USER'];
     $mail->Password = $_ENV['SMTP_PASSWORD'];
 
-    $mail->setFrom('baseballcamp@efg-hueckelhoven.de');
+    $mail->setFrom($_ENV['MAIL']);
     $mail->isHTML(true);
 
     $mail->addAddress($email);
@@ -293,8 +220,8 @@ if (IS_DEV) {
     $mail->clearReplyTos();
     $mail->clearAttachments();
 
-    $mail->addAddress('baseballcamp@efg-hueckelhoven.de');
-    $mail->Subject = "Neue Baseballcamp Anmeldung " . CURRENT_YEAR;
+    $mail->addAddress($_ENV['MAIL']);
+    $mail->Subject = sprintf("Neue Baseballcamp %s Anmeldung", CURRENT_YEAR);
     $mail->Body = "<h3 style='text-decoration:underline'>Neue Anmeldung</h3>";
     $mail->Body .= "
     <html>
@@ -307,15 +234,18 @@ if (IS_DEV) {
         </style>
       </head>            
     <body>";
+
     $mail->Body .= $anmeldedaten;
     $mail->Body .= "</body></html>";
+
     $mail->send();
 
-    respond(
-      "Vielen Dank für deine Anmeldung! Wir melden uns schnellstmöglich bei dir.",
-      200,
-      true
-    );
+    respond([
+      'message' => [
+        'title' => 'Vielen Dank für deine Anmeldung!',
+        'text' => 'Bitte überprüfe dein E-Mail Postfach und Spam Ordner auf eine Bestätigungsemail.'
+      ],
+    ]);
   } catch (Exception $e) {
     respond(
       "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",

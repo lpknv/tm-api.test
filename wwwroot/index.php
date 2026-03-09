@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../functions.php';
+require_once __DIR__ . '/../database.php';
 
 $age_info = false;
 ?>
@@ -124,9 +126,9 @@ $age_info = false;
             <h5 class="mt-5">Allgemeine Informationen</h5>
             <div class="row g-3">
               <div>
-                <label for="marketing" class="form-label">Wie bist du auf unser Baseballcamp aufmerksam geworden?</label>
-                <select name="marketing" id="marketing" class="form-select">
-                  <option disabled selected value="">-</option>
+                <label for="how_did_you_find_out_about_us" class="form-label">Wie bist du auf unser Baseballcamp aufmerksam geworden?</label>
+                <select name="how_did_you_find_out_about_us" id="how_did_you_find_out_about_us" class="form-select">
+                  <option selected value="">-</option>
                   <?php foreach ($marketing as $item): ?>
                     <option value="<?= $item ?>"><?= $item ?></option>
                   <?php endforeach; ?>
@@ -145,7 +147,7 @@ $age_info = false;
               <div>
                 <input class="form-check-input" required type="checkbox" id="agb" name="agb">
                 <label class="form-check-label required" for="agb">
-                  Ich habe die <a target="_blank" href="https://efg-hueckelhoven.de/baseballcamp-agb">AGB</a> gelesen und bin damit einverstanden
+                  Ich habe die <a target="_blank" href="https://efg-hueckelhoven.de/wp-content/uploads/2026/03/AGB-BBC-2026.pdf">AGB</a> gelesen und bin damit einverstanden
                 </label>
               </div>
             </div>
@@ -154,7 +156,7 @@ $age_info = false;
             <button id="submit-button" class="btn btn-primary btn-lg" type="submit">
               <span id="submit">Jetzt anmelden</span>
               <span id="loader">
-                <span class="spinner-border text-primary" role="status">
+                <span class="spinner-border text-light" role="status">
                   <span class="visually-hidden">Wird gesendet...</span>
                 </span>
                 <span>
@@ -194,67 +196,67 @@ $age_info = false;
   <script src="./assets/underscore-umd-min.js"></script>
   <script src="./assets/bootstrap.min.js"></script>
   <script src="./assets/main.js"></script>
-  <script>
-    const maxKids = <?= MAX_KIDS_NUMBER ?>;
-    const first_kid_price = <?= FIRST_KID_PRICE ?>;
-    const nth_kid_price = <?= NTH_KID_PRICE ?>;
-    let kidIndex = 0;
+  <script type="text/javascript">
+    $(document).ready(function() {
+      const maxKids = <?= MAX_KIDS_NUMBER ?>;
+      const first_kid_price = <?= FIRST_KID_PRICE ?>;
+      const nth_kid_price = <?= NTH_KID_PRICE ?>;
+      let kidIndex = 0;
 
-    <?php if (IS_DEBUG): ?>
-      $('.contact-form').find(':input[name]').each(function() {
-        if (this.name === 'hp') {
-          return;
-        }
-        let $el = $(this);
-        if ($el.is(':checkbox, :radio')) {
-          $el.prop('checked', true);
-        } else if ($el.is('select')) {
-          $el.prop('selectedIndex', 1);
-        } else {
-          $el.val('test_' + this.name + '@aasd.de');
-        }
-      });
-    <?php endif; ?>
+      <?php if (IS_DEBUG): ?>
+        $('.contact-form').find(':input[name]').each(function() {
+          if (this.name === 'hp') {
+            return;
+          }
+          let $el = $(this);
+          if ($el.is(':checkbox, :radio')) {
+            $el.prop('checked', true);
+          } else if ($el.is('select')) {
+            $el.prop('selectedIndex', 1);
+          } else {
+            $el.val('test_' + this.name + '@aasd.de');
+          }
+        });
+      <?php endif; ?>
 
-    function restoreFormState() {
-      const saved = localStorage.getItem('campFormData');
-      if (!saved) return;
+      function restoreFormState() {
+        const saved = localStorage.getItem('campFormData');
+        if (!saved) return;
 
-      const data = JSON.parse(saved);
+        const data = JSON.parse(saved);
 
-      data.forEach(field => {
-        const $elements = $('[name="' + field.name + '"]');
+        data.forEach(field => {
+          const $elements = $('[name="' + field.name + '"]');
 
-        if (!$elements.length) return;
+          if (!$elements.length) return;
 
-        const type = $elements.first().attr('type');
+          const type = $elements.first().attr('type');
 
-        if (type === 'radio') {
-          $elements.filter('[value="' + field.value + '"]').prop('checked', true);
-        } else if (type === 'checkbox') {
-          $elements.prop('checked', true);
-        } else {
-          $elements.val(field.value);
-        }
-      });
-    }
-
-    function updateAddButton() {
-      if (getKidCount() >= maxKids) {
-        $('#add-kid').hide();
-      } else {
-        $('#add-kid').show();
+          if (type === 'radio') {
+            $elements.filter('[value="' + field.value + '"]').prop('checked', true);
+          } else if (type === 'checkbox') {
+            $elements.prop('checked', true);
+          } else {
+            $elements.val(field.value);
+          }
+        });
       }
-      $('#add-kid').prop('disabled', getKidCount() >= maxKids);
-    }
 
+      function updateAddButton() {
+        if (getKidCount() >= maxKids) {
+          $('#add-kid').hide();
+        } else {
+          $('#add-kid').show();
+        }
+        $('#add-kid').prop('disabled', getKidCount() >= maxKids);
+      }
 
-    function kidTemplate(i) {
-      let n = i + 1;
-      let cost = (i === 0) ? first_kid_price : nth_kid_price;
-      const showRemove = (n !== 1);
+      function kidTemplate(i) {
+        let n = i + 1;
+        let cost = (i === 0) ? first_kid_price : nth_kid_price;
+        const showRemove = (n !== 1);
 
-      return `
+        return `
         <div class="col-lg-6 col-md-12 kid" data-i="${i}">
           <div class="card shadow-sm">
             <div class="card-body">
@@ -270,7 +272,7 @@ $age_info = false;
               </div>
               <div class="row g-4">
                 <div class="col-12">
-                    <label for="kid${i}_name" class="form-label">Name</label>
+                    <label for="kid${i}_name" class="form-label required">Name</label>
                     <input 
                       type="text"
                       class="form-control"
@@ -279,37 +281,33 @@ $age_info = false;
                       required>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label for="kid${i}_alter" class="form-label">Alter</label>
+                  <label for="kid${i}_alter" class="form-label required">Alter</label>
                   <select 
                     class="form-select"
                     id="kid${i}_alter"
                     name="kids[${i}][alter]"
                     required>
                     <option selected disabled value="">Bitte wählen...</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
+                    <?php foreach ($ages as $age): ?>
+                      <option value="<?= $age ?>"><?= $age ?></option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label for="kid${i}_tshirt" class="form-label">T-Shirt Größe</label>
+                  <label for="kid${i}_tshirt" class="form-label required">T-Shirt Größe</label>
                   <select 
                     class="form-select"
                     id="kid${i}_tshirt"
                     name="kids[${i}][tshirt]"
                     required>
                     <option selected disabled value="">Bitte wählen...</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
+                    <?php foreach ($tshirt_sizes as $size): ?>
+                      <option value="<?= $size ?>"><?= $size ?></option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
                 <div class="col-12">
-                  <label class="form-label d-block">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
+                  <label class="form-label d-block required">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>
                   <div class="btn-group w-100" role="group">
                     <input 
                       type="radio"
@@ -341,79 +339,79 @@ $age_info = false;
             </div>
           </div>
         </div>`;
-    }
-
-    function getKidCount() {
-      return $('#kids-container .kid').length;
-    }
-
-    function saveFormState() {
-      const data = $('.contact-form').serializeArray();
-      localStorage.setItem('campFormData', JSON.stringify(data));
-      localStorage.setItem('kidCount', $('#kids-container .kid').length);
-    }
-
-    function saveKidCount() {
-      localStorage.setItem('kidCount', $('#kids-container .kid').length);
-    }
-
-    $(document).on('input change', '.contact-form input, .contact-form select, .contact-form textarea', _.debounce(saveFormState, 500));
-
-    const savedCount = parseInt(localStorage.getItem('kidCount')) || 1;
-
-    for (let i = 0; i < savedCount; i++) {
-      $('#kids-container').append(kidTemplate(i));
-    }
-
-    kidIndex = 1;
-
-    $('#add-kid').on('click', function() {
-      const index = getKidCount();
-      if (index >= maxKids) return;
-
-      const newKid = $(kidTemplate(index));
-      $('#kids-container').append(newKid);
-
-      updateAddButton();
-
-      saveFormState();
-      newKid[0].scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    });
-
-    $(document).on('click', '.remove-kid', function() {
-      $(this).closest('.kid').remove();
-
-      updateAddButton();
-
-      const $remaining_kids = $('#kids-container .kid');
-
-      if ($remaining_kids.length > 0) {
-        const lastKid = $remaining_kids.last()[0];
-
-        lastKid.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      } else {
-        $('#add-kid')[0].scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
       }
-      saveFormState();
-    });
 
-    restoreFormState();
+      function getKidCount() {
+        return $('#kids-container .kid').length;
+      }
 
-    $(document).ready(function() {
+      function saveFormState() {
+        const data = $('.contact-form').serializeArray();
+        localStorage.setItem('campFormData', JSON.stringify(data));
+        localStorage.setItem('kidCount', $('#kids-container .kid').length);
+      }
+
+      function saveKidCount() {
+        localStorage.setItem('kidCount', $('#kids-container .kid').length);
+      }
+
+      $(document).on('input change', '.contact-form input, .contact-form select, .contact-form textarea', _.debounce(saveFormState, 50));
+
+      const savedCount = parseInt(localStorage.getItem('kidCount')) || 1;
+
+      for (let i = 0; i < savedCount; i++) {
+        $('#kids-container').append(kidTemplate(i));
+      }
+
+      kidIndex = 1;
+
+      $('#add-kid').on('click', function() {
+        const index = getKidCount();
+        if (index >= maxKids) return;
+
+        const newKid = $(kidTemplate(index));
+        $('#kids-container').append(newKid);
+
+        updateAddButton();
+        saveFormState();
+
+        newKid[0].scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+
+      $(document).on('click', '.remove-kid', function() {
+        $(this).closest('.kid').remove();
+
+        updateAddButton();
+
+        const $remaining_kids = $('#kids-container .kid');
+
+        if ($remaining_kids.length > 0) {
+          const lastKid = $remaining_kids.last()[0];
+
+          lastKid.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        } else {
+          $('#add-kid')[0].scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+        saveFormState();
+      });
+
+      restoreFormState();
+
       let $form = $('.contact-form');
       let $submit = $("#submit");
       let $loader = $("#loader");
 
-      let $error_list = $('#error-list');
+      let $error_box = $("#form-errors")
+      let $error_list = $("#error-list")
 
       $form.submit(function(e) {
         e.preventDefault();
@@ -425,106 +423,72 @@ $age_info = false;
 
         $.post('/ajax/sendmail_handler.php', formData, function(res) {
             console.log(res);
-            // $("#formAlert").remove()
-            // $(".invalid-feedback.server-error").remove()
-            // $form.find(".is-invalid").removeClass("is-invalid")
+            $error_list.remove()
 
-            // if (res.success) {
-
-            //   $form.slideUp(100, function() {
-            //     $(`<div class="alert alert-success d-inline-flex align-items-center" role="alert">
-            //         <div>${res.message}</div>
-            //       </div>
-            //     `)
-            //       .hide()
-            //       .insertAfter($form)
-            //       .fadeIn(100);
-            //   });
-
-            //   $form[0].reset()
-
-            // } else {
-
-            //   let errors = res.errors || {}
-            //   let listHtml = ""
-
-            //   Object.entries(errors).forEach(([field, messages]) => {
-
-            //     if (!Array.isArray(messages)) return
-
-            //     messages.forEach(msg => {
-            //       listHtml += `<li>${msg}</li>`
-            //     })
-
-            //     let $field = $form.find(`[name="${field}"]`).first()
-
-            //     if ($field.length) {
-
-            //       $field.addClass("is-invalid")
-
-            //       let msg = messages[0]
-
-            //       let $feedback = $field.next(".invalid-feedback.server-error")
-
-            //       if (!$feedback.length) {
-            //         $feedback = $('<div class="invalid-feedback server-error"></div>')
-            //         $feedback.insertAfter($field)
-            //       }
-
-            //       $feedback.text(msg).show()
-            //     }
-
-            //   })
-
-            //   let $alert = $(`
-            //     <div id="formAlert" class="alert alert-danger">
-            //       <b>Bitte überprüfe deine Eingaben:</b>
-            //       <ul class="mb-0"></ul>
-            //     </div>
-            //   `)
-
-            //   $alert.find("ul").html(listHtml)
-
-            //   $alert.insertBefore($form).hide().fadeIn(150)
-
-            //   $("html, body").animate({
-            //     scrollTop: $alert.offset().top - 20
-            //   }, 200)
-
-            //   $loader.hide()
-            //   $submit.show()
-            // }
+            $form.slideUp(100, function() {
+              $(`<div class="w-full alert alert-success d-flex align-items-center" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                      <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                      <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                    </svg>
+                    <?php if (IS_DEBUG): ?>
+                      <div>
+                        ${res}
+                      </div>
+                    <?php else: ?>
+                      <div>
+                        <h5>${res.message.title}</h5>
+                        <div>${res.message.text}</div>
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                `)
+                .hide()
+                .insertAfter($form)
+                .fadeIn(100);
+            });
+            $form[0].reset()
           }, 'json')
           .fail(function(res) {
             let data = res.responseJSON
-            let $error_box = $("#form-errors")
-            let $error_list = $("#error-list")
 
-            $error_box.addClass("d-none")
+            let $error_list = $("#error-list")
             $error_list.empty()
 
-            Object.entries(data.errors).forEach(([key, messages]) => {
-
-              let html = `
-              <li class="list-group-item">
-                <strong>${data.labels[key]}</strong>
-                <ul class="ps-2 mt-1 mb-0">`;
-
+            Object.entries(res.responseJSON.errors).forEach(([key, messages]) => {
               messages.forEach(msg => {
-                html += `<li class="list-group-item">${msg}</li>`
+                $error_list.append(`<li>${msg}</li>`)
               })
-
-              html += `</ul></li>`
-
-              $error_list.append(html)
             })
-            $error_box.removeClass("d-none")
+
+            $("#form-errors").removeClass("d-none")
+
+            $error_box.addClass("d-none")
+            // $error_list.empty()
+
+            // Object.entries(data.errors).forEach(([key, messages]) => {
+
+            //   let html = `
+            //   <li class="list-group-item">
+            //     <strong>${data.labels[key]}</strong>
+            //     <ul class="ps-2 mt-1 mb-0">`;
+
+            //   messages.forEach(msg => {
+            //     html += `<li class="list-group-item">${msg}</li>`
+            //   })
+
+            //   html += `</ul></li>`
+
+            //   $error_list.append(html)
+            // })
+            // $error_box.removeClass("d-none")
 
             $("html, body").animate({
               scrollTop: $error_list.offset().top - 100
             }, 200)
           })
       });
+
     });
   </script>
 </body>
