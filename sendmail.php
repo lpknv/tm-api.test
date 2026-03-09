@@ -98,17 +98,6 @@ $validation->setAliases(array_merge($aliases, [
 
 $validation->validate();
 
-if ($validation->fails()) {
-  $errors = $validation->errors();
-  echo "<pre>";
-  print_r($errors->firstOfAll());
-  print_r($validation->getValidData());
-  exit;
-  echo "</pre>";
-} else {
-  echo "Success!";
-}
-
 $validData = $validation->getValidData();
 
 $familienname = $validData['familienname'];
@@ -214,41 +203,47 @@ $nachrichtAnTeilnehmer = "<html>
 </html>
 ";
 
-if (IS_DEBUG) {
-  respond(['message' => $anmeldedaten . "\r\n\r\n" . $nachrichtAnTeilnehmer]);
+
+if ($validation->fails()) {
+  $errors = $validation->errors();
+  respond(['errors' => $errors->all()], 400);
 } else {
-  $mail = new PHPMailer(true);
 
-  try {
-    $mail->isSMTP();
-    $mail->SMTPDebug = $smtp_debug;
-    $mail->CharSet = 'UTF-8';
-    $mail->Host = $_ENV['SMTP_HOST'];
-    $mail->SMTPAuth = true;
-    $mail->Port = $_ENV['SMTP_PORT'];
-    $mail->Username = $_ENV['SMTP_USER'];
-    $mail->Password = $_ENV['SMTP_PASSWORD'];
+  if (IS_DEBUG) {
+    respond(['message' => $anmeldedaten . "\r\n\r\n" . $nachrichtAnTeilnehmer]);
+  } else {
+    $mail = new PHPMailer(true);
 
-    $mail->setFrom($_ENV['MAIL']);
-    $mail->isHTML(true);
+    try {
+      $mail->isSMTP();
+      $mail->SMTPDebug = $smtp_debug;
+      $mail->CharSet = 'UTF-8';
+      $mail->Host = $_ENV['SMTP_HOST'];
+      $mail->SMTPAuth = true;
+      $mail->Port = $_ENV['SMTP_PORT'];
+      $mail->Username = $_ENV['SMTP_USER'];
+      $mail->Password = $_ENV['SMTP_PASSWORD'];
 
-    $mail->addAddress($email);
-    $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR;
-    $mail->Body = $nachrichtAnTeilnehmer;
-    $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
-    $mail->Body .= $anmeldedaten;
-    $mail->send();
+      $mail->setFrom($_ENV['MAIL']);
+      $mail->isHTML(true);
 
-    $mail->clearAddresses();
-    $mail->clearCCs();
-    $mail->clearBCCs();
-    $mail->clearReplyTos();
-    $mail->clearAttachments();
+      $mail->addAddress($email);
+      $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR;
+      $mail->Body = $nachrichtAnTeilnehmer;
+      $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
+      $mail->Body .= $anmeldedaten;
+      $mail->send();
 
-    $mail->addAddress($_ENV['MAIL']);
-    $mail->Subject = sprintf("Neue Baseballcamp %s Anmeldung", CURRENT_YEAR);
-    $mail->Body = "<h3 style='text-decoration:underline'>Neue Anmeldung</h3>";
-    $mail->Body .= "
+      $mail->clearAddresses();
+      $mail->clearCCs();
+      $mail->clearBCCs();
+      $mail->clearReplyTos();
+      $mail->clearAttachments();
+
+      $mail->addAddress($_ENV['MAIL']);
+      $mail->Subject = sprintf("Neue Baseballcamp %s Anmeldung", CURRENT_YEAR);
+      $mail->Body = "<h3 style='text-decoration:underline'>Neue Anmeldung</h3>";
+      $mail->Body .= "
     <html>
       <head>
         <title>Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "</title>
@@ -260,21 +255,22 @@ if (IS_DEBUG) {
       </head>            
     <body>";
 
-    $mail->Body .= $anmeldedaten;
-    $mail->Body .= "</body></html>";
+      $mail->Body .= $anmeldedaten;
+      $mail->Body .= "</body></html>";
 
-    $mail->send();
+      $mail->send();
 
-    respond([
-      'message' => [
-        'title' => 'Vielen Dank für deine Anmeldung!',
-        'text' => 'Bitte überprüfe dein E-Mail Postfach und Spam Ordner auf eine Bestätigungsemail.'
-      ],
-    ]);
-  } catch (Exception $e) {
-    respond(
-      "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",
-      400
-    );
+      respond([
+        'message' => [
+          'title' => 'Vielen Dank für deine Anmeldung!',
+          'text' => 'Bitte überprüfe dein E-Mail Postfach und Spam Ordner auf eine Bestätigungsemail.'
+        ],
+      ]);
+    } catch (Exception $e) {
+      respond(
+        "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",
+        400
+      );
+    }
   }
 }

@@ -63,7 +63,7 @@ $age_info = false;
             </svg>
             <span>Bitte überprüfe deine Eingaben</span>
           </h5>
-          <ul id="error-list" class="ps-0 mb-0"></ul>
+          <ul id="error-list" class="mb-0"></ul>
         </div>
       </div>
       <form class="contact-form py-5">
@@ -410,10 +410,11 @@ $age_info = false;
       let $submit = $("#submit");
       let $loader = $("#loader");
 
-      let $error_box = $("#form-errors")
+      let $form_errors = $("#form-errors")
       let $error_list = $("#error-list")
 
       $form.submit(function(e) {
+
         e.preventDefault();
 
         let formData = $(this).serialize();
@@ -422,70 +423,43 @@ $age_info = false;
         $loader.show()
 
         $.post('/ajax/sendmail_handler.php', formData, function(res) {
-            console.log(res);
-            $error_list.remove()
+            $form_errors.addClass('d-none');
 
-            $form.slideUp(100, function() {
+            $form.slideUp(400, function() {
               $(`<div class="w-full alert alert-success d-flex align-items-center" role="alert">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
                       <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
                       <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
                     </svg>
-                    <?php if (IS_DEBUG): ?>
-                      <div>
-                        ${res}
-                      </div>
-                    <?php else: ?>
-                      <div>
-                        <h5>${res.message.title}</h5>
-                        <div>${res.message.text}</div>
-                      </div>
-                    <?php endif; ?>
+                    <div>
+                      <div class="fs-4">${res.message.title}</div>
+                      <p>${res.message.text}</p>
+                    </div>
                   </div>
                 `)
                 .hide()
                 .insertAfter($form)
-                .fadeIn(100);
+                .fadeIn(200);
             });
             $form[0].reset()
+            localStorage.clear();
           }, 'json')
           .fail(function(res) {
-            let data = res.responseJSON
+            let errors = res.responseJSON.errors
 
-            let $error_list = $("#error-list")
-            $error_list.empty()
+            $form_errors.removeClass('d-none');
+            $error_list.empty();
 
-            Object.entries(res.responseJSON.errors).forEach(([key, messages]) => {
-              messages.forEach(msg => {
-                $error_list.append(`<li>${msg}</li>`)
-              })
+            Object.entries(res.responseJSON.errors).forEach(([key, message]) => {
+              $error_list.append(`<li>${message}</li>`)
             })
-
-            $("#form-errors").removeClass("d-none")
-
-            $error_box.addClass("d-none")
-            // $error_list.empty()
-
-            // Object.entries(data.errors).forEach(([key, messages]) => {
-
-            //   let html = `
-            //   <li class="list-group-item">
-            //     <strong>${data.labels[key]}</strong>
-            //     <ul class="ps-2 mt-1 mb-0">`;
-
-            //   messages.forEach(msg => {
-            //     html += `<li class="list-group-item">${msg}</li>`
-            //   })
-
-            //   html += `</ul></li>`
-
-            //   $error_list.append(html)
-            // })
-            // $error_box.removeClass("d-none")
 
             $("html, body").animate({
               scrollTop: $error_list.offset().top - 100
             }, 200)
+
+            $submit.show()
+            $loader.hide()
           })
       });
 
