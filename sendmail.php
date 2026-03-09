@@ -66,7 +66,7 @@ $validator = new Validator($_POST, [
   'kids' => [
     'label' => 'Teilnehmer',
     'rules' => [
-      '_self' => 'required|min:1|max:' . MAX_KIDS_NUMBER,
+      '_self' => sprintf('required|min:1|max:%s', MAX_KIDS_NUMBER),
       'name' => 'required|min:6|max:50',
       'alter' => 'required|min:1|max:2',
       'tshirt' => 'required',
@@ -75,7 +75,8 @@ $validator = new Validator($_POST, [
   ],
 ]);
 
-var_dump($validator->validate());
+$validator->validate();
+var_dump($validator->errors());
 die;
 
 if (!$validator->validate()) {

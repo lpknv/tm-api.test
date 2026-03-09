@@ -15,6 +15,8 @@ class Validator
     $this->fields = $fields;
   }
 
+  public function message($label) {}
+
   public function required($value, $param = null): bool
   {
     if (is_array($value)) {
@@ -52,40 +54,32 @@ class Validator
   public function validate()
   {
     foreach ($this->fields as $field => $value) {
-      echo "-----" . $field . " => " . $this->data[$field] .  "-----\n";
       $rules = $value['rules'];
-
-      if ($field === '_self') {
-        // validate the parent field...
-      }
-
-      if (is_string($rules)) {
-        $this->render_rules($rules);
+      if (is_array($rules)) {
+        foreach ($rules as $rule => $rule_val) {
+          $this->filter_rules($rule_val, $field);
+        }
+      } else {
+        $this->filter_rules($rules, $field);
       }
     }
 
     return empty($this->errors);
   }
 
-  public function render_rules($rules)
+  public function filter_rules($rules, $field)
   {
-    if (is_string($rules)) {
-      $rules = explode(self::RULE_SEPERATOR, $rules);
-    }
-
-    // here we iterate over a string!
+    $rules = explode(self::RULE_SEPERATOR, $rules);
     foreach ($rules as $rule) {
       if (str_contains($rule, self::RULE_INNER_SEPERATOR)) {
         [$rule_key, $rule_val] = explode(self::RULE_INNER_SEPERATOR, $rule);
-
-        echo $rule_key . self::RULE_INNER_SEPERATOR . $rule_val . "\n";
-
-        // $this->$rule();
+        $this->errors[$field][] = "$rule_key >>>> $rule_val";
+        $this->$rule_key($this->data[$field], $rule_val);
       } else {
-        echo $rule . "\n";
+        $this->errors[$field][] = $rule;
+        $this->$rule($this->data[$field]);
       }
     }
-    echo "\n";
   }
 
   public function errors(): array
