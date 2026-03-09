@@ -17,16 +17,25 @@ class Validator
 
   public function required($value, $param = null): bool
   {
+    if (is_array($value)) {
+      return isset($value) && !empty($value);
+    }
     return trim($value) !== '';
   }
 
   public function min($value, $param): bool
   {
+    if (is_array($value)) {
+      return count($value) >= (int)$param;
+    }
     return mb_strlen(trim((string)$value)) >= (int)$param;
   }
 
   public function max($value, $param): bool
   {
+    if (is_array($value)) {
+      return count($value) <= (int)$param;
+    }
     return mb_strlen(trim((string)$value)) <= (int)$param;
   }
 
@@ -43,24 +52,40 @@ class Validator
   public function validate()
   {
     foreach ($this->fields as $field => $value) {
+      echo "-----" . $field . " => " . $this->data[$field] .  "-----\n";
+      $rules = $value['rules'];
 
-      $rules = explode(self::RULE_SEPERATOR, $value['rules']);
-
-      foreach ($rules as $rule) {
-        if (str_contains($rule, ":")) {
-          [$rule_key, $rule_val] = explode(":", $rule);
-
-          echo $rule_key . self::RULE_INNER_SEPERATOR . $rule_val . " => " . $field . "\n";
-
-          // $this->$rule();
-        } else {
-          echo $rule . " => " . $field . "\n";
-        }
+      if ($field === '_self') {
+        // validate the parent field...
       }
-      echo "\n";
+
+      if (is_string($rules)) {
+        $this->render_rules($rules);
+      }
     }
 
     return empty($this->errors);
+  }
+
+  public function render_rules($rules)
+  {
+    if (is_string($rules)) {
+      $rules = explode(self::RULE_SEPERATOR, $rules);
+    }
+
+    // here we iterate over a string!
+    foreach ($rules as $rule) {
+      if (str_contains($rule, self::RULE_INNER_SEPERATOR)) {
+        [$rule_key, $rule_val] = explode(self::RULE_INNER_SEPERATOR, $rule);
+
+        echo $rule_key . self::RULE_INNER_SEPERATOR . $rule_val . "\n";
+
+        // $this->$rule();
+      } else {
+        echo $rule . "\n";
+      }
+    }
+    echo "\n";
   }
 
   public function errors(): array

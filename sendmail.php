@@ -65,8 +65,8 @@ $validator = new Validator($_POST, [
   ],
   'kids' => [
     'label' => 'Teilnehmer',
-    'rules' => 'required|max:' . MAX_KIDS_NUMBER,
-    'keys' => [
+    'rules' => [
+      '_self' => 'required|min:1|max:' . MAX_KIDS_NUMBER,
       'name' => 'required|min:6|max:50',
       'alter' => 'required|min:1|max:2',
       'tshirt' => 'required',
