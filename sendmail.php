@@ -5,6 +5,7 @@ declare(strict_types=1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use Rakit\Validation\Validator;
 
 require_once __DIR__ . '/bootstrap.php';
 require_once __DIR__ . '/Validator.php';
@@ -30,71 +31,87 @@ $kids_array = $_POST['kids'];
 $how_did_you_find_out_about_us = trim($_POST['how_did_you_find_out_about_us'] ?? '');
 $infos = trim($_POST['infos']) ?? '';
 
-$validator = new Validator($_POST, [
-  'familienname' => [
-    'label' => 'Familienname',
-    'rules' => 'required|min:2|max:50',
-  ],
-  'email' => [
-    'label' => 'E-Mail-Adresse',
-    'rules' => 'required|email',
-  ],
-  'telefonnummer' => [
-    'label' => 'Telefonnummer',
-    'rules' => 'required|min:6|max:50',
-  ],
-  'strasse_hausnummer' => [
-    'label' => 'Straße + Hausnummer',
-    'rules' => 'required|min:2|max:100',
-  ],
-  'plz' => [
-    'label' => 'Postleitzahl',
-    'rules' => 'required|min:1|max:50',
-  ],
-  'ort' => [
-    'label' => 'Ort',
-    'rules' => 'required|min:6|max:50',
-  ],
-  'datenschutz' => [
-    'label' => 'Datenschutz',
-    'rules' => 'accepted',
-  ],
-  'agb' => [
-    'label' => 'AGB',
-    'rules' => 'accepted',
-  ],
+$config = [
+
   'kids' => [
     'label' => 'Teilnehmer',
     'rules' => [
-      '_self' => 'required|min:1|max:' . MAX_KIDS_NUMBER,
-      'name' => 'required|min:6|max:50',
-      'alter' => 'required|min:1|max:2',
-      'tshirt' => 'required',
-      'heimweg' => 'required'
-    ]
+      '_self'   => 'required|min:1|max:' . MAX_KIDS_NUMBER,
+      'name'    => 'required|min:6|max:50',
+      'alter'   => 'required|numeric|min:1|max:99',
+      'tshirt'  => 'required',
+      'heimweg' => 'required',
+    ],
   ],
+];
+
+
+$validator = new Validator;
+
+
+$validator->setMessages([
+  'required' => 'Bitte :attribute angeben',
+  'email' => 'Üngultige E-Mail Adresse :email',
+  'min' => ':attribute ist zu kurz',
+  'max' => ':attribute ist zu lang',
 ]);
 
-$validator->validate();
-var_dump($validator->errors());
-exit;
+$validation = $validator->make($_POST, [
+  'familienname' => 'required|min:2|max:50',
+  'email'                 => 'required|email',
+  'telefonnummer' => 'required|min:2|max:50',
+  'strasse_hausnummer' => 'required|min:2|max:50',
+  'plz' => 'required|min:2|max:50',
+  'ort' => 'required|min:2|max:50',
+  'datenschutz' => 'required',
+  'agb' => 'required',
+  'kids'                => 'array',
+  'kids.*.name'           => 'required|min:2|max:50',
+  'kids.*.alter'   => 'required',
+  'kids.*.tshirt'   => 'required',
+  'kids.*.heimweg'   => 'required',
+]);
 
-if (!$validator->validate()) {
-  respond([
-    'message' => 'Bitte überprüfe deine Eingaben',
-    'errors' => $validator->errors(),
-  ], 400);
+$validation->setAliases([
+  'familienname' => 'Familienname',
+  'email'                 => 'E-Mail Adresse',
+  'telefonnummer' => 'Telefonnummer',
+  'strasse_hausnummer' => 'Straße + Hausnummer',
+  'plz' => 'Postleitzahl',
+  'ort' => 'Ort',
+  'datenschutz' => 'Datenschutzerklärung',
+  'agb' => 'Allgemeine Geschäftsbedingungen',
+  'kids'                => 'Teilnehmer',
+  'kids.*.name'           => 'Name',
+  'kids.*.alter'   => 'Alter',
+  'kids.*.tshirt'   => 'T-Shirt Größe',
+  'kids.*.heimweg'   => 'Heimweg',
+]);
+
+$validation->validate();
+
+if ($validation->fails()) {
+  $errors = $validation->errors();
+  echo "<pre>";
+  print_r($errors->firstOfAll());
+  print_r($validation->getValidData());
+  exit;
+  echo "</pre>";
+} else {
+  echo "Success!";
 }
 
-$familienname = $validator->data()['familienname'];
-$email = $validator->data()['email'];
-$telefonnummer = $validator->data()['telefonnummer'];
-$strasse_hausnummer = $validator->data()['strasse_hausnummer'];
-$plz = $validator->data()['plz'];
-$ort = $validator->data()['ort'];
-$datenschutz = $validator->data()['datenschutz'];
-$agb = $validator->data()['agb'];
-$kids = $validator->data()['kids'];
+$validData = $validation->getValidData();
+
+$familienname = $validData['familienname'];
+$email = $validData['email'];
+$telefonnummer = $validData['telefonnummer'];
+$strasse_hausnummer = $validData['strasse_hausnummer'];
+$plz = $validData['plz'];
+$ort = $validData['ort'];
+$datenschutz = $validData['datenschutz'];
+$agb = $validData['agb'];
+$kids = $validData['kids'];
 
 $more_than_one_kid = count($kids_array) > 1;
 $total_pricing = FIRST_KID_PRICE;
