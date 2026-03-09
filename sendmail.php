@@ -45,7 +45,7 @@ $validator = new Validator($_POST, [
   ],
   'strasse_hausnummer' => [
     'label' => 'Straße + Hausnummer',
-    'rules' => 'required|min:1|max:100',
+    'rules' => 'required|min:2|max:100',
   ],
   'plz' => [
     'label' => 'Postleitzahl',
@@ -66,7 +66,7 @@ $validator = new Validator($_POST, [
   'kids' => [
     'label' => 'Teilnehmer',
     'rules' => [
-      '_self' => sprintf('required|min:1|max:%s', MAX_KIDS_NUMBER),
+      '_self' => 'required|min:1|max:' . MAX_KIDS_NUMBER,
       'name' => 'required|min:6|max:50',
       'alter' => 'required|min:1|max:2',
       'tshirt' => 'required',
@@ -77,14 +77,13 @@ $validator = new Validator($_POST, [
 
 $validator->validate();
 var_dump($validator->errors());
-die;
+exit;
 
 if (!$validator->validate()) {
   respond([
     'message' => 'Bitte überprüfe deine Eingaben',
     'errors' => $validator->errors(),
-    'labels' => $validator->labels(),
-  ], 400, false);
+  ], 400);
 }
 
 $familienname = $validator->data()['familienname'];

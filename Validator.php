@@ -15,7 +15,22 @@ class Validator
     $this->fields = $fields;
   }
 
-  public function message($label) {}
+  public function message($rule, $label)
+  {
+    $labels = [
+      'required' => "Bitte $label eingeben",
+      'min' => "$label ist zu kurz",
+      'max' => "$label ist zu lang",
+      'email' => "Ungültige E-Mail Adresse",
+      'accepted' => "Bitte $label akzeptieren",
+    ];
+
+    if (!key_exists($rule, $labels)) {
+      return "No valid key!";
+    }
+
+    return $labels[$rule];
+  }
 
   public function required($value, $param = null): bool
   {
@@ -54,30 +69,38 @@ class Validator
   public function validate()
   {
     foreach ($this->fields as $field => $value) {
+
+      $label = $value['label'];
       $rules = $value['rules'];
+
       if (is_array($rules)) {
-        foreach ($rules as $rule => $rule_val) {
-          $this->filter_rules($rule_val, $field);
+        foreach ($rules as $_ => $rule_val) {
+          $this->filter_rules($rule_val, $field, $label);
         }
       } else {
-        $this->filter_rules($rules, $field);
+        $this->filter_rules($rules, $field, $label);
       }
     }
 
     return empty($this->errors);
   }
 
-  public function filter_rules($rules, $field)
+  public function filter_rules($rules, $field, $label)
   {
     $rules = explode(self::RULE_SEPERATOR, $rules);
+
     foreach ($rules as $rule) {
       if (str_contains($rule, self::RULE_INNER_SEPERATOR)) {
+
         [$rule_key, $rule_val] = explode(self::RULE_INNER_SEPERATOR, $rule);
-        $this->errors[$field][] = "$rule_key >>>> $rule_val";
-        $this->$rule_key($this->data[$field], $rule_val);
+
+        if (!$this->$rule_key($this->data[$field], $rule_val)) {
+          $this->errors[$field][] = $this->message($rule_key, $label);
+        }
       } else {
-        $this->errors[$field][] = $rule;
-        $this->$rule($this->data[$field]);
+        if (!$this->$rule($this->data[$field])) {
+          $this->errors[$field][] = $this->message($rule, $label);
+        }
       }
     }
   }
