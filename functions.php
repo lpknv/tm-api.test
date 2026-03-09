@@ -12,19 +12,30 @@ function respond($message = null, $statusCode = 200)
 
 function kid_template($kid, $index, $price)
 {
+  $heightLine = '';
+
+  if (!empty($kid['height'])) {
+    $heightLine = sprintf(
+      "<strong>Körpergröße:</strong> %s<br/>",
+      $kid['height']
+    );
+  }
+
   return sprintf(
     "\r<p>
       <strong>Kind %d</strong><br/>
       <strong>Name (Kosten %d,- Euro):</strong> %s<br/>
       <strong>Alter:</strong> %s<br/>
-      <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> %s<br/>
-      <strong>T-Shirt-Größe:</strong> %s
+      <strong>T-Shirt-Größe:</strong> %s<br/>
+      %s
+      <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> %s
     </p>\r\n",
     $index,
     $price,
     $kid['name'],
     $kid['alter'],
+    $kid['tshirt'],
+    $heightLine,
     $kid['heimweg'],
-    $kid['tshirt']
   );
 }

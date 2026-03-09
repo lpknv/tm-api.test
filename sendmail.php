@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   respond('Method not allowed', 405);
 }
 
-$smtp_debug = IS_DEBUG === true ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
+$smtp_debug = IS_DEBUG ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
 
 $hp = trim($_POST['hp'] ?? '');
 if ($hp !== '') {
@@ -28,23 +28,6 @@ if (count($_POST['kids']) > MAX_KIDS_NUMBER) {
 }
 
 $kids_array = $_POST['kids'];
-$how_did_you_find_out_about_us = trim($_POST['how_did_you_find_out_about_us'] ?? '');
-$infos = trim($_POST['infos']) ?? '';
-
-$config = [
-
-  'kids' => [
-    'label' => 'Teilnehmer',
-    'rules' => [
-      '_self'   => 'required|min:1|max:' . MAX_KIDS_NUMBER,
-      'name'    => 'required|min:6|max:50',
-      'alter'   => 'required|numeric|min:1|max:99',
-      'tshirt'  => 'required',
-      'heimweg' => 'required',
-    ],
-  ],
-];
-
 
 $validator = new Validator;
 
@@ -73,13 +56,14 @@ $validation = $validator->make($_POST, [
 
 $aliases = [];
 
-foreach (($_POST['kids']) as $i => $kid) {
+foreach ($kids_array as $i => $kid) {
   $nr = $i + 1;
 
   $aliases["kids.$i.name"] = "Name von Kind $nr";
   $aliases["kids.$i.alter"] = "Alter von Kind $nr";
   $aliases["kids.$i.tshirt"] = "T-Shirt Größe von Kind $nr";
   $aliases["kids.$i.heimweg"] = "Nach dem Baseballcamp selbständig den Heimweg antreten? von Kind $nr";
+  $aliases["kids.$i.height"] = "Körpergröße von Kind $nr";
 }
 
 $validation->setAliases(array_merge($aliases, [
@@ -109,13 +93,10 @@ $ort = $validData['ort'];
 $datenschutz = $validData['datenschutz'];
 $agb = $validData['agb'];
 $kids = $validData['kids'];
+$how_did_you_find_out_about_us = trim($_POST['how_did_you_find_out_about_us'] ?? '');
+$infos = trim($_POST['infos']) ?? '';
 
-$more_than_one_kid = count($kids_array) > 1;
 $total_pricing = FIRST_KID_PRICE;
-
-if ($more_than_one_kid) {
-  $total_pricing += NTH_KID_PRICE;
-}
 
 $anmeldedaten = "
 <p>
@@ -129,10 +110,9 @@ $anmeldedaten = "
 ";
 
 foreach ($kids as $key => $kid) {
-  if ($kid['name'] === '' || $kid['alter'] === '' || $kid['heimweg'] === '' || $kid['tshirt'] === '' || $kid['heimweg'] === '') {
-    respond('Bitte fülle alle Pflichtfelder aus', 400);
-  }
-  $anmeldedaten .= kid_template($kid, $key + 1, $key > 0 ? NTH_KID_PRICE : FIRST_KID_PRICE);
+  $nth_child = $key > 0;
+  if ($nth_child) $total_pricing += NTH_KID_PRICE;
+  $anmeldedaten .= kid_template($kid, $key + 1, $nth_child ? NTH_KID_PRICE : FIRST_KID_PRICE);
 }
 
 $datenschutzAkzeptiert = isset($datenschutz) ? "✅" : "❌";
@@ -148,6 +128,8 @@ $infos
 <strong>Zustimmung AGB:</strong> $agbAkzeptiert<br/>
 </p>
 ";
+
+$gesamtpreis = "<p><strong>Zu zahlender Gesamtbetrag: $total_pricing,- Euro</strong></p>";
 
 $nachrichtAnTeilnehmer = "<html>
 <head>
@@ -183,7 +165,7 @@ $nachrichtAnTeilnehmer = "<html>
   </p>
 
   <h3>Ihre Anmeldung im Überblick:</h3>
-  <p><strong>Zu zahlender Gesamtbetrag: $total_pricing,- Euro</strong></p>
+  $gesamtpreis
   <p>
     <strong>Unsere Bankverbindung:</strong>
     <br/>
@@ -208,41 +190,38 @@ if ($validation->fails()) {
   respond(['errors' => $errors->all()], 400);
 } else {
 
-  if (IS_DEBUG === true) {
-    respond(['message' => $anmeldedaten . "\r\n\r\n" . $nachrichtAnTeilnehmer]);
-  } else {
-    $mail = new PHPMailer(true);
+  $mail = new PHPMailer(true);
 
-    try {
-      $mail->isSMTP();
-      $mail->SMTPDebug = $smtp_debug;
-      $mail->CharSet = 'UTF-8';
-      $mail->Host = $_ENV['SMTP_HOST'];
-      $mail->SMTPAuth = true;
-      $mail->Port = $_ENV['SMTP_PORT'];
-      $mail->Username = $_ENV['SMTP_USER'];
-      $mail->Password = $_ENV['SMTP_PASSWORD'];
+  try {
+    $mail->isSMTP();
+    $mail->SMTPDebug = $smtp_debug;
+    $mail->CharSet = 'UTF-8';
+    $mail->Host = $_ENV['SMTP_HOST'];
+    $mail->SMTPAuth = true;
+    $mail->Port = $_ENV['SMTP_PORT'];
+    $mail->Username = $_ENV['SMTP_USER'];
+    $mail->Password = $_ENV['SMTP_PASSWORD'];
 
-      $mail->setFrom($_ENV['MAIL']);
-      $mail->isHTML(true);
+    $mail->setFrom($_ENV['MAIL']);
+    $mail->isHTML(true);
 
-      $mail->addAddress($email);
-      $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR;
-      $mail->Body = $nachrichtAnTeilnehmer;
-      $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
-      $mail->Body .= $anmeldedaten;
-      $mail->send();
+    $mail->addAddress($email);
+    $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR;
+    $mail->Body = $nachrichtAnTeilnehmer;
+    $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
+    $mail->Body .= $anmeldedaten;
+    $mail->send();
 
-      $mail->clearAddresses();
-      $mail->clearCCs();
-      $mail->clearBCCs();
-      $mail->clearReplyTos();
-      $mail->clearAttachments();
+    $mail->clearAddresses();
+    $mail->clearCCs();
+    $mail->clearBCCs();
+    $mail->clearReplyTos();
+    $mail->clearAttachments();
 
-      $mail->addAddress($_ENV['MAIL']);
-      $mail->Subject = sprintf("Neue Baseballcamp %s Anmeldung", CURRENT_YEAR);
-      $mail->Body = "<h3 style='text-decoration:underline'>Neue Anmeldung</h3>";
-      $mail->Body .= "
+    $mail->addAddress($_ENV['MAIL']);
+    $mail->Subject = sprintf("Neue Baseballcamp %s Anmeldung", CURRENT_YEAR);
+    $mail->Body = "<h3 style='text-decoration:underline'>Neue Anmeldung</h3>";
+    $mail->Body .= "
     <html>
       <head>
         <title>Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "</title>
@@ -254,22 +233,22 @@ if ($validation->fails()) {
       </head>            
     <body>";
 
-      $mail->Body .= $anmeldedaten;
-      $mail->Body .= "</body></html>";
+    $mail->Body .= $anmeldedaten;
+    $mail->Body .= $gesamtpreis;
+    $mail->Body .= "</body></html>";
 
-      $mail->send();
+    $mail->send();
 
-      respond([
-        'message' => [
-          'title' => 'Vielen Dank für deine Anmeldung!',
-          'text' => 'Bitte überprüfe dein E-Mail Postfach und Spam Ordner auf eine Bestätigungsemail.'
-        ],
-      ]);
-    } catch (Exception $e) {
-      respond(
-        "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",
-        400
-      );
-    }
+    respond([
+      'message' => [
+        'title' => 'Vielen Dank für deine Anmeldung!',
+        'text' => 'Bitte überprüfe dein E-Mail Postfach und Spam Ordner auf eine Bestätigungsemail.'
+      ],
+    ]);
+  } catch (Exception $e) {
+    respond(
+      "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",
+      400
+    );
   }
 }

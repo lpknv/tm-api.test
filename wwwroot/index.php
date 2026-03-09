@@ -189,7 +189,7 @@ $age_info = false;
       const nth_kid_price = <?= NTH_KID_PRICE ?>;
       let kidIndex = 0;
 
-      <?php if (IS_DEBUG === true): ?>
+      <?php if (IS_DEBUG): ?>
         $('.contact-form').find(':input[name]').each(function() {
           if (this.name === 'hp') {
             return;
@@ -258,13 +258,13 @@ $age_info = false;
               </div>
               <div class="row g-4">
                 <div class="col-12">
-                    <label for="kid${i}_name" class="form-label required">Name</label>
-                    <input 
-                      type="text"
-                      class="form-control"
-                      id="kid${i}_name"
-                      name="kids[${i}][name]"
-                      required>
+                  <label for="kid${i}_name" class="form-label required">Name</label>
+                  <input 
+                    type="text"
+                    class="form-control"
+                    id="kid${i}_name"
+                    name="kids[${i}][name]"
+                    required>
                 </div>
                 <div class="col-12 col-md-6">
                   <label for="kid${i}_alter" class="form-label required">Alter</label>
@@ -291,6 +291,15 @@ $age_info = false;
                       <option value="<?= $size ?>"><?= $size ?></option>
                     <?php endforeach; ?>
                   </select>
+                </div>
+                <div class="col-12">
+                  <label for="kid${i}_height" class="form-label">Körpergröße (cm)</label>
+                  <input 
+                    type="text"
+                    class="form-control"
+                    id="kid${i}_height"
+                    placeholder="z.B. 116"
+                    name="kids[${i}][height]">
                 </div>
                 <div class="col-12">
                   <label class="form-label d-block required">Nach dem Baseballcamp selbständig den Heimweg antreten?</label>

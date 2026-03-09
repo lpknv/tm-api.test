@@ -15,10 +15,4 @@ $tshirt_sizes = [
   "XL",
 ];
 
-$ages = [
-  8,
-  9,
-  10,
-  11,
-  12,
-];
+$ages = range(8, 18);
