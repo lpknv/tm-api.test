@@ -48,7 +48,6 @@ $config = [
 
 $validator = new Validator;
 
-
 $validator->setMessages([
   'required' => 'Bitte :attribute angeben',
   'email' => 'Üngultige E-Mail Adresse :email',
@@ -72,7 +71,18 @@ $validation = $validator->make($_POST, [
   'kids.*.heimweg'   => 'required',
 ]);
 
-$validation->setAliases([
+$aliases = [];
+
+foreach (($_POST['kids']) as $i => $kid) {
+  $nr = $i + 1;
+
+  $aliases["kids.$i.name"] = "Name von Kind $nr";
+  $aliases["kids.$i.alter"] = "Alter von Kind $nr";
+  $aliases["kids.$i.tshirt"] = "T-Shirt Größe von Kind $nr";
+  $aliases["kids.$i.heimweg"] = "Nach dem Baseballcamp selbständig den Heimweg antreten? von Kind $nr";
+}
+
+$validation->setAliases(array_merge($aliases, [
   'familienname' => 'Familienname',
   'email'                 => 'E-Mail Adresse',
   'telefonnummer' => 'Telefonnummer',
@@ -82,11 +92,9 @@ $validation->setAliases([
   'datenschutz' => 'Datenschutzerklärung',
   'agb' => 'Allgemeine Geschäftsbedingungen',
   'kids'                => 'Teilnehmer',
-  'kids.*.name'           => 'Name',
-  'kids.*.alter'   => 'Alter',
-  'kids.*.tshirt'   => 'T-Shirt Größe',
-  'kids.*.heimweg'   => 'Heimweg',
-]);
+  'how_did_you_find_out_about_us' => '\'Wie bist du auf unser Baseballcamp aufmerksam geworden?\'',
+  'infos' => '\'Weitere Informationen (Krankheiten, Allergien usw.)\'',
+]));
 
 $validation->validate();
 
