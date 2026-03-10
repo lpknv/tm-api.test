@@ -11,7 +11,6 @@ $minifier->add(__DIR__ . '/wwwroot/assets/theme.css');
 
 $minifiedPath = __DIR__ . '/wwwroot/assets/minified/main.min.css';
 
-// 👉 Ordner sicherstellen
 $dir = dirname($minifiedPath);
 
 if (!is_dir($dir)) {

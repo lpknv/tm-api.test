@@ -1,8 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 require __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$envFile = file_exists(__DIR__ . '/.env.dev')
+  ? '.env.dev'
+  : '.env';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, $envFile);
 $dotenv->load();
 
 define('MAX_KIDS_NUMBER', 5);

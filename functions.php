@@ -1,10 +1,9 @@
 <?php
 
-function respond($message = null, $statusCode = 200)
+function respond($message = null, int $statusCode = 200)
 {
   http_response_code($statusCode);
   header('Content-Type: application/json; charset=utf-8');
-
   echo json_encode($message, JSON_UNESCAPED_UNICODE);
 
   exit;
@@ -38,4 +37,9 @@ function kid_template($kid, $index, $price)
     $heightLine,
     $kid['heimweg'],
   );
+}
+
+function e(?string $value): string
+{
+  return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
 }

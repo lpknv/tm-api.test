@@ -1,15 +1,19 @@
 <?php
+
+header('Content-Type: text/html; charset=UTF-8');
+
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/../functions.php';
 require_once __DIR__ . '/../database.php';
 require_once __DIR__ . '/../helper.php';
+
 ?>
 
 <!DOCTYPE html>
 <html lang="de">
 
 <head>
-  <title>Baseballcamp <?= CURRENT_YEAR ?> Anmeldung | EFG Hückelhoven-Baal</title>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Baseballcamp  <?= CURRENT_YEAR ?> Anmeldung | EFG Hückelhoven-Baal">
@@ -22,6 +26,7 @@ require_once __DIR__ . '/../helper.php';
   <link rel="icon" href="cropped-efg-favicon-192x192.png" sizes="192x192">
   <link rel="stylesheet" href="./assets/bootstrap.min.css">
   <link rel="stylesheet" href="./assets/minified/main.min.css">
+  <title>Baseballcamp <?= CURRENT_YEAR ?> Anmeldung | EFG Hückelhoven-Baal</title>
 </head>
 
 <body>
@@ -42,7 +47,7 @@ require_once __DIR__ . '/../helper.php';
       Solltest du Fragen haben, so melde dich gerne bei Melanie Pfaffenrot unter der E-Mail Adresse
       <a href="mailto:baseballcamp@efg-hueckelhoven.de">baseballcamp@efg-hueckelhoven.de</a>
     </p>
-    <?php if ($age_info): ?>
+    <?php if (false): ?>
       <div class="alert alert-warning d-inline-flex align-items-center" role="alert">
         <svg class="me-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
           <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
@@ -180,7 +185,6 @@ require_once __DIR__ . '/../helper.php';
   <script src="./assets/notify.min.js"></script>
   <script src="./assets/underscore-umd-min.js"></script>
   <script src="./assets/bootstrap.min.js"></script>
-  <script src="./assets/main.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       const maxKids = <?= MAX_KIDS_NUMBER ?>;
@@ -404,6 +408,7 @@ require_once __DIR__ . '/../helper.php';
       let $form = $('.contact-form');
       let $submit = $("#submit");
       let $loader = $("#loader");
+      let $submit_button = $('#submit-button')
 
       let $form_errors = $("#form-errors")
       let $error_list = $("#error-list")
@@ -416,6 +421,7 @@ require_once __DIR__ . '/../helper.php';
 
         $submit.hide()
         $loader.show()
+        $submit_button.prop('disabled', true);
 
         $.post('/ajax/sendmail_handler.php', formData, function(res) {
             $form_errors.addClass('d-none');
@@ -455,6 +461,7 @@ require_once __DIR__ . '/../helper.php';
 
             $submit.show()
             $loader.hide()
+            $submit_button.prop('disabled', false);
           })
       });
 

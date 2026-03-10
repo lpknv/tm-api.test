@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+ob_start();
+session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -14,11 +15,11 @@ use Sunspikes\Ratelimit\Throttle\Factory\ThrottlerFactory;
 use Sunspikes\Ratelimit\Throttle\Hydrator\HydratorFactory;
 
 require_once __DIR__ . '/bootstrap.php';
-require_once __DIR__ . '/Validator.php';
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  ob_end_clean();
   respond('Method not allowed', 405);
 }
 
@@ -30,12 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $smtp_debug = IS_DEBUG ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
 
-$hp = trim($_POST['hp'] ?? '');
+$hp = trim(e($_POST['hp']) ?? '');
 if ($hp !== '') {
+  ob_end_clean();
   respond('Vielen Dank für deine Anmeldung!', 200);
 }
 
 if (count($_POST['kids']) > MAX_KIDS_NUMBER) {
+  ob_end_clean();
   respond("Oops!", 400);
 }
 
@@ -83,6 +86,7 @@ $validation->setAliases(array_merge($aliases, $form_label_aliases));
 $validation->validate();
 
 if ($validation->fails()) {
+  ob_end_clean();
   $errors = $validation->errors();
   respond(['errors' => $errors->all()], 400);
 }
@@ -98,8 +102,8 @@ $ort = $validData['ort'];
 $datenschutz = $validData['datenschutz'];
 $agb = $validData['agb'];
 $kids = $validData['kids'];
-$how_did_you_find_out_about_us = trim($_POST['how_did_you_find_out_about_us'] ?? '');
-$infos = trim($_POST['infos']) ?? '';
+$how_did_you_find_out_about_us = trim($_POST['how_did_you_find_out_about_us'] ?? '- keine Angabe -');
+$infos = trim($_POST['infos']) ?? '- keine Angabe -';
 
 $total_pricing = FIRST_KID_PRICE;
 
@@ -241,6 +245,7 @@ try {
 
   $mail->send();
 
+  ob_end_clean();
   respond([
     'message' => [
       'title' => 'Vielen Dank für deine Anmeldung!',
@@ -248,6 +253,7 @@ try {
     ],
   ]);
 } catch (Exception $e) {
+  ob_end_clean();
   respond(
     "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",
     400
