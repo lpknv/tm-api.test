@@ -51,6 +51,12 @@ $validator->setMessages([
   'email' => 'Üngultige E-Mail Adresse :email',
   'min' => ':attribute ist zu kurz',
   'max' => ':attribute ist zu lang',
+  'in' => ':attribute erlaubt nur :allowed_values',
+]);
+
+$validator->setTranslations([
+  'and' => 'und',
+  'or' => 'oder',
 ]);
 
 $validation = $validator->make($_POST, [
@@ -64,9 +70,12 @@ $validation = $validator->make($_POST, [
   'agb' => 'required',
   'kids'                => 'array',
   'kids.*.name'           => 'required|min:2|max:50',
-  'kids.*.alter'   => 'required',
-  'kids.*.tshirt'   => 'required',
-  'kids.*.heimweg'   => 'required',
+  'kids.*.alter'   => 'required|in:' . implode(',', $ages),
+  'kids.*.tshirt'   => 'required|in:' . implode(',', $tshirt_sizes),
+  'kids.*.heimweg'   => 'required|in:Ja,Nein',
+  'kids.*.height'   => 'nullable|min:2|max:5',
+  'how_did_you_find_out_about_us' => 'nullable|in:' . implode(',', $marketing),
+  'infos' => 'nullable|max:500'
 ]);
 
 $aliases = [];
@@ -74,14 +83,29 @@ $aliases = [];
 foreach ($kids_array as $i => $kid) {
   $nr = $i + 1;
 
-  $aliases["kids.$i.name"] = "Name von Kind $nr";
-  $aliases["kids.$i.alter"] = "Alter von Kind $nr";
-  $aliases["kids.$i.tshirt"] = "T-Shirt Größe von Kind $nr";
-  $aliases["kids.$i.heimweg"] = "Nach dem Baseballcamp selbständig den Heimweg antreten? von Kind $nr";
-  $aliases["kids.$i.height"] = "Körpergröße von Kind $nr";
+  $aliases["kids.$i.name"] = "\"Name\" von Kind $nr";
+  $aliases["kids.$i.alter"] = "\"Alter\" von Kind $nr";
+  $aliases["kids.$i.tshirt"] = "\"T-Shirt Größe\" von Kind $nr";
+  $aliases["kids.$i.heimweg"] = "\"Nach dem Baseballcamp selbständig den Heimweg antreten?\" von Kind $nr";
+  $aliases["kids.$i.height"] = "\"Körpergröße\" von Kind $nr";
 }
 
-$validation->setAliases(array_merge($aliases, $form_label_aliases));
+$validation->setAliases(array_merge(
+  [
+    'familienname'                  => 'Familienname',
+    'email'                         => 'E-Mail Adresse',
+    'telefonnummer'                 => 'Telefonnummer',
+    'strasse_hausnummer'            => 'Straße + Hausnummer',
+    'plz'                           => 'Postleitzahl',
+    'ort'                           => 'Ort',
+    'datenschutz'                   => 'Datenschutzerklärung',
+    'agb'                           => 'Allgemeine Geschäftsbedingungen',
+    'kids'                          => 'Teilnehmer',
+    'how_did_you_find_out_about_us' => '\"Wie bist du auf unser Baseballcamp aufmerksam geworden?\"',
+    'infos'                         => '\"Weitere Informationen (Krankheiten, Allergien usw.)\"',
+  ],
+  $aliases
+));
 
 $validation->validate();
 
@@ -93,17 +117,17 @@ if ($validation->fails()) {
 
 $validData = $validation->getValidData();
 
-$familienname = $validData['familienname'];
-$email = $validData['email'];
-$telefonnummer = $validData['telefonnummer'];
-$strasse_hausnummer = $validData['strasse_hausnummer'];
-$plz = $validData['plz'];
-$ort = $validData['ort'];
+$familienname = trim(e($validData['familienname']));
+$email = trim(e($validData['email']));
+$telefonnummer = trim(e($validData['telefonnummer']));
+$strasse_hausnummer = trim(e($validData['strasse_hausnummer']));
+$plz = trim(e($validData['plz']));
+$ort = trim(e($validData['ort']));
 $datenschutz = $validData['datenschutz'];
 $agb = $validData['agb'];
 $kids = $validData['kids'];
-$how_did_you_find_out_about_us = trim($_POST['how_did_you_find_out_about_us'] ?? '- keine Angabe -');
-$infos = trim($_POST['infos']) ?? '- keine Angabe -';
+$how_did_you_find_out_about_us = trim(e($validData['how_did_you_find_out_about_us']) ?? '- keine Angabe -');
+$infos = trim(e($validData['infos'])) ?? '- keine Angabe -';
 
 $total_pricing = FIRST_KID_PRICE;
 
@@ -138,7 +162,7 @@ $infos
 </p>
 ";
 
-$gesamtpreis = "<p><strong>Zu zahlender Gesamtbetrag: $total_pricing,- Euro</strong></p>";
+$gesamtpreis = sprintf("<p><strong style=\"border-bottom: 2px solid black;\">Zu zahlender Gesamtbetrag: %s</strong></p>", format_currency($total_pricing));
 
 $nachrichtAnTeilnehmer = "<html>
 <head>
@@ -195,7 +219,6 @@ $nachrichtAnTeilnehmer = "<html>
 ";
 
 
-
 $mail = new PHPMailer(true);
 
 try {
@@ -214,7 +237,7 @@ try {
   $mail->addAddress($email);
   $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR;
   $mail->Body = $nachrichtAnTeilnehmer;
-  $mail->Body .= "<h3 style='text-decoration:underline'>Ihre Anmeldedaten im Überblick:</h3>";
+  $mail->Body .= "<h3>Ihre Anmeldedaten:</h3>";
   $mail->Body .= $anmeldedaten;
   $mail->send();
 
@@ -226,7 +249,7 @@ try {
 
   $mail->addAddress($_ENV['MAIL']);
   $mail->Subject = sprintf("Neue Baseballcamp %s Anmeldung", CURRENT_YEAR);
-  $mail->Body = "<h3 style='text-decoration:underline'>Neue Anmeldung</h3>";
+  $mail->Body = "<h3>Neue Anmeldung</h3>";
   $mail->Body .= "
     <html>
       <head>

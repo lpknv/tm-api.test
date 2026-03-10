@@ -22,15 +22,15 @@ function kid_template($kid, $index, $price)
 
   return sprintf(
     "\r<p>
-      <strong>Kind %d</strong><br/>
-      <strong>Name (Kosten %d,- Euro):</strong> %s<br/>
+      <strong style=\"border-bottom: 1px solid #444;\">Kind %d</strong><br/>
+      <strong>Name (Kosten %s):</strong> %s<br/>
       <strong>Alter:</strong> %s<br/>
       <strong>T-Shirt-Größe:</strong> %s<br/>
       %s
       <strong>Nach dem Baseballcamp selbständig den Heimweg antreten?:</strong> %s
     </p>\r\n",
     $index,
-    $price,
+    format_currency($price),
     $kid['name'],
     $kid['alter'],
     $kid['tshirt'],
@@ -42,4 +42,10 @@ function kid_template($kid, $index, $price)
 function e(?string $value): string
 {
   return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
+}
+
+function format_currency($value)
+{
+  $a = new \NumberFormatter("de-DE", \NumberFormatter::CURRENCY);
+  return $a->format($value);
 }
