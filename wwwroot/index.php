@@ -2,8 +2,7 @@
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/../functions.php';
 require_once __DIR__ . '/../database.php';
-
-$age_info = false;
+require_once __DIR__ . '/../helper.php';
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +21,7 @@ $age_info = false;
   <link rel="icon" href="cropped-efg-favicon-32x32.png" sizes="32x32">
   <link rel="icon" href="cropped-efg-favicon-192x192.png" sizes="192x192">
   <link rel="stylesheet" href="./assets/bootstrap.min.css">
-  <link rel="stylesheet" href="./assets/main.css">
+  <link rel="stylesheet" href="./assets/minified/main.min.css">
 </head>
 
 <body>
@@ -37,7 +36,7 @@ $age_info = false;
     </div>
   </nav>
   <div class="container">
-    <h3 class="mt-5">Willkommen zu der Baseballcamp Anmeldung</h3>
+    <h3 class="mt-5">Willkommen zur Baseballcamp Anmeldung</h3>
     <p class="lead">Bitte nutze das Formular unten, um dich für die Veranstaltung anzumelden.
       <br />
       Solltest du Fragen haben, so melde dich gerne bei Melanie Pfaffenrot unter der E-Mail Adresse
@@ -65,8 +64,8 @@ $age_info = false;
         <ul id="error-list" class="mb-0"></ul>
       </div>
     </div>
-    <form class="contact-form py-5">
-      <input type="hidden" name="hp">
+    <form class="contact-form">
+      <input type="text" value="" tabindex="-1" autocomplete="off" class="d-none" name="hp">
       <div class="row">
         <div class="col-12">
           <p class="text-secondary d-flex align-items-center gap-1">
@@ -75,34 +74,34 @@ $age_info = false;
             </svg>
             <span>Bitte fülle alle Felder mit * aus</span>
           </p>
-          <h5 class="mt-5">Allgemeine Daten</h5>
+          <?= render_component("subline", ["title" => "Allgemeine Daten"]) ?>
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-3">
                 <label for="familienname" class="form-label required">Familienname</label>
-                <input required type="text" class="form-control" name="familienname" id="familienname">
+                <input required type="text" class="form-control" name="familienname" placeholder="Familienname" id="familienname">
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label required">E-Mail Adresse</label>
-                <input required type="email" class="form-control" name="email" id="email">
+                <input required type="email" class="form-control" name="email" placeholder="E-Mail Adresse" id="email">
               </div>
               <div class="mb-3">
                 <label for="telefonnummer" class="form-label required">Telefonnummer / Handynummer der Eltern</label>
-                <input required type="text" class="form-control" name="telefonnummer" id="telefonnummer">
+                <input required type="text" class="form-control" name="telefonnummer" placeholder="Telefonnummer / Handynummer der Eltern" id="telefonnummer">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="mb-3">
                 <label for="strasse_hausnummer" class="form-label required">Straße + Hausnummer</label>
-                <input required type="text" class="form-control" name="strasse_hausnummer" id="strasse_hausnummer">
+                <input required type="text" class="form-control" name="strasse_hausnummer" placeholder="z.B. Musterstraße 42" id="strasse_hausnummer">
               </div>
               <div class="mb-3">
                 <label for="plz" class="form-label required">Postleitzahl</label>
-                <input required type="text" class="form-control" name="plz" id="plz">
+                <input required type="text" class="form-control" name="plz" placeholder="Postleitzahl" id="plz">
               </div>
               <div class="mb-3">
                 <label for="ort" class="form-label required">Ort</label>
-                <input required type="text" class="form-control" name="ort" id="ort">
+                <input required type="text" class="form-control" name="ort" placeholder="Ort" id="ort">
               </div>
             </div>
           </div>
@@ -110,7 +109,7 @@ $age_info = false;
       </div>
       <div class="row">
         <div class="col-12">
-          <h5 class="mt-5">Teilnehmer hinzufügen</h5>
+          <?= render_component("subline", ["title" => "Teilnehmer hinzufügen"]) ?>
         </div>
       </div>
       <div id="kids-container" class="row g-4"></div>
@@ -122,7 +121,7 @@ $age_info = false;
       </button>
       <div class="row">
         <div class="col-12">
-          <h5 class="mt-5">Allgemeine Informationen</h5>
+          <?= render_component("subline", ["title" => "Allgemeine Informationen"]) ?>
           <div class="row g-3">
             <div>
               <label for="how_did_you_find_out_about_us" class="form-label">Wie bist du auf unser Baseballcamp aufmerksam geworden?</label>
@@ -264,6 +263,7 @@ $age_info = false;
                     class="form-control"
                     id="kid${i}_name"
                     name="kids[${i}][name]"
+                    placeholder="Name"
                     required>
                 </div>
                 <div class="col-12 col-md-6">
@@ -298,7 +298,7 @@ $age_info = false;
                     type="text"
                     class="form-control"
                     id="kid${i}_height"
-                    placeholder="z.B. 116"
+                    placeholder="z.B. 116 oder 120,5 etc..."
                     name="kids[${i}][height]">
                 </div>
                 <div class="col-12">
