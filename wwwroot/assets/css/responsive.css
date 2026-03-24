@@ -1,0 +1,2454 @@
+/* econet | IT Solutions & Technology HTML Template  */
+
+@media only screen and (max-width: 1700px){
+	.main-header .header-lower .outer-box .ui-btn-outer{
+		border-right: 0;
+		margin-right: 0;
+		padding-right: 0;
+	}
+	.header-style-one .header-lower .logo-box{
+		margin-right: 30px;
+	}
+	
+	.main-menu .navigation>li {
+		margin-right: 50px;
+	}
+
+}
+
+@media only screen and (max-width: 1439px){
+	.main-header .header-lower .logo-box {
+		min-width: 230px;
+        margin-right: 20px;
+        padding: 24px 0 24px 20px;
+	}
+
+	.header-top {
+		margin-left: 220px;
+		padding-right: 30px;
+	}
+
+	.header-style-one .header-lower{
+		padding-right: 30px
+	}
+
+	.main-menu .navigation>li {
+		margin-right: 20px;
+	}
+
+	.project-section .carousel-outer {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.about-section .image-column .inner-column{
+		margin-left: 0;
+	}
+
+	.branch-block .inner-box{
+		padding: 45px 40px 50px;
+	}
+
+	.header-style-two .header-lower .logo-box{
+		padding: 15px 0;
+	}
+
+	.header-style-three .header-lower{
+		padding: 0;
+	}
+
+	.services-section-three .outer-box{
+		margin: 0;
+	}
+
+	.header-style-four .header-lower .main-menu .navigation>li{
+		margin: 0 20px;
+	}
+
+	.main-header.header-style-five .header-lower .logo-box{
+		min-width: auto;
+		margin-right: 30px;
+	}
+
+	.banner-section-four .content-box .title{
+		font-size: 64px;
+	}
+
+
+	.banner-section-four:before{
+		height: 300px;
+		width: 300px;
+	}
+
+	.service-block-five .inner-box{
+		text-align: center;
+		padding: 0 15px;
+		max-width: 400px;
+		margin: 0 auto;
+	}
+
+	.service-block-five .icon-box{
+		margin: 0 auto 20px;
+	}
+	.project-section-one {
+		padding: 120px 0 110px;
+	}
+	.latest-blog-section-one {
+		margin: -335px 0px 0 0px;
+	}
+	.banner-section-charity::before {
+		left: 0;
+	}	
+}
+
+
+@media only screen and (max-width: 1199px){
+	.header-top{
+		margin-left: 0;
+		padding: 0;
+	}
+
+	.main-header .main-box{
+		align-items: center;
+	}
+
+	.main-header .header-lower .logo-box{
+		margin-top: 0;
+		min-height: auto;
+	}
+
+	.about-section:before,
+	.about-section .image-column .image-1:before,
+	.about-section .image-column .image-2,
+	.main-header .header-lower .outer-box .theme-btn,
+	.header-top .outer-box{
+		display: none;
+	}
+
+	.banner-section-three .content-box .title,
+	.banner-section-two .content-box .title,
+	.banner-section .content-box .title,
+	.main-slider h1{
+		font-size: 76px
+	}
+
+	.sec-title h2{
+		font-size: 42px
+	}
+
+	.banner-section-three .content-box .sub-title{
+		font-size: 38px
+	}
+
+	.banner-section-three .content-box .btn-box{
+		margin-top: 30px
+	}
+
+	.call-to-action-two.alternate::before,
+	.banner-section-three .banner-carousel .owl-nav{
+		display: none;
+	}
+
+	.about-section .image-column .image-1{
+		max-width: 100%;
+	}
+
+	.about-section .image-column .inner-column{
+		padding-right: 0;
+	}
+
+	.about-section .experience{
+		left: 60px;
+	}
+	
+	.about-section-two .image-column .experience{
+		left: 40px;
+	}
+
+	.offer-section .content-column .inner-column{
+		padding-right: 0;
+	}
+
+	.about-section-two .image-column .image-1 img{
+		min-width: auto;
+	}
+
+	.about-section-two .image-column .inner-column{
+		padding-right: 0;
+	}
+
+	.faqs-section .form-column .inner-column,
+	.faqs-section .faq-column .inner-column{
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.faqs-section .form-bg,
+	.faqs-section .faq-bg{
+		right: 0px;
+		left: auto;
+		width: 101%;
+	}
+
+	.call-to-action-two .content-box{
+		padding: 30px 40px;
+	}
+
+	.branch-block .info-list li{
+		padding-left: 35px;
+	}
+
+	.about-section-three .image-column .image-2{
+		left: 0;
+		bottom: -75px;
+	}
+
+	.offer-section-two .content-column .inner-column{
+		margin-right: -30px;
+	}
+
+	.about-section-four .content-column .inner-column{
+		padding-left: 0;
+	}
+
+	.feature-block-three .inner-box{
+		padding: 35px 30px 25px;
+		padding-left:260px;
+	}
+	
+	.why-choose-us .content-column .image-box .caption{
+		left: 150px;
+	}
+
+	.contact-section .image-column .inner-column{
+		padding-left: 0;
+	}
+
+	.banner-section .slide-item{
+		min-height: auto;
+	}
+	.banner-section .content-box{
+		padding: 180px 0;
+	}
+
+	.contact-section .form-column .inner-column{
+		padding-top: 0;
+		margin-right: 0;
+	}
+
+	.header-style-three .header-top .inner-container{
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.header-style-three .header-lower .main-box .logo-box{
+		height: 90px;
+		min-width: 180px;
+		margin-top: 0;
+	}
+
+	.main-header.header-style-five .header-lower .main-box .logo-box{
+		padding: 15px 20px;
+	}
+
+	.banner-section-two .content-box{
+		padding: 250px 0 150px
+	}
+
+	.about-section-five .image-column .image-2{
+		display: none;
+	}
+
+	.offer-section-three .image-column .image-box{
+		height: 450px;
+		width: 450px;
+	}
+
+	.offer-section-three .image-column .inner-column{
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 20px;
+	}
+
+	.offer-section-three .content-column .inner-column{
+		padding-left: 0;
+	}
+
+	.project-section-three .carousel-outer{
+		margin-right: -100px;
+	}
+
+	.why-choose-us-two .image-column .image-box{
+		padding-left: 0;
+	}
+
+	.why-choose-us-two .image-column .image-box img{
+		min-height: 520px;
+		object-fit: cover;
+	}
+
+	.why-choose-us-two .image-column .image-box .play-btn{
+		height: 90px;
+		width: 90px;
+		font-size: 20px;
+	}
+
+	.contact-section-two .info-column .inner-column{
+		margin-left: 0;
+		padding-left: 50px;
+		padding-right: 20px;
+	}
+
+	.contact-section-two .info-column .inner-column .image{
+		display: none;
+	}
+
+	.call-to-action-four .outer-box{
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.call-to-action-four .btn-box{
+		margin-top: 30px;
+	}
+
+	.call-to-action-four{
+		padding: 50px 0;
+	}
+
+	.clients-carousel{
+		padding: 60px 0;
+	}
+
+
+	.service-block-three{
+		flex: 0 0 33.3333%;
+		width: 33.3333%;
+	}
+
+	.main-header .header-lower .logo-box{
+		min-width: 180px;
+	}
+
+	.header-style-four .header-lower .info-btn{
+		font-size: 0;
+		padding-left: 45px;
+	}
+
+	.call-to-action-five .title-box .title br,
+	.header-style-four .header-lower .info-btn small{
+		display: none;
+	}
+
+	.about-section-six .image-column .inner-column{
+		padding-right: 0;
+	}
+
+	.about-section-six .completed-projects strong{
+		font-size: 48px
+	}
+
+	.about-section-six .completed-projects .text{
+		font-size: 12px;
+		top: 50px
+	}
+
+	.project-section.style-two .carousel-outer{
+		margin-right: -100px;
+	}
+
+	.work-tabs .tab-buttons .tab-btn{
+		padding: 20px;
+		font-size: 24px;
+	}
+
+	.work-tabs .content-column .inner-column{
+		padding: 0;
+	}
+
+	.testimonial-block-three .image-box{
+		max-width: 160px;
+	}
+
+	.testimonial-block-three .content-box .info-box{
+		padding-left: 100px;
+	}
+
+	.pricing-section .content-column .inner-column,
+	.why-choose-us-three .image-column .image-box{
+		padding-right: 0;
+	}
+
+	.news-section-two .news-carousel .owl-nav{
+		display: none;
+	}
+
+	.call-to-action-five .title-box .title{
+		font-size: 34px;
+	}
+
+	.about-section-five.style-two .content-column .inner-column{
+		padding-left: 0;
+	}
+
+	.offer-section-four .content-column .info-box{
+		margin-bottom: 50px;
+	}
+
+	.faqs-section.style-two .faq-column{
+		order: 0 !important;
+	}
+
+	.faqs-section.style-two .image-column .inner-column{
+		margin-left: 0;
+	}
+
+	.testimonial-section-four{
+		padding: 120px 0 90px;
+	}
+
+	.header-style-two .header-lower .logo-box,
+	.contact-section-four .our-values .image{
+		margin-right: 30px;
+	}
+
+	.header-style-one .header-lower .main-box {
+		align-items: center;
+	}
+}
+
+
+@media only screen and (min-width: 768px){
+	.main-menu .navigation > li > ul,
+	.main-menu .navigation > li > ul > li > ul{
+		display:block !important;
+		visibility:hidden;
+		opacity:0;
+	}
+}
+
+@media only screen and (max-width: 1024px){
+
+	.main-header .main-menu {
+		display:block;
+	}
+
+	.main-header .logo {
+		min-width: auto;
+	}
+
+	.main-header .logo img,
+	.sticky-header .logo img {
+		width: auto;
+		max-width: none;
+		max-height: 45px;
+	}
+	.sticky-header .mobile-nav-toggler {
+		display: block;
+		margin-left: 20px;
+		width: 40px;
+		height: 40px;
+		background: var(--theme-color2);
+		text-align: center;
+		line-height: 40px;
+		border-radius: 5px;
+		color: var(--theme-color-white);
+		position: absolute;
+		top: 15px;
+		right: -60px;
+	}
+	.mobile-nav-toggler {
+		display: block;
+		margin-left: 20px;
+		width: 40px;
+		height: 40px;
+		background: var(--theme-color2);
+		text-align: center;
+		line-height: 40px;
+		border-radius: 5px;
+		color: var(--theme-color-white);
+	}
+	.main-header .ui-btn {
+		font-size: 24px;
+		line-height: 35px;
+		margin-left: 15px;
+	}
+	.main-header .main-box .nav-outer {
+		gap: 0;
+	}
+	.main-header .main-box .nav-outer {
+		width: auto;
+	}
+	.main-header .main-box{
+		justify-content: space-between;
+	}
+	.main-header .header-lower .outer-box .menubars-text a {
+		display: none;
+	}
+	.main-header .header-lower .outer-box .menubars {
+    	display: none;
+	}
+	.header-style-one .header-lower{
+		padding-right: 20px;
+	}
+	.sticky-header .inner-container {
+		align-items: center;
+		justify-content: space-around;
+	}
+	.sticky-header .mobile-nav-toggler {
+    	color: var(--theme-color-white);
+	}
+	.banner-section-one .banner-content-wrap .banner-info-box .banner-btn a {
+    	padding: 15px 20px;
+	}
+	.banner-section-one .banner-content-wrap {
+		padding: 165px 30px 90px;
+		border-radius: 0;
+	}
+	.banner-section-four .content-box .title{
+		letter-spacing: .1em;
+	}
+	.banner-section-one .banner-content-wrap .banner-info-box .banner-btn a::before {
+		left: 160px;
+		top: 22px;
+	}
+	.banner-section-one .banner-content-wrap .banner-botton-since {
+		grid-gap: 70px;
+		display: block;
+	}
+	.header-style-four .header-lower .mobile-nav-toggler{
+		color: #ffffff
+	}
+	.banner-section-one .banner-content-wrap .banner-shape5 {
+		display: none;
+	}
+
+	.banner-section-one .banner-content-wrap .banner-shape6 {
+		display: none;
+	}
+	.banner-section-one {
+		border-radius:0;
+		margin-top: 0;
+		padding: 0px 0px 28px 0px;
+	}
+	.banner-section-one .banner-wrapper {
+		border-radius: 0;
+		padding: 0px 0 268px;
+	}
+	.banner-section-one .banner-wrapper .banner-shape2 {
+		display: none;
+	}
+	.banner-section-one .banner-wrapper .banner-shape3 {
+		display: none;
+	}
+	.banner-section-one .banner-wrapper .banner-shape1 {
+		display: none;
+	}
+	.about-section-one {
+		border-radius: 0;
+	}
+	.about-section-one .single-about-box {
+		background-size: inherit;
+	}
+	.about-section-one .single-about-box::before {
+		background-size: inherit;
+	}
+	.services-section-one .single-service-box {
+    	background-position:inherit;
+	}
+	.services-section-one .single-service-box::before {
+    	background-position:inherit;
+	}
+
+	/* environment classic */
+	.service-section-classic .section-desc p {
+		margin: 0px 0 0;
+		width: 100%;
+	}
+	.service-section-classic .service-classic-active .econet-banner-arrow-box .slider-prev {
+		display: none;
+	}
+	.service-section-classic .service-classic-active .econet-banner-arrow-box .slider-next {
+		display: none;
+	}
+	.why-choose-section-one .why-choose-box .single-choose-box {
+		border-top: 0;
+		display: block;
+	}
+	.why-choose-section-one .why-choose-box .single-choose-box .choose-icon {
+		float: inherit;
+		margin-bottom: 20px;
+	}
+	.why-choose-section-one .why-choose-box .single-choose-box:last-child {
+		border-bottom: 0;
+	}
+	/* soloar */
+	.feature-section-solar .section-desc p {
+		margin: 0px 0 0;
+		width: 100%;
+	}
+	.feature-section-solar .feature-solar-active .econet-feature-arrow-box .slider-prev {
+		display: none;
+	}
+	.feature-section-solar .feature-solar-active .econet-feature-arrow-box .slider-next {
+		display: none;
+	}
+	.about-section-solar {
+		border-radius: 0;
+		margin: 0;
+	}
+	.about-section-solar .about-counter-wrapper .about-counter {
+		padding: 32px 10px 10px 10px;
+	}
+	.about-section-solar .about-counter-wrapper .about-counter.two {
+		padding: 32px 10px 10px 10px;
+	}
+	.about-section-solar .about-item-box .single-about-box {
+		display: block;
+	}
+	.about-section-solar .about-item-box .single-about-box .about-wrap .about-icon {
+		float: inherit;
+	}
+	.about-section-solar .about-item-box .single-about-box {
+		border-bottom: 0;
+	}
+	.about-section-solar .about-item-box .single-about-box .about-desc p {
+		float: left;
+	}
+	.about-section-solar .about-item-box .about-info-box {
+		display: block;
+	}
+	.service-section-solar .section-desc P {
+		margin: 0;
+		width: 100%;
+	}
+	.service-section-solar .service-solar-active .econet-service-arrow-box .slider-prev {
+		display: none;
+	}
+	.service-section-solar .service-solar-active .econet-service-arrow-box .slider-next {
+		display: none;
+	}
+	.why-choose-section-solar .choose-box {
+		margin: 0 auto 20px;
+	}
+	.why-choose-section-solar .choose-box-wrapper {
+		margin-top: 37px;
+		text-align: center;
+	}
+	.why-choose-section-solar .why-choose-thumb {
+		position: relative;
+		bottom: 0;
+		margin-left: 0;
+		text-align: center;
+	}
+	.project-section-solar .project-box::before {
+		display: none;
+	}
+	.project-section-solar .project-box .project-content .project-title h3 {
+		font-size: 25px;
+	}
+	.work-process-section-solar .working-process-box .process-content p {
+		width: 100%;
+	}
+	.testimonial-section-solar .testi-solar-active {
+		margin: 30px 20px 0;
+	}
+	.sign-up-section-solar .sign-up .sign-up-form .form-input-bx span {
+		right: 0;
+		left: 360px;
+		top: 18px;
+	}
+	.latest-blog-section-solar .single-blog-box .blog-content .blog-title a {
+		font-size: 30px;
+	}
+
+	/* solar classic */
+	.about-section-solar-classic .about-counter-wrapper .about-counter {
+		padding: 32px 10px 10px 10px;
+	}
+	.about-section-solar-classic .about-counter-wrapper .about-counter.two {
+		padding: 32px 10px 10px 10px;
+	}
+	.about-section-solar-classic .about-item-box .single-about-box {
+		border-bottom: 0;
+		display: block;
+	}
+	.about-section-solar-classic .about-item-box .single-about-box .about-wrap .about-icon {
+		float: inherit;
+	}
+	.about-section-solar-classic .about-item-box .single-about-box .about-desc p {
+		float: left;
+	}
+	.about-section-solar-classic .about-item-box .about-info-box {
+		display: block;
+	}
+	.service-section-solar-classic .section-desc P {
+		margin: 0;
+		width: 100%;
+	}
+	.service-section-solar-classic .service-solar-classic-active .econet-service-arrow-box .slider-prev {
+		display: none;
+	}
+	.service-section-solar-classic .service-solar-classic-active .econet-service-arrow-box .slider-next {
+		display: none;
+	}
+	.service-section-solar-classic .single-service-box .service-thumb figure {
+		width: 100%;
+	}
+	.why-choose-section-solar-classic .choose-box-wrapper {
+		text-align: center;
+	}
+	.why-choose-section-solar-classic .choose-box {
+		margin: 0 auto 20px;
+	}
+	.why-choose-section-solar-classic .why-choose-thumb {
+		text-align: center;
+	}
+	.work-process-section-solar-classic .working-process-box .process-content p {
+		width: 100%;
+	}
+	.testimonial-section-solar-classic .testi-solar-classic-active {
+		margin: 30px 0px 0 0;
+	}
+	.latest-blog-section-solar-classic .single-blog-box .blog-thumb {
+		width: 100%;
+	}
+	.latest-blog-section-solar-classic .single-blog-box .blog-thumb img {
+		width: 100%;
+	}
+	.main-footer-solar .main-footer-section .footer-widget-content.social {
+		margin-bottom: 25px;
+	}
+	.project-section-solar-classic .project-box .project-content .project-title h3 {
+		font-size: 25px;
+	}
+
+	/* charity */
+	.banner-section-charity::before {
+		left: 0;
+		border-radius: 0;
+	}
+	.banner-section-charity .banner-thumb-wrapper .banner-thu-shape {
+		display: none;
+	}
+	.banner-section-charity .banner-thumb-wrapper .banner-thumb {
+		right: 0px;
+		bottom: -60px;
+		text-align: center;
+	}
+	.feature-section-charity .single-feature-box {
+		margin-bottom: 20px;
+	}
+	.about-section-charity .sec-title .section-title .title {
+		font-size: 35px;
+		line-height: 48px;
+	}
+	.about-section-charity .about-item-box .single-about-box {
+		border-bottom: 0;
+		display: block;
+	}
+	.about-section-charity .about-item-box .single-about-box .about-wrap .about-icon {
+		float: inherit;
+	}
+	.about-section-charity .about-item-box .single-about-box .about-desc p {
+		width: 86%;
+		float: left;
+	}
+	.about-section-charity .about-item-box .about-info-box {
+		display: block;
+	}
+	.donations-section-charity .single-donations-box .donations-thumb figure {
+		width: 100%;
+	}
+	.donations-section-charity .single-donations-box .donations-thumb figure img {
+		width: 100%;
+	}
+	.mission-vission-section-charity .sec-title .section-title .title {
+		font-size: 35px;
+		line-height: 48px;
+	}
+	.mission-vission-section-charity .tab .tabs li a {
+		padding: 8px 25px;
+		margin: 0 5px;
+		font-size: 16px;
+	}
+	.mission-vission-section-charity .circle-progress-box {
+		display: block;
+	}
+	.mission-vission-section-charity .circle-progress-box .circle-progress {
+		margin-bottom: 20px;
+	}
+	.donate-love-section-charity .donate-love-thumb {
+		height: 403px;
+	}
+	.project-section-charity .project-box .project-content {
+		padding: 37px 0px 0px;
+	}
+	.give-daonation-section-charity .donation-form-bg .donation-form {
+		padding: 70px 15px 70px 15px;
+	}
+	.give-daonation-section-charity .donation-form-bg .donation-form .preset-buttons .amount {
+		padding: 4px 20px 3px;
+	}
+	.give-daonation-section-charity .donation-form-bg::before {
+		width: 920px;
+	}
+	.give-daonation-section-charity .donation-form-bg::after {
+		width: 880px;
+	}
+	.joint-event-section-charity .joint-event-box {
+		padding: 55px 10px 45px 10px;
+	}
+	.joint-event-section-charity .joint-event-box .event-title h3 {
+		font-size: 22px;
+		line-height: 30px;
+	}
+	.contact-section-charity .contact-bg .contact-form-box {
+		padding: 90px 35px 25px;
+	}
+	.sign-up-section-charity .sign-up .sign-up-form .form-input-bx span {
+		right: 0;
+		top: 18px;
+		left: 340px;
+	}
+	.main-footer-charity .main-footer-section .footer-widget-content.social {
+		padding-right: 0px;
+		margin-bottom: 30px;
+	}
+
+	/* charit classic */
+	.donations-section-charity-classic .single-donations-box .donations-thumb figure {
+		width: 100%;
+	}
+
+}
+
+@media only screen and (max-width: 992px){
+	.sticky-header .mobile-nav-toggler {
+		color: var(--theme-color-white);
+		top: 25px;
+		right: -30px;
+	}
+	.blog-list-area .single-blog-box .blog-content .blog-title {
+		font-size: 20px;
+	}
+	.blog-list-area .widget-sidber .widget-catefories-tags a {
+		padding: 6px 16px;
+	}
+	.blog-details-area .widget-sidber .widget-catefories-tags a {
+		padding: 6px 16px;
+	}
+}
+
+
+@media only screen and (max-width: 768px){
+	.main-header .main-menu {
+		display: none;
+	}
+	.sticky-header .mobile-nav-toggler {
+		display: block;
+		margin-left: 20px;
+		width: 40px;
+		height: 40px;
+		background: var(--theme-color2);
+		text-align: center;
+		line-height: 40px;
+		border-radius: 5px;
+		color: var(--theme-color-white);
+		position: absolute;
+		top: -18px;
+		right: 0;
+	}
+	.mobile-nav-toggler {
+		display: block;
+		margin-left: 20px;
+		width: 40px;
+		height: 40px;
+		background: var(--theme-color2);
+		text-align: center;
+		line-height: 40px;
+		border-radius: 5px;
+		color: var(--theme-color-white);
+	}
+	.sticky-header .inner-container {
+		align-items: center;
+		justify-content: space-between;
+	}
+	.services-section-one .single-service-box {
+		background-position: center center;
+	}
+	.services-section-one .single-service-box::before {
+		background-position: center center;
+	}
+	.about-section-one .single-about-box {
+		background-size: inherit;
+		background-position: inherit;
+	}
+	.about-section-one .single-about-box::before {
+		background-size: inherit;
+		background-position: inherit;
+	}
+	.joint-event-section-charity {
+		padding: 200px 0 90px;
+	}
+	.team-details-area .team-details-skills {
+		margin-top: 50px;
+	}
+	.services-details-area .services-details-content .services-details-title {
+		font-size: 30px;
+	}
+	.donation-details-area .dontaion-detais-title {
+		font-size: 25px;
+	}
+}
+
+
+
+@media only screen and (max-width: 599px){
+	.main-header .main-menu {
+		display: none;
+	}
+	.testimonial-section-classic .section-desc p {
+		width: 100%;
+	}
+	.about-section-solar .about-counter-wrapper .about-counter {
+		background-position: inherit;
+	}
+	.joint-event-section-charity {
+		padding: 100px 0 90px;
+	}
+	.donation-details-area .submit-donation {
+		margin-bottom: 30px;
+	}
+	.blog-details-area .blog-details-thumb {
+		margin-bottom: 20px;
+	}
+}
+
+
+
+@media only screen and (max-width: 424px){
+.main-header .main-menu {
+    display: none;
+}
+.banner-section-one .banner-wrapper {
+    border-radius: 0;
+    padding: 0px 0 0px;
+}
+.banner-section-one .banner-content-wrap .banner-title h1 {
+    font-size: 35px;
+    line-height: 45px;
+}
+.banner-section-one .banner-content-wrap .banner-info-box {
+    display: block;
+}
+.banner-section-one .banner-content-wrap .banner-info-box .banner-btn a {
+    padding: 15px 20px;
+    margin-bottom: 30px;
+}	
+.banner-section-one .banner-content-wrap {
+    padding: 80px 30px 90px;
+    border-radius: 0;
+}
+.sec-title .section-title .title {
+    font-size: 30px;
+    line-height: 40px;
+}
+.services-section-one {
+    padding: 120px 20px 100px 20px;
+    border-radius: 0;
+}
+.sec-title .section-desc p {
+    width: 100%;
+}
+.about-section-one {
+    border-radius: 0;
+}
+.why-choose-section-one .why-choose-shape1 {
+    display: none;
+}
+.why-choose-section-one .why-choose-wrapper .why-choose-counter {
+    left: 130px;
+    display: none;
+}
+.why-choose-section-one .why-choose-box .single-choose-box .choose-desc p {
+    width: 100%;
+    float: left;
+}
+.why-choose-section-one .why-choose-box .choose-title h1 {
+    font-size: 30px;
+}
+.project-section-one {
+    border-radius: 0;
+    margin: -245px 0px 30px 0px;
+}
+.project-section-one .project-box .project-box-item .project-thumb .project-box {
+    display: none;
+}
+.project-section-one .project-box .project-box-item .project-thumb figure{
+	width: 100%;
+}
+.work-process-section-one {
+    border-radius: 0;
+    margin: 0;
+}
+.work-process-section-one .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.marquee-section-one {
+    margin: 0;
+    border-radius: 0;
+}
+.team-section-one .single-team-box.upp {
+    transform: translateY(0px);
+}
+.team-section-one {
+    padding: 120px 20px 80px 20px;
+    border-radius: 0;
+}
+.testimonial-section-one .single-testi-box {
+    padding: 45px 10px 35px 10px;
+}
+.latest-blog-section-one {
+    margin: -335px 0px 0 0px;
+}
+.latest-blog-section-one .single-blog-box .blog-content .blog-title a {
+    font-size: 28px;
+}
+.latest-blog-section-one .single-blog-box {
+    margin-bottom: 30px;
+}
+.latest-blog-section-one .blog-single-box {
+    display: block;
+}
+.latest-blog-section-one .blog-single-box .blog-thumb {
+    width: 100%;
+}
+.latest-blog-section-one .blog-single-box .blog-thumb img {
+    width: 100%;
+}
+.main-footer-one .footer-circle {
+    text-align: center;
+}
+.main-footer-one .footer-circle .circle-text {
+    bottom: 22px;
+    right: 112px;
+}
+.main-footer-one .footer-bottom .footer-bottom-menu {
+    text-align: left;
+}
+.main-footer-one .footer-bottom .footer-bottom-menu ul li {
+    margin-left: 10px;
+}
+.main-footer-one .footer-bottom .footer-bottom-menu ul li:first-child {
+    margin-left:0px;
+}
+.about-section-one .about-autor-box .about-arrow {
+    display: none;
+}
+.about-section-one .about-sec .about-shape1 {
+    display: none;
+}
+.about-section-one .about-autor-box {
+    padding: 35px 10px 32px 10px;
+}
+.latest-blog-section-one {
+    background-position: center;
+}
+.brand-area-one .band-active .brand-box {
+    margin: 0 auto;
+}
+
+/* environment classic */
+.banner-section-classic .banner-content-wrap .banner-title h1 {
+    font-size: 30px;
+    line-height: 40px;
+}
+.banner-section-classic .banner-content-wrap .banner-info-box {
+    display: block;
+}
+.banner-section-classic .banner-content-wrap .banner-info-box .banner-btn a {
+    margin-bottom: 30px;
+}
+.banner-section-classic .banner-content-wrap .banner-botton-since {
+    display: block;
+}
+.banner-section-classic .banner-content-wrap .banner-botton-since .banner-desc p {
+    margin: 0 0 0 0px;
+    width: 100%;
+}
+.about-section-classic .about-autor-box .about-arrow {
+    display: none;
+}
+.about-section-classic .about-autor-box {
+    padding: 35px 10px 32px 10px;
+	margin-bottom: 30px;
+}
+.about-section-classic .about-autor-box .about-counter {
+    top: 30px;
+    right: 20px;
+}
+.service-section-classic .service-classic-active {
+    margin-top: 30px;
+}
+.work-process-section-classic .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.testimonial-section-classic .testi-classic-active .econet-banner-arrow-box .slider-prev {
+    display: none;
+}
+.testimonial-section-classic .testi-classic-active .econet-banner-arrow-box .slider-next {
+    display: none;
+}
+.testimonial-section-classic .section-desc p {
+    width: 100%;
+}
+.brand-area-classic .band-active .brand-box {
+    margin: 0 auto;
+}
+.banner-section-solar {
+    margin: -90px 0px 0px;
+    border-radius: 0px;
+}
+.header-solar-renewable .main-box {
+    top: 0;
+    padding: 0 10px 0;
+}
+.banner-section-solar .banner-content-wrap .banner-title h2 .switch {
+    display: none;
+}
+.banner-section-solar .banner-content-wrap .banner-title h2 {
+    font-size: 30px;
+    line-height: 40px;
+}
+.banner-section-solar .banner-content-wrap .banner-title h2 img {
+    display: none;
+}
+.banner-section-solar .banner-content-wrap .banner-autor-info .banner-autor-desc {
+    position: inherit;
+    bottom: 0;
+    left: 0;
+}
+.banner-section-solar .banner-content-wrap .banner-autor-info .banner-autor-desc p {
+    width: 100%;
+}
+.feature-section-solar .feature-solar-active {
+    margin-top: 30px;
+}
+.about-section-solar .about-counter-wrapper {
+    display: block;
+}
+.about-section-solar .about-counter-wrapper .about-counter {
+    padding: 32px 10px 10px 10px;
+    margin-bottom: 30px;
+}
+.service-section-solar .service-solar-active {
+    overflow-x: hidden;
+    margin-top: 30px;
+}
+.why-choose-section-solar {
+    border-radius: 0;
+    margin: 0;
+}
+.project-section-solar .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.work-process-section-solar {
+    margin: 0;
+    border-radius: 0;
+}
+.work-process-section-solar .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.marquee-section-solar {
+    margin: 0;
+    border-radius: 0;
+}
+.contact-section-solar {
+    padding: 0;
+    margin: 0;
+}
+.contact-section-solar .contact-form-box {
+    padding: 80px 20px 80px;
+    border-radius: 0;
+}
+.testimonial-section-solar .testi-solar-active .econet-solar-arrow-box .slider-prev {
+    display: none;
+}
+.testimonial-section-solar .testi-solar-active .econet-solar-arrow-box .slider-next{
+    display: none;
+}
+.testimonial-section-solar .section-desc p {
+    width: 100%;
+}
+.latest-blog-section-solar {
+    border-radius: 0;
+    margin: 0;
+}
+.latest-blog-section-solar .single-blog-box .blog-content .blog-title a {
+    font-size: 25px;
+    line-height: 35px;
+}
+.latest-blog-section-solar .blog-single-box {
+    display: block;
+}
+.latest-blog-section-solar .single-blog-box {
+    margin-bottom: 30px;
+}
+.sign-up-section-solar {
+    border-radius: 0;
+    margin: 0;
+}
+.sign-up-section-solar .sign-up .sign-up-form .form-input-bx input {
+    width: 390px;
+    margin-bottom: 30px;
+}
+.sign-up-section-solar .sign-up-title h4 {
+    font-size: 35px;
+}
+.main-footer-solar .footer-bottom .footer-bottom-menu {
+    text-align: left;
+}
+.main-footer-solar .footer-bottom .footer-bottom-menu ul li {
+    margin-left: 5px;
+}
+.latest-blog-section-solar .blog-single-box .blog-thumb {
+    width: 100%;
+}
+.latest-blog-section-solar .blog-single-box .blog-thumb img{
+    width: 100%;
+}
+.banner-section-solar-classic .banner-content-wrap .banner-title h2 span img {
+    display: none;
+}
+.banner-section-solar-classic .banner-content-wrap .banner-title h2 {
+    font-size: 30px;
+    line-height: 40px;
+}
+.banner-section-solar-classic .banner-content-wrap .banner-title h2 > img {
+    display: none;
+}
+.main-header .header-lower .outer-box {
+    padding: 10px 10px 10px 0;
+}
+.about-section-solar-classic .about-counter-wrapper {
+    display: block;
+}
+.about-section-solar-classic .about-counter-wrapper .about-counter {
+    margin-bottom: 30px;
+}
+.service-section-solar-classic .service-solar-classic-active {
+    margin-top: 30px;
+}
+.project-section-solar-classic .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.work-process-section-solar-classic .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.contact-section-solar-classic .contact-form-box {
+    padding: 80px 20px 80px;
+}
+.testimonial-section-solar-classic .testi-solar-classic-active .econet-solar-arrow-box .slider-prev {
+    display:none;
+}
+.testimonial-section-solar-classic .testi-solar-classic-active .econet-solar-arrow-box .slider-next {
+    display:none;
+}
+.testimonial-section-solar-classic .section-desc p {
+    width: 100%;
+}
+
+/* charity */
+.banner-section-charity .banner-content-wrap .banner-title h2 {
+    font-size: 30px;
+    line-height: 40px;
+}
+.banner-section-charity .banner-content-wrap .banner-autor-info .auto-info {
+    display: block;
+}
+.banner-section-charity .banner-content-wrap .banner-btn a {
+    margin-bottom: 30px;
+}
+.feature-section-charity .single-feature-box {
+    padding: 54px 10px 48px;
+}
+.about-section-charity .about-thumb-wrapper .about-counter {
+    display: none;
+}
+.about-section-charity .about-item-box .single-about-box {
+    padding: 0px 0 12px;
+}
+.mission-vission-section-charity .tab .tabs li a {
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 16px;
+}
+.mission-vission-section-charity .tab .tab_content .tabs_item .mision-vission-desc p {
+    width: 100%;
+}
+.mission-vission-section-charity .mission-vission-list li {
+    display: flex;
+}
+.mission-vission-section-charity .circle-progress-box .circle-progress .circle-outer .count-box {
+    left: -152px;
+}
+.mission-vission-section-charity .mission-vission-thumb-wrapper {
+    margin-left: 0px;
+    display: none;
+}
+.donate-love-section-charity .single-donate-love-box {
+    padding: 65px 10px 53px;
+}
+.give-daonation-section-charity .donation-form-bg .donation-form .form-title {
+    font-size: 30px;
+}
+.give-daonation-section-charity {
+    height: 100%;
+    margin-top: -65px;
+}
+.give-daonation-section-charity .donation-form-bg .donation-form .payment-methods {
+    display: block;
+}
+.joint-event-section-charity {
+    padding: 150px 0 90px;
+    margin-top: -100px;
+}
+.joint-event-section-charity .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.joint-event-section-charity .joint-event-box {
+    display: block;
+}
+.joint-event-section-charity .joint-event-box .event-location {
+    text-align: left;
+}
+.joint-event-section-charity .event-inner-box {
+    margin-bottom: 30px;
+}
+.joint-event-section-charity .joint-event-box::before {
+    display: none;
+}
+.contact-section-charity .contact-bg .contact-form-box {
+    padding: 90px 0px 25px;
+}
+.contact-section-charity .contact-bg .contact-form-box .section-desc p {
+    width: 100%;
+}
+.contact-section-charity .contact-bg .contact-form-box .contact-info-box {
+    display: block;
+}
+.latest-blog-section-charity .single-blog-box .blog-content .blog-title a {
+    font-size: 28px;
+}
+.latest-blog-section-charity .single-blog-box {
+    margin-bottom: 30px;
+}
+.latest-blog-section-charity .blog-single-box {
+    display: block;
+}
+.latest-blog-section-charity .blog-single-box .blog-thumb {
+    width: 100%;
+}
+.latest-blog-section-charity .blog-single-box .blog-thumb img{
+    width: 100%;
+}
+.sign-up-section-charity .sign-up-title h4 {
+    font-size: 30px;
+}
+.sign-up-section-charity .sign-up .sign-up-form .form-input-bx input {
+    width: 385px;
+    margin-bottom: 30px;
+}
+.main-footer-charity .main-footer-section .footer-widget-content {
+    padding-right: 0;
+}
+.main-footer-charity .footer-bottom .footer-bottom-menu {
+    text-align: left;
+}
+.main-footer-charity .footer-bottom .footer-bottom-menu ul li {
+    margin-left: 0;
+}
+
+/* charity classic */
+.banner-section-charity-classic .banner-content-wrap .banner-title h2 {
+    font-size: 30px;
+    line-height: 40px;
+}
+.banner-section-charity-classic .banner-content-wrap .banner-autor-info .auto-info {
+    display: block;
+}
+.banner-section-charity-classic .banner-content-wrap .banner-btn a {
+    margin-bottom: 30px;
+}
+.feature-section-charity-classic .single-feature-box {
+    padding: 54px 10px 48px;
+	margin-bottom: 30px;
+}
+.about-section-charity-classic .about-thumb-wrapper .about-counter {
+    display: none;
+}
+.about-section-charity-classic .about-item-box .single-about-box {
+    display: block;
+	border: 0;
+	padding: 0px 0 12px;
+}
+.about-section-charity-classic .about-item-box .single-about-box .about-desc p {
+    width: 100%;
+    float: left;
+}
+.about-section-charity-classic .about-item-box .single-about-box .about-wrap .about-icon {
+    float: inherit;
+}
+.about-section-charity-classic .about-item-box .about-info-box {
+    display: block;
+}
+.mission-vission-section-charity-classic .tab .tabs li a {
+    padding: 8px 10px;
+    margin: 0 4px;
+    font-size: 17px;
+}
+.mission-vission-section-charity-classic .tab .tab_content .tabs_item .mision-vission-desc p {
+    width: 100%;
+}
+.mission-vission-section-charity-classic .mission-vission-list li {
+    display: flex;
+}
+.mission-vission-section-charity-classic .circle-progress-box {
+    display: block;
+}
+.mission-vission-section-charity-classic .circle-progress-box .circle-progress .circle-outer {
+    margin-bottom: 10px;
+}
+.mission-vission-section-charity-classic .circle-progress-box .circle-progress .circle-outer .count-box {
+    left: -152px;
+}
+.mission-vission-section-charity-classic .circle-progress-box .circle-progress .circle-outer .title br{
+    display: none;
+}
+.mission-vission-section-charity-classic .mission-vission-thumb-wrapper {
+    margin-left: 0px;
+    display: none;
+}
+.project-section-charity .project-box .project-content .project-title h3 {
+    font-size: 24px;
+}
+.give-daonation-section-charity-classic .donation-form-bg .donation-form {
+    padding: 70px 10px 70px 10px;
+    border-radius: 0px 0px 0px 0px;
+}
+.give-daonation-section-charity-classic .donation-form-bg .donation-form .form-title {
+    font-size: 30px;
+}
+.give-daonation-section-charity-classic .donation-form-bg .donation-form .payment-methods {
+    display: block;
+}
+.team-section-charity-classic {
+    padding: 100px 0 100px;
+}
+.give-daonation-section-charity-classic {
+    height: 100%;
+}
+.team-section-charity-classic .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.brand-area-one {
+    padding: 80px 0 80px;
+}
+
+/* service details */
+.services-details-area .services-details-content .services-details-title {
+    font-size: 30px;
+    margin-bottom: 0;
+}
+.services-details-area .service-details-icon-box {
+    padding: 32px 10px 18px;
+}
+.services-details-area .service-details-icon-box .service-details-icon-thumb {
+    margin-right: 10px;
+}
+.services-details-area .services-details-text {
+    padding: 32px 10px;
+	display: block;
+}
+.services-details-area .services-details-text .service-details-text-icon {
+    margin-bottom: 10px;
+}
+.services-details-area .single-benifits-box {
+    margin-bottom: 30px;
+}
+.services-details-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+.services-details-area .widget-sidber-contact-box .widget-sidber-contact-btn a {
+    padding: 16px 50px 15px;
+}
+.project-details-area .project-details-content h4 {
+    font-size: 26px;
+}
+.project-details-area .project-details-content .project-details-text {
+    font-size: 20px;
+    line-height: 30px;
+}
+.project-details-area .project-details-right {
+    padding: 29px 10px 30px;
+}
+.project-details-area .widget-sidber-contact-box {
+    padding: 48px 10px 48px;
+}
+.donation-details-area .dontaion-detais-title {
+    font-size: 25px;
+}
+.donation-details-area .tabcontent {
+    padding: 10px 30px 10px;
+}
+.donation-details-area .tabcontent::before {
+    left: 30px;
+    top: 20px;
+}
+.donation-details-area .submit-donation {
+    margin-bottom: 20px;
+}
+.donation-details-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+.donation-details-area .widget-sidber-contact-box {
+    padding: 48px 10px 48px;
+}
+.team-details-area .team-details-right .contact-info-box {
+    margin-bottom: 20px;
+}
+.team-details-area .team-details-skills {
+    margin-top: 40px;
+}
+.blog-list-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+.breadcumb-area .breadcumb-content .breadcumb-title h4 {
+    font-size: 30px;
+}
+.blog-details-area .blog-details-content {
+    padding: 27px 10px 20px;
+}
+.blog-details-area .blog-details-content .blog-details-author-talk {
+    padding: 41px 10px 40px;
+    display: block;
+}
+.blog-details-area .blog-details-content .blog-details-quote {
+    margin-bottom: 10px;
+}
+.blog-details-area .blog-details-content .blog-details-list-item ul li {
+    display: flex;
+}
+.blog-details-area .blog-details-thumb {
+    margin-bottom: 10px;
+}
+.blog-details-area .blog-details-socila-box .blog-details-social-icon {
+    text-align: left;
+    margin-top: 10px;
+}
+.blog-details-area .blog-details-socila-box {
+    padding: 19px 10px 18px;
+}
+.blog-details-area .blog-details-post .blog-post-box {
+    padding: 84px 10px 31px 10px;
+    gap:10px;
+}
+.blog-details-area .single-comment-area {
+    padding: 49px 10px 56px;
+    margin-bottom: 20px;
+}
+.blog-details-area .single-comment-area .blog-details-comment {
+    padding: 29px 10px 25px;
+}
+.blog-details-area .single-comment-area .blog-details-comment .blog-details-comment-thumb {
+    float: inherit;
+    margin-right: 0;
+	margin-bottom: 10px;
+}
+.blog-details-area .single-comment-area .blog-details-comment.style-two {
+    margin-left: 0;
+}
+.blog-details-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+
+}
+
+@media only screen and (max-width: 320px){
+.banner-section-one .banner-wrapper {
+    border-radius: 0;
+    padding: 0px 0 0px;
+}
+.banner-section-one .banner-content-wrap .banner-title h1 {
+    font-size: 30px;
+    line-height: 35px;
+}
+.banner-section-one .banner-content-wrap .banner-info-box {
+    display: block;
+}
+.banner-section-one .banner-content-wrap .banner-info-box .banner-btn a {
+    padding: 15px 10px;
+    margin-bottom: 30px;
+}	
+.banner-section-one .banner-content-wrap {
+    padding: 80px 20px 90px;
+    border-radius: 0;
+}
+.sec-title .section-title .title {
+    font-size: 25px;
+    line-height: 35px;
+}
+.services-section-one {
+    padding: 120px 20px 100px 20px;
+    border-radius: 0;
+}
+.sec-title .section-desc p {
+    width: 100%;
+}
+.about-section-one {
+    border-radius: 0;
+}
+.why-choose-section-one .why-choose-shape1 {
+    display: none;
+}
+.why-choose-section-one .why-choose-wrapper .why-choose-counter {
+    left: 130px;
+    display: none;
+}
+.why-choose-section-one .why-choose-box .single-choose-box .choose-desc p {
+    width: 100%;
+    float: left;
+}
+.why-choose-section-one .why-choose-box .choose-title h1 {
+    font-size: 25px;
+}
+.project-section-one {
+    border-radius: 0;
+    margin: -245px 0px 30px 0px;
+}
+.project-section-one .project-box .project-box-item .project-thumb .project-box {
+    display: none;
+}
+.project-section-one .project-box .project-box-item .project-thumb figure{
+	width: 100%;
+}
+.work-process-section-one {
+    border-radius: 0;
+    margin: 0;
+}
+.work-process-section-one .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.marquee-section-one {
+    margin: 0;
+    border-radius: 0;
+}
+.team-section-one .single-team-box.upp {
+    transform: translateY(0px);
+}
+.team-section-one {
+    padding: 120px 20px 80px 20px;
+    border-radius: 0;
+}
+.testimonial-section-one .single-testi-box {
+    padding: 45px 10px 35px 10px;
+}
+.latest-blog-section-one {
+    margin: -335px 0px 0 0px;
+}
+.latest-blog-section-one .single-blog-box .blog-content .blog-title a {
+    font-size: 25px;
+}
+.latest-blog-section-one .single-blog-box {
+    margin-bottom: 30px;
+}
+.latest-blog-section-one .blog-single-box {
+    display: block;
+}
+.latest-blog-section-one .blog-single-box .blog-thumb {
+    width: 100%;
+}
+.latest-blog-section-one .blog-single-box .blog-thumb img {
+    width: 100%;
+}
+.main-footer-one .footer-circle {
+    text-align: center;
+}
+.main-footer-one .footer-circle .circle-text {
+    bottom: 22px;
+    right: 112px;
+}
+.main-footer-one .footer-bottom .footer-bottom-menu {
+    text-align: left;
+}
+.main-footer-one .footer-bottom .footer-bottom-menu ul li {
+    margin-left: 10px;
+}
+.main-footer-one .footer-bottom .footer-bottom-menu ul li:first-child {
+    margin-left:0px;
+}
+.about-section-one .about-autor-box .about-arrow {
+    display: none;
+}
+.about-section-one .about-sec .about-shape1 {
+    display: none;
+}
+.about-section-one .about-autor-box {
+    padding: 35px 10px 32px 10px;
+}
+.latest-blog-section-one {
+    background-position: center;
+}
+.brand-area-one .band-active .brand-box {
+    margin: 0 auto;
+}
+
+/* environment classic */
+.banner-section-classic .banner-content-wrap .banner-title h1 {
+    font-size: 25px;
+    line-height: 35px;
+}
+.banner-section-classic .banner-content-wrap .banner-info-box {
+    display: block;
+}
+.banner-section-classic .banner-content-wrap .banner-info-box .banner-btn a {
+    margin-bottom: 30px;
+}
+.banner-section-classic .banner-content-wrap .banner-botton-since {
+    display: block;
+}
+.banner-section-classic .banner-content-wrap .banner-botton-since .banner-desc p {
+    margin: 0 0 0 0px;
+    width: 100%;
+}
+.about-section-classic .about-autor-box .about-arrow {
+    display: none;
+}
+.about-section-classic .about-autor-box {
+    padding: 35px 10px 32px 10px;
+	margin-bottom: 30px;
+}
+.about-section-classic .about-autor-box .about-counter {
+    top: 30px;
+    right: 20px;
+}
+.service-section-classic .service-classic-active {
+    margin-top: 30px;
+}
+.work-process-section-classic .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.testimonial-section-classic .testi-classic-active .econet-banner-arrow-box .slider-prev {
+    display: none;
+}
+.testimonial-section-classic .testi-classic-active .econet-banner-arrow-box .slider-next {
+    display: none;
+}
+.testimonial-section-classic .section-desc p {
+    width: 100%;
+}
+.brand-area-classic .band-active .brand-box {
+    margin: 0 auto;
+}
+.banner-section-solar {
+    margin: -90px 0px 0px;
+    border-radius: 0px;
+}
+.header-solar-renewable .main-box {
+    top: 0;
+    padding: 0 10px 0;
+}
+.banner-section-solar .banner-content-wrap .banner-title h2 .switch {
+    display: none;
+}
+.banner-section-solar .banner-content-wrap .banner-title h2 {
+    font-size: 25px;
+    line-height: 35px;
+}
+.banner-section-solar .banner-content-wrap .banner-title h2 img {
+    display: none;
+}
+.banner-section-solar .banner-content-wrap .banner-autor-info .banner-autor-desc {
+    position: inherit;
+    bottom: 0;
+    left: 0;
+}
+.banner-section-solar .banner-content-wrap .banner-autor-info .banner-autor-desc p {
+    width: 100%;
+}
+.feature-section-solar .feature-solar-active {
+    margin-top: 30px;
+}
+.about-section-solar .about-counter-wrapper {
+    display: block;
+}
+.about-section-solar .about-counter-wrapper .about-counter {
+    padding: 32px 10px 10px 10px;
+    margin-bottom: 30px;
+}
+.service-section-solar .service-solar-active {
+    overflow-x: hidden;
+    margin-top: 30px;
+}
+.why-choose-section-solar {
+    border-radius: 0;
+    margin: 0;
+}
+.project-section-solar .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.work-process-section-solar {
+    margin: 0;
+    border-radius: 0;
+}
+.work-process-section-solar .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.marquee-section-solar {
+    margin: 0;
+    border-radius: 0;
+}
+.contact-section-solar {
+    padding: 0;
+    margin: 0;
+}
+.contact-section-solar .contact-form-box {
+    padding: 80px 10px 80px;
+    border-radius: 0;
+}
+.testimonial-section-solar .testi-solar-active .econet-solar-arrow-box .slider-prev {
+    display: none;
+}
+.testimonial-section-solar .testi-solar-active .econet-solar-arrow-box .slider-next{
+    display: none;
+}
+.testimonial-section-solar .section-desc p {
+    width: 100%;
+}
+.latest-blog-section-solar {
+    border-radius: 0;
+    margin: 0;
+}
+.latest-blog-section-solar .single-blog-box .blog-content .blog-title a {
+    font-size: 22px;
+    line-height: 32px;
+}
+.latest-blog-section-solar .blog-single-box {
+    display: block;
+}
+.latest-blog-section-solar .single-blog-box {
+    margin-bottom: 30px;
+}
+.sign-up-section-solar {
+    border-radius: 0;
+    margin: 0;
+}
+.sign-up-section-solar .sign-up .sign-up-form .form-input-bx input {
+    width: 390px;
+    margin-bottom: 30px;
+}
+.sign-up-section-solar .sign-up-title h4 {
+    font-size: 35px;
+}
+.main-footer-solar .footer-bottom .footer-bottom-menu {
+    text-align: left;
+}
+.main-footer-solar .footer-bottom .footer-bottom-menu ul li {
+    margin-left: 5px;
+}
+.latest-blog-section-solar .blog-single-box .blog-thumb {
+    width: 100%;
+}
+.latest-blog-section-solar .blog-single-box .blog-thumb img{
+    width: 100%;
+}
+.banner-section-solar-classic .banner-content-wrap .banner-title h2 span img {
+    display: none;
+}
+.banner-section-solar-classic .banner-content-wrap .banner-title h2 {
+    font-size: 25px;
+    line-height: 35px;
+}
+.banner-section-solar-classic .banner-content-wrap .banner-title h2 > img {
+    display: none;
+}
+.main-header .header-lower .outer-box {
+    padding: 10px 10px 10px 0;
+}
+.about-section-solar-classic .about-counter-wrapper {
+    display: block;
+}
+.about-section-solar-classic .about-counter-wrapper .about-counter {
+    margin-bottom: 30px;
+}
+.service-section-solar-classic .service-solar-classic-active {
+    margin-top: 30px;
+}
+.project-section-solar-classic .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.work-process-section-solar-classic .working-process-box .process-icon .process-shape {
+    display: none;
+}
+.contact-section-solar-classic .contact-form-box {
+    padding: 80px 10px 80px;
+}
+.testimonial-section-solar-classic .testi-solar-classic-active .econet-solar-arrow-box .slider-prev {
+    display:none;
+}
+.testimonial-section-solar-classic .testi-solar-classic-active .econet-solar-arrow-box .slider-next {
+    display:none;
+}
+.testimonial-section-solar-classic .section-desc p {
+    width: 100%;
+}
+
+/* charity */
+.banner-section-charity .banner-content-wrap .banner-title h2 {
+    font-size: 25px;
+    line-height: 35px;
+}
+.banner-section-charity .banner-content-wrap .banner-autor-info .auto-info {
+    display: block;
+}
+.banner-section-charity .banner-content-wrap .banner-btn a {
+    margin-bottom: 30px;
+}
+.feature-section-charity .single-feature-box {
+    padding: 54px 10px 48px;
+}
+.about-section-charity .about-thumb-wrapper .about-counter {
+    display: none;
+}
+.about-section-charity .about-item-box .single-about-box {
+    padding: 0px 0 12px;
+}
+.mission-vission-section-charity .tab .tabs li a {
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 16px;
+}
+.mission-vission-section-charity .tab .tab_content .tabs_item .mision-vission-desc p {
+    width: 100%;
+}
+.mission-vission-section-charity .mission-vission-list li {
+    display: flex;
+}
+.mission-vission-section-charity .circle-progress-box .circle-progress .circle-outer .count-box {
+    left: -152px;
+}
+.mission-vission-section-charity .mission-vission-thumb-wrapper {
+    margin-left: 0px;
+    display: none;
+}
+.donate-love-section-charity .single-donate-love-box {
+    padding: 65px 10px 53px;
+}
+.give-daonation-section-charity .donation-form-bg .donation-form .form-title {
+    font-size: 26px;
+}
+.give-daonation-section-charity {
+    height: 100%;
+    margin-top: -65px;
+}
+.give-daonation-section-charity .donation-form-bg .donation-form .payment-methods {
+    display: block;
+}
+.joint-event-section-charity {
+    padding: 150px 0 90px;
+    margin-top: -100px;
+}
+.joint-event-section-charity .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.joint-event-section-charity .joint-event-box {
+    display: block;
+}
+.joint-event-section-charity .joint-event-box .event-location {
+    text-align: left;
+}
+.joint-event-section-charity .event-inner-box {
+    margin-bottom: 30px;
+}
+.joint-event-section-charity .joint-event-box::before {
+    display: none;
+}
+.contact-section-charity .contact-bg .contact-form-box {
+    padding: 90px 0px 25px;
+}
+.contact-section-charity .contact-bg .contact-form-box .section-desc p {
+    width: 100%;
+}
+.contact-section-charity .contact-bg .contact-form-box .contact-info-box {
+    display: block;
+}
+.latest-blog-section-charity .single-blog-box .blog-content .blog-title a {
+    font-size: 25px;
+}
+.latest-blog-section-charity .single-blog-box {
+    margin-bottom: 30px;
+}
+.latest-blog-section-charity .blog-single-box {
+    display: block;
+}
+.latest-blog-section-charity .blog-single-box .blog-thumb {
+    width: 100%;
+}
+.latest-blog-section-charity .blog-single-box .blog-thumb img{
+    width: 100%;
+}
+.sign-up-section-charity .sign-up-title h4 {
+    font-size: 25px;
+}
+.sign-up-section-charity .sign-up .sign-up-form .form-input-bx input {
+    width: 385px;
+    margin-bottom: 30px;
+}
+.main-footer-charity .main-footer-section .footer-widget-content {
+    padding-right: 0;
+}
+.main-footer-charity .footer-bottom .footer-bottom-menu {
+    text-align: left;
+}
+.main-footer-charity .footer-bottom .footer-bottom-menu ul li {
+    margin-left: 0;
+}
+
+/* charity classic */
+.banner-section-charity-classic .banner-content-wrap .banner-title h2 {
+    font-size: 25px;
+    line-height: 35px;
+}
+.banner-section-charity-classic .banner-content-wrap .banner-autor-info .auto-info {
+    display: block;
+}
+.banner-section-charity-classic .banner-content-wrap .banner-btn a {
+    margin-bottom: 30px;
+}
+.feature-section-charity-classic .single-feature-box {
+    padding: 54px 10px 48px;
+	margin-bottom: 30px;
+}
+.about-section-charity-classic .about-thumb-wrapper .about-counter {
+    display: none;
+}
+.about-section-charity-classic .about-item-box .single-about-box {
+    display: block;
+	border: 0;
+	padding: 0px 0 12px;
+}
+.about-section-charity-classic .about-item-box .single-about-box .about-desc p {
+    width: 100%;
+    float: left;
+}
+.about-section-charity-classic .about-item-box .single-about-box .about-wrap .about-icon {
+    float: inherit;
+}
+.about-section-charity-classic .about-item-box .about-info-box {
+    display: block;
+}
+.mission-vission-section-charity-classic .tab .tabs li a {
+    padding: 8px 10px;
+    margin: 0 4px;
+    font-size: 17px;
+}
+.mission-vission-section-charity-classic .tab .tab_content .tabs_item .mision-vission-desc p {
+    width: 100%;
+}
+.mission-vission-section-charity-classic .mission-vission-list li {
+    display: flex;
+}
+.mission-vission-section-charity-classic .circle-progress-box {
+    display: block;
+}
+.mission-vission-section-charity-classic .circle-progress-box .circle-progress .circle-outer {
+    margin-bottom: 10px;
+}
+.mission-vission-section-charity-classic .circle-progress-box .circle-progress .circle-outer .count-box {
+    left: -152px;
+}
+.mission-vission-section-charity-classic .circle-progress-box .circle-progress .circle-outer .title br{
+    display: none;
+}
+.mission-vission-section-charity-classic .mission-vission-thumb-wrapper {
+    margin-left: 0px;
+    display: none;
+}
+.project-section-charity .project-box .project-content .project-title h3 {
+    font-size: 22px;
+}
+.give-daonation-section-charity-classic .donation-form-bg .donation-form {
+    padding: 70px 10px 70px 10px;
+    border-radius: 0px 0px 0px 0px;
+}
+.give-daonation-section-charity-classic .donation-form-bg .donation-form .form-title {
+    font-size: 25px;
+}
+.give-daonation-section-charity-classic .donation-form-bg .donation-form .payment-methods {
+    display: block;
+}
+.team-section-charity-classic {
+    padding: 100px 0 100px;
+}
+.give-daonation-section-charity-classic {
+    height: 100%;
+}
+.team-section-charity-classic .econet-button {
+    float: left;
+    margin-bottom: 30px;
+}
+.brand-area-one {
+    padding: 80px 0 80px;
+}
+
+/* service details */
+.services-details-area .services-details-content .services-details-title {
+    font-size: 25px;
+    margin-bottom: 0;
+}
+.services-details-area .service-details-icon-box {
+    padding: 32px 10px 18px;
+}
+.services-details-area .service-details-icon-box .service-details-icon-thumb {
+    margin-right: 10px;
+}
+.services-details-area .services-details-text {
+    padding: 32px 10px;
+	display: block;
+}
+.services-details-area .services-details-text .service-details-text-icon {
+    margin-bottom: 10px;
+}
+.services-details-area .single-benifits-box {
+    margin-bottom: 30px;
+}
+.services-details-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+.services-details-area .widget-sidber-contact-box .widget-sidber-contact-btn a {
+    padding: 16px 50px 15px;
+}
+.project-details-area .project-details-content h4 {
+    font-size: 22px;
+}
+.project-details-area .project-details-content .project-details-text {
+    font-size: 18px;
+    line-height: 30px;
+}
+.project-details-area .project-details-right {
+    padding: 29px 10px 30px;
+}
+.project-details-area .widget-sidber-contact-box {
+    padding: 48px 10px 48px;
+}
+.donation-details-area .dontaion-detais-title {
+    font-size: 22px;
+}
+.donation-details-area .tabcontent {
+    padding: 10px 20px 10px;
+}
+.donation-details-area .tabcontent::before {
+    left: 30px;
+    top: 20px;
+}
+.donation-details-area .submit-donation {
+    margin-bottom: 20px;
+}
+.donation-details-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+.donation-details-area .widget-sidber-contact-box {
+    padding: 48px 10px 48px;
+}
+.team-details-area .team-details-right .contact-info-box {
+    margin-bottom: 20px;
+}
+.team-details-area .team-details-skills {
+    margin-top: 40px;
+}
+.blog-list-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+.breadcumb-area .breadcumb-content .breadcumb-title h4 {
+    font-size: 26px;
+}
+.blog-details-area .blog-details-content {
+    padding: 27px 10px 20px;
+}
+.blog-details-area .blog-details-content .blog-details-author-talk {
+    padding: 41px 10px 40px;
+    display: block;
+}
+.blog-details-area .blog-details-content .blog-details-quote {
+    margin-bottom: 10px;
+}
+.blog-details-area .blog-details-content .blog-details-list-item ul li {
+    display: flex;
+}
+.blog-details-area .blog-details-thumb {
+    margin-bottom: 10px;
+}
+.blog-details-area .blog-details-socila-box .blog-details-social-icon {
+    text-align: left;
+    margin-top: 10px;
+}
+.blog-details-area .blog-details-socila-box {
+    padding: 19px 10px 18px;
+}
+.blog-details-area .blog-details-post .blog-post-box {
+    padding: 84px 10px 31px 10px;
+    gap:10px;
+}
+.blog-details-area .single-comment-area {
+    padding: 49px 10px 56px;
+    margin-bottom: 20px;
+}
+.blog-details-area .single-comment-area .blog-details-comment {
+    padding: 29px 10px 25px;
+}
+.blog-details-area .single-comment-area .blog-details-comment .blog-details-comment-thumb {
+    float: inherit;
+    margin-right: 0;
+	margin-bottom: 10px;
+}
+.blog-details-area .single-comment-area .blog-details-comment.style-two {
+    margin-left: 0;
+}
+.blog-details-area .widget-sidber {
+    padding: 32px 10px 29px;
+}
+.services-section-one .single-service-box .service-content .service-title {
+    padding: 48px 0 0 10px;
+}
+.about-section-one .single-about-box {
+    padding: 50px 10px 50px 10px;
+}
+.about-section-one .single-about-box .about-title h1 {
+    font-size: 25px;
+    line-height: 32px;
+}
+.testimonial-section-one .single-testi-box .testi-desc p {
+    font-size: 20px;
+    line-height: 30px;
+}
+.testimonial-section-one .single-testi-box .testi-autor-box {
+    gap: 5px;
+}
+.about-section-classic .single-about-box {
+    padding: 50px 10px 50px 10px;
+}
+.about-section-classic .single-about-box .about-title h1 {
+    font-size: 25px;
+    line-height: 32px;
+}
+.service-section-classic .single-service-box .service-thumb .service-content {
+    display: none;
+}
+.service-section-classic {
+    padding: 120px 0 0px;
+}
+.donations-section-classic .single-donations-box .donations-content {
+    padding: 35px 5px 42px 5px;
+}
+.donations-section-classic .single-donations-box .donations-content h2 {
+    font-size: 25px;
+    line-height: 32px;
+}
+.testimonial-section-classic .single-testi-box .testi-autor-box .testi-autor {
+    float: inherit;
+}
+.mobile-nav-toggler {
+    display: block;
+    margin-left: -15px;
+    width: 40px;
+    height: 40px;
+    background: var(--theme-color2);
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+    color: var(--theme-color-white);
+}
+.header-solar-renewable .header-lower .outer-box .header-src-btn {
+    display: none;
+}
+.feature-section-solar .single-feature-box .feature-thumb .feature-content {
+    display: none;
+}
+.feature-section-solar {
+    padding: 120px 0 0px;
+}
+.about-section-solar .about-item-box .single-about-box .about-wrap {
+    width: 100%;
+}
+.service-section-solar .single-service-box {
+    padding: 20px 0px 20px;
+}
+.service-section-solar .single-service-box .service-content {
+    padding: 40px 0px 20px;
+}
+.why-choose-section-solar .choose-box-wrapper {
+    text-align: left;
+}
+.project-section-solar .project-box .project-content {
+    padding: 37px 10px 0px;
+}
+.testimonial-section-solar .testi-solar-active .swiper-slide {
+    width: 100% !important;
+}
+.testimonial-section-solar .single-testi-box {
+    padding: 40px 5px 30px;
+}
+.sign-up-section-solar .sign-up .sign-up-form .form-input-bx input {
+    width: 100%;
+}
+.header-solar-renewable-classic .header-lower .outer-box .header-src-btn {
+    display: none;
+}
+.about-section-solar-classic .about-item-box .single-about-box .about-wrap {
+    width: 100%;
+}
+.about-section-solar-classic .about-item-box .single-about-box .about-desc p {
+    float: left;
+    width: 100%;
+}
+.service-section-solar-classic {
+    padding: 120px 10px 100px;
+}
+.why-choose-section-solar-classic .choose-box-wrapper {
+    text-align: left;
+}
+.why-choose-section-solar-classic .choose-box .choose-title h4 {
+    font-size: 20px;
+}
+.project-section-solar-classic .project-box {
+    padding: 17px 5px 20px;
+}
+.project-section-solar-classic .project-box .project-content {
+    padding: 37px 5px 0px;
+}
+.testimonial-section-solar-classic .single-testi-box {
+    padding: 40px 10px 30px;
+}
+.header-charity .header-lower .outer-box .header-src-btn {
+    display: none;
+}
+.feature-section-charity .single-feature-box {
+    display: block;
+}
+.feature-section-charity .single-feature-box .feature-title .title {
+    font-size: 22px;
+}
+.about-section-charity .sec-title .section-title .title {
+    font-size: 26px;
+    line-height: 35px;
+}
+.about-section-charity .about-item-box .single-about-box .about-wrap .title h2 {
+    font-size: 20px;
+}
+.about-section-charity .about-item-box .single-about-box .about-desc p {
+    width: 100%;
+    float: left;
+}
+.donations-section-charity .single-donations-box .donations-content {
+    padding: 30px 10px 42px 10px;
+}
+.donations-section-charity .single-donations-box .donations-content h2 {
+    font-size: 20px;
+    line-height: 30px;
+}
+.mission-vission-section-charity .sec-title .section-title .title {
+    font-size: 25px;
+    line-height: 35px;
+}
+.mission-vission-section-charity .tab .tabs li a {
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.mission-vission-section-charity .circle-progress-box .circle-progress .circle-outer .count-box {
+    left: -105px;
+}
+.donate-love-section-charity .single-donate-love-box .donate-love-content h4 {
+    font-size: 25px;
+    line-height: 35px;
+}
+.give-daonation-section-charity .donation-form-bg .donation-form .form-title {
+    font-size: 22px;
+}
+.testimonial-section-charity .testi-charity-active .swiper-slide {
+    width: 100% !important;
+}
+.testimonial-section-charity .single-testi-box {
+    padding: 40px 10px 30px;
+}
+.sign-up-section-charity .sign-up .sign-up-form .form-input-bx input {
+    width: 100%;
+}
+.feature-section-charity-classic .single-feature-box {
+    padding: 54px 10px 48px;
+    margin-bottom: 30px;
+    display: block;
+}
+.about-section-charity-classic .about-item-box .single-about-box .about-wrap {
+    width: 100%;
+}
+.donations-section-charity-classic .single-donations-box .donations-content {
+    padding: 30px 10px 42px 10px;
+}
+.donations-section-charity-classic .single-donations-box .donations-content h2 {
+    font-size: 25px;
+    line-height: 32px;
+}
+.mission-vission-section-charity-classic .circle-progress-box .circle-progress .circle-outer .count-box {
+    left: -105px;
+}
+.give-daonation-section-charity-classic .donation-form-bg .donation-form .form-title {
+    font-size: 22px;
+}
+.testimonial-section-charity-classic .single-testi-box {
+    padding: 40px 10px 30px;
+}
+.services-details-area .widget-sidber-contact-box {
+    padding: 48px 10px 48px;
+}
+.brand-area-one {
+    padding: 80px 0 80px;
+}
+.project-details-area .widget-sidber-contact-box .widget-sidber-contact-btn a {
+    padding: 16px 65px 15px;
+}
+.donation-details-area .single-donation-box .donation-content {
+    padding: 30px 5px 25px;
+}
+.donation-details-area .widget-sidber-contact-box .widget-sidber-contact-btn a {
+    padding: 16px 65px 15px;
+}
+.main-footer-one .footer-circle .circle-text {
+    bottom: 22px;
+    right: 60px;
+}
+.team-details-area .team-details-right .team-details-content .team-member-title h4 {
+    font-size: 28px;
+}
+.team-details-area .team-details-right .contact-info-box {
+    padding: 29px 5px 27px;
+}
+.team-details-area .team-details-right .team-details-social-icon ul li {
+    font-size: 13px;
+}
+.main-header .main-menu {
+    display: none;
+}
+
+}

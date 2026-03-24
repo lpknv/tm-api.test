@@ -1,0 +1,30 @@
+.banner-section-solar .banner-title h1, .banner-section-solar .autor-desc {
+  color: var(--theme-color-white) !important;
+}
+
+.required::after {
+  content: "*";
+  color: #ee4e4e;
+  font-weight: 600;
+  padding-left: 1px;
+}
+
+#loader {
+  display: none;
+}
+
+svg {
+  width: 18px;
+}
+
+.main-footer-one .main-footer-section .footer-widget-content {
+  padding-right: 0;
+}
+
+.main-menu .navigation > li > a {
+  color: var(--theme-color-white);
+}
+
+.main-menu .navigation > li.current > a {
+  color: var(--theme-color1);
+}
