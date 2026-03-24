@@ -21,10 +21,53 @@ svg {
   padding-right: 0;
 }
 
+.main-footer-one {
+  padding: 0;
+  padding-block: 1rem;
+}
+
 .main-menu .navigation > li > a {
   color: var(--theme-color-white);
 }
 
 .main-menu .navigation > li.current > a {
   color: var(--theme-color1);
+}
+
+
+.joint-event-section-charity .joint-event-box::before {
+  background: none !important;
+}
+
+.joint-event-section-charity .econet-button a::before {
+  content: "";
+  background: none;
+}
+
+.joint-event-box {
+  background: var(--theme-color-gray) !important;
+}
+
+.joint-event-section-charity .joint-event-box:hover .event-title h3 a, .joint-event-section-charity .joint-event-box:hover .event-location li  {
+  color: inherit;
+}
+
+
+.joint-event-section-charity .joint-event-box:hover .joint-event-btn a {
+  background: white !important;
+}
+.joint-event-section-charity .joint-event-box:hover .event-location li img {
+  filter: none;
+}
+
+.joint-event-section-charity .joint-event-box .joint-event-btn a::before {
+  background: var(--theme-color1)
+}
+
+.services-section-one .single-service-box::before {
+background-image: url("data:image/svg+xml,%3Csvg%20width%3D%22402%22%20height%3D%22425%22%20viewBox%3D%220%200%20402%20425%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2020.227C0%208.71359%209.69642%20-0.422315%2021.1894%200.262405L312.144%2017.5966C321.428%2018.1498%20329.106%2025.0308%20330.67%2034.1999L335.733%2063.8969C337.103%2071.9335%20343.214%2078.3341%20351.179%2080.0745L386.27%2087.7423C395.453%2089.7491%20402%2097.8808%20402%20107.281V405C402%20416.046%20393.046%20425%20382%20425H20C8.9543%20425%200%20416.046%200%20405V20.227Z%22%20fill%3D%22%235ba7ff%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.services-section-one .single-service-box::before {
+background-image: url("data:image/svg+xml,%3Csvg%20width%3D%22402%22%20height%3D%22425%22%20viewBox%3D%220%200%20402%20425%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2020.227C0%208.71359%209.69642%20-0.422315%2021.1894%200.262405L312.144%2017.5966C321.428%2018.1498%20329.106%2025.0308%20330.67%2034.1999L335.733%2063.8969C337.103%2071.9335%20343.214%2078.3341%20351.179%2080.0745L386.27%2087.7423C395.453%2089.7491%20402%2097.8808%20402%20107.281V405C402%20416.046%20393.046%20425%20382%20425H20C8.9543%20425%200%20416.046%200%20405V20.227Z%22%20fill%3D%22%235ba7ff%22%2F%3E%3C%2Fsvg%3E");
 }

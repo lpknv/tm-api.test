@@ -36,7 +36,6 @@ License: copyright commercial
 29. Clients Section
 30. Main Footer
 **********************************************/
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap");
 @import url("animate.css");
 @import url("swiper.min.css");
 @import url("magnific.css");
@@ -12016,18 +12015,6 @@ Section Title
   position: relative;
   z-index: 1;
   padding: 110px 0 82px;
-}
-.main-footer-one .main-footer-section::before {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  background: var(--theme-color4);
-  border-top: 10px solid var(--theme-color2);
-  border-radius: 50px;
-  width: 1850px;
-  height: 612px;
-  left: -265px;
-  top: 0;
 }
 .main-footer-one .main-footer-section .footer-widget-content {
   padding-right: 45px;
