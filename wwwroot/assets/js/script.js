@@ -838,33 +838,9 @@ var DREAMIT = {};
 	// testi-solar-classic-active
 	var slider = new Swiper(".testi-solar-classic-active", {
 		speed: 1500,
-		slidesPerView: 4,
-		spaceBetween: 30,
-		loop: true,
-		autoplay: true,
-		breakpoints: {
-			1920: {
-				slidesPerView: 2,
-			},
-			1400: {
-				slidesPerView: 2,
-			},
-			1200: {
-				slidesPerView: 2,
-			},
-			992: {
-				slidesPerView: 2,
-			},
-			768: {
-				slidesPerView: 1,
-			},
-			576: {
-				slidesPerView: 1,
-			},
-			0: {
-				slidesPerView: 1,
-			},
-		},
+		slidesPerView: 1,
+		loop: false,
+		autoplay: false,
 
 		// Navigation arrows
 		navigation: {

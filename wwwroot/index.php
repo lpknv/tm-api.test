@@ -42,6 +42,9 @@ $routes = [
   '/kontakt' => [
     'route' => 'contact',
   ],
+  '/predigten' => [
+    'route' => 'preaches',
+  ],
   '/baseballcamp' => [
     'route' => 'baseballcamp',
   ],
