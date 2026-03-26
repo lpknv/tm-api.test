@@ -328,3 +328,15 @@ background-image: url("data:image/svg+xml,%3Csvg%20width%3D%22402%22%20height%3D
 .sermon-player-box .oyospeaker:hover svg {
   fill: #fff !important;
 }
+
+.joint-event-section-charity .joint-event-box.active .event-title h3 {
+  color: var(--theme-color) !important;
+}
+
+.joint-event-section-charity .joint-event-box .event-location {
+  text-align: left;
+}
+
+.banner-section-solar-classic .econet-slider-height {
+  height: auto;
+}

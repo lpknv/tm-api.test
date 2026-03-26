@@ -6,20 +6,27 @@ require_once __DIR__ . '/../database.php';
 require_once __DIR__ . '/../helper.php';
 
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
+
 $twig = new \Twig\Environment($loader, ['debug' => true]);
+$twig->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('Europe/Berlin');
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+
+$upcoming_events = [
+  [
+    'name' => 'Baseballcamp 2026',
+    'text' => 'Jeden Sonntag um 10 Uhr kommen wir zusammen...',
+    'date_start' => '2026-06-20',
+    'date_end' => '2026-06-25',
+    'location' => 'Hückelhoven – Am Schacht 3<br/>(Glück-auf-Stadion)',
+  ],
+];
 
 $routes = [
   '/' => [
     'route' => 'home',
     'data' => [
-      'upcoming_events' => [
-        [
-          'name' => 'Baseballcamp 2026',
-          'text' => 'Jeden Sonntag um 10 Uhr kommen wir zusammen, um Gott zu feiern und zu erleben.',
-        ]
-      ],
+      'upcoming_events' => prepare_upcoming_events($upcoming_events),
       'weekly_events' => [
         [
           'name' => 'Gottesdienst, Sonntag 10:00 Uhr',

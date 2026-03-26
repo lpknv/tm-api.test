@@ -49,3 +49,80 @@ function format_currency($value)
   $a = new \NumberFormatter("de-DE", \NumberFormatter::CURRENCY);
   return $a->format($value);
 }
+
+function intl_date(string $value, string $pattern = 'dd. MMMM yyyy', string $locale = 'de_DE'): string
+{
+  $date = new \DateTimeImmutable($value);
+
+  $formatter = new \IntlDateFormatter(
+    $locale,
+    \IntlDateFormatter::NONE,
+    \IntlDateFormatter::NONE,
+    $date->getTimezone(),
+    null,
+    $pattern
+  );
+
+  return $formatter->format($date);
+}
+
+function prepare_upcoming_events(array $events): array
+{
+  $visibleEvents = [];
+
+  foreach ($events as $event) {
+    if (!event_is_visible($event['date_end'])) {
+      continue;
+    }
+
+    $event['date_start'] = format_datetime($event['date_start']);
+    $event['date_end'] = format_datetime($event['date_end']);
+
+    $visibleEvents[] = $event;
+  }
+
+  return $visibleEvents;
+}
+
+function format_datetime(string $value): array
+{
+  return [
+    'day' => intl_date($value, 'dd'),
+    'month' => intl_date($value, 'MMMM'),
+    'year' => intl_date($value, 'yyyy'),
+    'full' => intl_date($value, 'dd. MMMM yyyy'),
+  ];
+}
+
+function event_is_visible($end)
+{
+  $now = new \DateTimeImmutable('today');
+  $endDate = new \DateTimeImmutable($end);
+
+  return $now <= $endDate;
+}
+
+function format_datetime_parts(string $value, string $locale = 'de_DE'): array
+{
+  $date = new \DateTimeImmutable($value);
+
+  $format = function (string $pattern) use ($date, $locale) {
+    $formatter = new \IntlDateFormatter(
+      $locale,
+      \IntlDateFormatter::NONE,
+      \IntlDateFormatter::NONE,
+      $date->getTimezone(),
+      null,
+      $pattern
+    );
+
+    return $formatter->format($date);
+  };
+
+  return [
+    'day' => $format('dd'),
+    'month' => $format('MMMM'),
+    'year' => $format('yyyy'),
+    'full' => $format('dd. MMMM yyyy'),
+  ];
+}

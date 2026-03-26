@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+setlocale(LC_ALL, 'de_DE');
+date_default_timezone_set('Europe/Berlin');
+
 require __DIR__ . '/vendor/autoload.php';
 
 $envFile = file_exists(__DIR__ . '/.env.dev')

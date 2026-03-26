@@ -1237,12 +1237,12 @@ var DREAMIT = {};
 	});
 
 	// service-box active js
-	$(document).ready(function () {
-		$('.joint-event-box').on('mouseenter', function () {
-			$(this).addClass('active'); // Add the 'active'
-			$('.joint-event-box').not(this).removeClass('active'); // Remove the 'active'
-		});
-	});
+	// $(document).ready(function () {
+	// 	$('.joint-event-box').on('mouseenter', function () {
+	// 		$(this).addClass('active'); // Add the 'active'
+	// 		$('.joint-event-box').not(this).removeClass('active'); // Remove the 'active'
+	// 	});
+	// });
 
 	// box animation gsap
 	window.addEventListener("DOMContentLoaded", function () {

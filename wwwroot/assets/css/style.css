@@ -16076,9 +16076,9 @@ Section Title
 .joint-event-section-charity .joint-event-box.active .event-location li {
   color: var(--theme-color3);
 }
-.joint-event-section-charity .joint-event-box.active .event-location li img {
+/* .joint-event-section-charity .joint-event-box.active .event-location li img {
   filter: invert(59%) sepia(64%) saturate(1044%) hue-rotate(332deg) brightness(102%) contrast(95%);
-}
+} */
 .joint-event-section-charity .joint-event-box::before {
   position: absolute;
   content: "";
@@ -16239,9 +16239,9 @@ Section Title
 .joint-event-section-charity .joint-event-box:hover .event-location li {
   color: var(--theme-color3);
 }
-.joint-event-section-charity .joint-event-box:hover .event-location li img {
+/* .joint-event-section-charity .joint-event-box:hover .event-location li img {
   filter: invert(59%) sepia(64%) saturate(1044%) hue-rotate(332deg) brightness(102%) contrast(95%);
-}
+} */
 .joint-event-section-charity .joint-event-box.active .joint-event-date h1 {
   color: var(--theme-color7);
 }

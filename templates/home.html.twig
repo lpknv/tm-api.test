@@ -22,6 +22,7 @@
 		</div>
 	</div>
 </div>
+
 <main>
 	<section class="service-section-solar">
 		<div class="auto-container">
@@ -56,59 +57,27 @@
 			</div>
 		</div>
 	</section>
-	<section class="joint-event-section-charity" id="event">
-		<div class="auto-container">
-			<div class="row section-title-space align-items-center">
-				<div class="col-lg-6">
+	{% if upcoming_events|length > 0 %}
+		<section class="joint-event-section-charity" id="event">
+			<div class="auto-container">
+				<div class="row section-title-space align-items-center">
+					<div class="col-lg-6">
 						<div class="sec-title">
 							<div class="section-title">
-								<h1 class="title title-anim">Kommende</h1>
-								<h1 class="title title-anim">Veranstaltungen</h1>
+								<h1 class="title ">Bevorstehende</h1>
+								<h1 class="title ">Veranstaltungen</h1>
 							</div>
 						</div>
 					</div>
-				<div class="col-lg-6">
-					<div class="econet-button">
-						<a href="index.html">Alle Veranstaltungen<i class="fa-solid fa-arrow-right"></i><span></span></a>
+					<div class="col-lg-6">
+						<div class="econet-button">
+							<a href="/veranstaltungen">Alle Veranstaltungen<i class="fa-solid fa-arrow-right"></i><span></span></a>
+						</div>
 					</div>
 				</div>
+				{% include 'components/upcoming_events.html.twig' with { upcoming_events: upcoming_events, show_link: true } %}
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-				{% for event in ['event1', 'event2'] %}
-					<div class="joint-event-box">
-						<div class="event-inner-box first">
-							<div class="joint-event-date">
-								<h1>16</h1>
-							</div>
-							<div class="joint-event-month">
-								<h5>AUGUST</h5>
-								<p>2025</p>
-							</div>
-						</div>
-						<div class="event-inner-box">
-							<div class="event-content">
-								<div class="event-title">
-									<h3><a href="event-details.html">Food Supply for Orphan <br>People - 2025</a></h3>
-								</div>
-							</div>
-						</div>
-						<div class="event-inner-box">
-							<div class="event-location">
-								<ul>
-									<li><img src="/assets/images/charity/event-icon1.png" alt="icon">10/B Rd, Sandigo - USA</li>
-									<li><img src="/assets/images/charity/event-icon2.png" alt="icon">10.30 am to 12.00 pm</li>
-								</ul>
-							</div>
-						</div>
-						<div class="joint-event-btn">
-							<a href="event-details.html">Mehr erfahren<i class="fa-solid fa-arrow-right-long"></i></a>
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	</section>
+		</section>
+	{% endif %}
 </main>
 {% endblock %}
