@@ -1,39 +1,12 @@
-<!DOCTYPE html>
-<html lang="de">
+{% extends 'base.html.twig' %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Baseballcamp  {{ current_year }} Anmeldung | EFG Hückelhoven-Baal">
-  <meta property="og:description" content="Baseballcamp {{ current_year }} Anmeldung | EFG Hückelhoven-Baal">
-  <meta property="og:image" content="https://efg-hueckelhoven.de/wp-content/uploads/2022/08/cropped-efg-logo.png">
-  <link rel="canonical" href="https://efg-hueckelhoven.de/">
-  <link rel="shortlink" href="https://efg-hueckelhoven.de/">
-  <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" href="cropped-efg-favicon-32x32.png" sizes="32x32">
-  <link rel="icon" href="cropped-efg-favicon-192x192.png" sizes="192x192">
-  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <title>Baseballcamp {{ current_year }} Anmeldung | EFG Hückelhoven-Baal</title>
-  <style>
-  svg {
-    width: 18px;
-  }
-  </style>
-</head>
+{% block body %}
+<style>
 
-<body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container">
-      <div><img width="180" src="/assets/images/logo.png" alt="">
-        <p>Baseballcamp {{ current_year }} Anmeldung</p>
-      </div>
-      <a href="https://efg-hueckelhoven.de">
-        Zur Webseite
-      </a>
-    </div>
-  </nav>
+
+svg {
+  width: 18px !important;
+}</style>
   <div class="container">
     <h3 class="mt-5">Willkommen zur Baseballcamp Anmeldung</h3>
     <p class="lead">Bitte nutze das Formular unten, um dich für die Veranstaltung anzumelden.
@@ -404,7 +377,7 @@
         $loader.show()
         $submit_button.prop('disabled', true);
 
-        $.post('/ajax/sendmail_handler.php', formData, function(res) {
+        $.post('/baseballcamp', formData, function(res) {
             $form_errors.addClass('d-none');
 
             $form.slideUp(400, function() {
@@ -448,6 +421,4 @@
 
     });
   </script>
-</body>
-
-</html>
+{% endblock %}
