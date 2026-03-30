@@ -5,24 +5,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Baseballcamp  {{ CURRENT_YEAR }} Anmeldung | EFG Hückelhoven-Baal">
-  <meta property="og:description" content="Baseballcamp {{ CURRENT_YEAR }} Anmeldung | EFG Hückelhoven-Baal">
+  <meta property="og:site_name" content="Baseballcamp  {{ current_year }} Anmeldung | EFG Hückelhoven-Baal">
+  <meta property="og:description" content="Baseballcamp {{ current_year }} Anmeldung | EFG Hückelhoven-Baal">
   <meta property="og:image" content="https://efg-hueckelhoven.de/wp-content/uploads/2022/08/cropped-efg-logo.png">
   <link rel="canonical" href="https://efg-hueckelhoven.de/">
   <link rel="shortlink" href="https://efg-hueckelhoven.de/">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="cropped-efg-favicon-32x32.png" sizes="32x32">
   <link rel="icon" href="cropped-efg-favicon-192x192.png" sizes="192x192">
-  <link rel="stylesheet" href="./assets/bootstrap.min.css">
-  <link rel="stylesheet" href="./assets/minified/main.min.css">
-  <title>Baseballcamp {{ CURRENT_YEAR }} Anmeldung | EFG Hückelhoven-Baal</title>
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <title>Baseballcamp {{ current_year }} Anmeldung | EFG Hückelhoven-Baal</title>
+  <style>
+  svg {
+    width: 18px;
+  }
+  </style>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
-      <div><img width="180" src="./assets/logo.png" alt="">
-        <p>Baseballcamp {{ CURRENT_YEAR }} Anmeldung</p>
+      <div><img width="180" src="/assets/images/logo.png" alt="">
+        <p>Baseballcamp {{ current_year }} Anmeldung</p>
       </div>
       <a href="https://efg-hueckelhoven.de">
         Zur Webseite
@@ -36,17 +41,6 @@
       Solltest du Fragen haben, so melde dich gerne bei Melanie Pfaffenrot unter der E-Mail Adresse
       <a href="mailto:baseballcamp@efg-hueckelhoven.de">baseballcamp@efg-hueckelhoven.de</a>
     </p>
-    <?php if (false): ?>
-      <div class="alert alert-warning d-inline-flex align-items-center" role="alert">
-        <svg class="me-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
-          <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
-          <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-        </svg>
-        <div>
-          Anmeldungen für die Altersgruppe von 12 bis 18 Jahren sind nicht mehr möglich.
-        </div>
-      </div>
-    <?php endif; ?>
     <div id="form-errors" class="alert alert-danger d-none">
       <div>
         <h5 class="fw-semibold mb-2 d-flex align-items-center gap-1">
@@ -68,7 +62,7 @@
             </svg>
             <span>Bitte fülle alle Felder mit * aus</span>
           </p>
-          <?= render_component("subline", ["title" => "Allgemeine Daten"]) ?>
+          {% include 'components/subline.html.twig' with { title: "Allgemeine Daten" } %}
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-3">
@@ -103,7 +97,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <?= render_component("subline", ["title" => "Teilnehmer hinzufügen"]) ?>
+          {% include 'components/subline.html.twig' with { title: "Teilnehmer hinzufügen" } %}
         </div>
       </div>
       <div id="kids-container" class="row g-4"></div>
@@ -115,15 +109,15 @@
       </button>
       <div class="row">
         <div class="col-12">
-          <?= render_component("subline", ["title" => "Allgemeine Informationen"]) ?>
+          {% include 'components/subline.html.twig' with { title: "Allgemeine Informationen" } %}
           <div class="row g-3">
             <div>
               <label for="how_did_you_find_out_about_us" class="form-label">Wie bist du auf unser Baseballcamp aufmerksam geworden?</label>
               <select name="how_did_you_find_out_about_us" id="how_did_you_find_out_about_us" class="form-select">
                 <option selected value="">-</option>
-                <?php foreach ($marketing as $item): ?>
-                  <option value="<?= $item ?>"><?= $item ?></option>
-                <?php endforeach; ?>
+                {% for item in marketing %}
+                  <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
               </select>
             </div>
             <div>
@@ -170,32 +164,30 @@
       </a>
     </div>
   </footer>
-  <script src="./assets/jquery.min.js"></script>
-  <script src="./assets/notify.min.js"></script>
-  <script src="./assets/underscore-umd-min.js"></script>
-  <script src="./assets/bootstrap.min.js"></script>
+  <script src="/assets/js/jquery.js"></script>
+  <script src="/assets/js/notify.min.js"></script>
+  <script src="/assets/js/underscore-umd-min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      const maxKids = <?= MAX_KIDS_NUMBER ?>;
-      const first_kid_price = <?= FIRST_KID_PRICE ?>;
-      const nth_kid_price = <?= NTH_KID_PRICE ?>;
+      const maxKids = {{ max_kids_number }};
+      const first_kid_price = {{ first_kid_price }};
+      const nth_kid_price = {{ nth_kid_price }};
       let kidIndex = 0;
 
-      <?php if (IS_DEBUG): ?>
-        $('.contact-form').find(':input[name]').each(function() {
-          if (this.name === 'hp') {
-            return;
-          }
-          let $el = $(this);
-          if ($el.is(':checkbox, :radio')) {
-            $el.prop('checked', true);
-          } else if ($el.is('select')) {
-            $el.prop('selectedIndex', 1);
-          } else {
-            $el.val('test_' + this.name + '@aasd.de');
-          }
-        });
-      <?php endif; ?>
+      $('.contact-form').find(':input[name]').each(function() {
+        if (this.name === 'hp') {
+          return;
+        }
+        let $el = $(this);
+        if ($el.is(':checkbox, :radio')) {
+          $el.prop('checked', true);
+        } else if ($el.is('select')) {
+          $el.prop('selectedIndex', 1);
+        } else {
+          $el.val('test_' + this.name + '@aasd.de');
+        }
+      });
 
       function restoreFormState() {
         const saved = localStorage.getItem('campFormData');
@@ -267,9 +259,9 @@
                     name="kids[${i}][alter]"
                     required>
                     <option selected disabled value="">Bitte wählen...</option>
-                    <?php foreach ($ages as $age): ?>
-                      <option value="<?= $age ?>"><?= $age ?></option>
-                    <?php endforeach; ?>
+                    {% for age in ages %}
+                      <option value="{{ age }}">{{ age }}</option>
+                    {% endfor %}
                   </select>
                 </div>
                 <div class="col-12 col-md-6">
@@ -280,9 +272,9 @@
                     name="kids[${i}][tshirt]"
                     required>
                     <option selected disabled value="">Bitte wählen...</option>
-                    <?php foreach ($tshirt_sizes as $size): ?>
-                      <option value="<?= $size ?>"><?= $size ?></option>
-                    <?php endforeach; ?>
+                    {% for size in tshirt_sizes %}
+                      <option value="{{ size }}">{{ size }}</option>
+                    {% endfor %}
                   </select>
                 </div>
                 <div class="col-12">

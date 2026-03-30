@@ -340,3 +340,7 @@ background-image: url("data:image/svg+xml,%3Csvg%20width%3D%22402%22%20height%3D
 .banner-section-solar-classic .econet-slider-height {
   height: auto;
 }
+
+#loader {
+  display: none;
+}
