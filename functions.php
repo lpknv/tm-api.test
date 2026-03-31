@@ -1,12 +1,12 @@
 <?php
 
-function respond($message = null, int $statusCode = 200)
+function respond($message = null, int $statusCode = 200, $exit = true)
 {
   http_response_code($statusCode);
   header('Content-Type: application/json; charset=utf-8');
   echo json_encode($message, JSON_UNESCAPED_UNICODE);
 
-  exit;
+  if ($exit) exit;
 }
 
 function kid_template($kid, $index, $price)
@@ -47,6 +47,7 @@ function e(?string $value): string
 function format_currency($value)
 {
   $a = new \NumberFormatter("de-DE", \NumberFormatter::CURRENCY);
+  $a->setPattern('EUR #,##0.00');
   return $a->format($value);
 }
 
@@ -125,4 +126,32 @@ function format_datetime_parts(string $value, string $locale = 'de_DE'): array
     'year' => $format('yyyy'),
     'full' => $format('dd. MMMM yyyy'),
   ];
+}
+
+
+function send_email($mail, $data)
+{
+  $mail->clearAddresses();
+  $mail->clearCCs();
+  $mail->clearBCCs();
+  $mail->clearReplyTos();
+  $mail->clearAttachments();
+
+  $mail->isSMTP();
+  $mail->SMTPDebug = $data['smtp_debug'] ?? 0;
+  $mail->CharSet = 'UTF-8';
+  $mail->Host = $_ENV['SMTP_HOST'];
+  $mail->SMTPAuth = true;
+  $mail->Port = $_ENV['SMTP_PORT'];
+  $mail->Username = $_ENV['SMTP_USER'];
+  $mail->Password = $_ENV['SMTP_PASSWORD'];
+
+  $mail->setFrom($_ENV['MAIL']);
+  $mail->isHTML(true);
+
+  $mail->addAddress($data['email']);
+  $mail->Subject = $data['subject'];
+  $mail->Body = $data['body'];
+
+  $mail->send();
 }

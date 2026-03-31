@@ -58,7 +58,16 @@ $home_data = [
   ]
 ];
 
+$confirmation_data = [
+  'familienname' => 'asdasd',
+  'gesamtpreis' => format_currency(150),
+];
+
 $app = new App\Lime\App();
+
+$app->get("/test", function () use ($twig, $confirmation_data) {
+  echo $twig->render("email/baseballcamp/confirmation.html.twig", $confirmation_data);
+});
 
 $app->get("/", function () use ($twig, $home_data) {
   echo $twig->render("home.html.twig", $home_data);
@@ -75,12 +84,10 @@ $app->get("/baseballcamp", function () use ($twig, $marketing, $ages, $tshirt_si
   ]);
 });
 
-$app->post("/baseballcamp", function () use ($twig, $marketing, $ages, $tshirt_sizes) {
-  ob_start();
+$app->post("/ajax/baseballcamp", function () use ($marketing, $ages, $tshirt_sizes) {
   session_start();
 
   if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    ob_end_clean();
     respond('Method not allowed', 405);
   }
 
@@ -88,12 +95,10 @@ $app->post("/baseballcamp", function () use ($twig, $marketing, $ages, $tshirt_s
 
   $hp = trim(e($_POST['hp']) ?? '');
   if ($hp !== '') {
-    ob_end_clean();
     respond('Vielen Dank für deine Anmeldung!', 200);
   }
 
-  if (count($_POST['kids']) > MAX_KIDS_NUMBER) {
-    ob_end_clean();
+  if (count($_POST['kids']) > MAX_KIDS_NUMBER || count($_POST['kids']) < 1) {
     respond("Oops!", 400);
   }
 
@@ -165,7 +170,6 @@ $app->post("/baseballcamp", function () use ($twig, $marketing, $ages, $tshirt_s
   $validation->validate();
 
   if ($validation->fails()) {
-    ob_end_clean();
     $errors = $validation->errors();
     respond(['errors' => $errors->all()], 400);
   }
@@ -273,69 +277,53 @@ $infos
 </html>
 ";
 
-
   $mail = new PHPMailer(true);
 
   try {
-    $mail->isSMTP();
-    $mail->SMTPDebug = $smtp_debug;
-    $mail->CharSet = 'UTF-8';
-    $mail->Host = $_ENV['SMTP_HOST'];
-    $mail->SMTPAuth = true;
-    $mail->Port = $_ENV['SMTP_PORT'];
-    $mail->Username = $_ENV['SMTP_USER'];
-    $mail->Password = $_ENV['SMTP_PASSWORD'];
-
-    $mail->setFrom($_ENV['MAIL']);
-    $mail->isHTML(true);
-
-    $mail->addAddress($email);
-    $mail->Subject = "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR;
-    $mail->Body = $nachrichtAnTeilnehmer;
-    $mail->Body .= "<h3>Ihre Anmeldedaten:</h3>";
-    $mail->Body .= $anmeldedaten;
-    $mail->send();
-
-    $mail->clearAddresses();
-    $mail->clearCCs();
-    $mail->clearBCCs();
-    $mail->clearReplyTos();
-    $mail->clearAttachments();
-
-    $mail->addAddress($_ENV['MAIL']);
-    $mail->Subject = sprintf("Neue Baseballcamp %s Anmeldung", CURRENT_YEAR);
-    $mail->Body = "<h3>Neue Anmeldung</h3>";
-    $mail->Body .= "
-    <html>
+    send_email($mail, [
+      'smtp_debug' => $smtp_debug,
+      'email' => $_ENV['MAIL'],
+      'subject' => "Neue Baseballcamp Anmeldung " . CURRENT_YEAR,
+      'body' => "
+      <html>
       <head>
-        <title>Neue Baseballcamp Anmeldung " . CURRENT_YEAR . "</title>
+        <title>Baseballcamp " . CURRENT_YEAR . "</title>
         <style>
           html, body {
             font-family: Inter, sans-serif;
           }
         </style>
-      </head>            
-    <body>";
-
-    $mail->Body .= $anmeldedaten;
-    $mail->Body .= $gesamtpreis;
-    $mail->Body .= "</body></html>";
-
-    $mail->send();
-
-    ob_end_clean();
-    respond([
-      'message' => [
-        'title' => 'Vielen Dank für deine Anmeldung!',
-        'text' => 'Bitte überprüfe dein E-Mail Postfach und Spam Ordner auf eine Bestätigungsemail.'
-      ],
+      </head>
+      <body>
+      <h3>Neue Anmeldung</h3>" . $anmeldedaten . $gesamtpreis . "</body></html>",
     ]);
   } catch (Exception $e) {
-    ob_end_clean();
-    respond(
-      "Oops! Etwas ist schief gelaufen. {$mail->ErrorInfo}",
-      400
-    );
+    error_log('Admin-Mail fehlgeschlagen: ' . $mail->ErrorInfo);
+  }
+
+  if (IS_DEV) sleep(10);
+
+  try {
+    send_email($mail, [
+      'smtp_debug' => $smtp_debug,
+      'email' => $email,
+      'subject' => "Bestätigung Ihrer Anmeldung zum Baseballcamp " . CURRENT_YEAR,
+      'body' => $nachrichtAnTeilnehmer . "<h3>Ihre Anmeldedaten:</h3>" . $anmeldedaten,
+    ]);
+
+    respond([
+      'message' => [
+        'title' => 'Vielen Dank.',
+        'text' => 'Ihre Anmeldung wurde erfolgreich übermittelt.',
+      ]
+    ]);
+  } catch (Exception $e) {
+    error_log('Kundenmail fehlgeschlagen: ' . $mail->ErrorInfo);
+
+    respond([
+      'success' => false,
+      'message' => 'Die Bestätigungsmail konnte nicht gesendet werden.' . $mail->ErrorInfo
+    ], 500);
   }
 });
 

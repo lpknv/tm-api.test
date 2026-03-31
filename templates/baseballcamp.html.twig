@@ -377,7 +377,7 @@ svg {
         $loader.show()
         $submit_button.prop('disabled', true);
 
-        $.post('/baseballcamp', formData, function(res) {
+        $.post('/ajax/baseballcamp', formData, function(res) {
             $form_errors.addClass('d-none');
 
             $form.slideUp(400, function() {

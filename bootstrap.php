@@ -6,6 +6,7 @@ setlocale(LC_ALL, 'de_DE');
 date_default_timezone_set('Europe/Berlin');
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/functions.php';
 
 $envFile = file_exists(__DIR__ . '/.env.dev')
   ? '.env.dev'
@@ -17,6 +18,8 @@ $dotenv->load();
 define('MAX_KIDS_NUMBER', 5);
 define('FIRST_KID_PRICE', 80);
 define('NTH_KID_PRICE', 70);
+define('FIRST_KID_PRICE_FORMATTED', format_currency(FIRST_KID_PRICE));
+define('NTH_KID_PRICE_FORMATTED', format_currency(NTH_KID_PRICE));
 define('CURRENT_YEAR', date('Y'));
 
 define('APP_ENV', $_ENV['APP_ENV']);
