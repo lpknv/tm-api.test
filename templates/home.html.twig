@@ -10,10 +10,10 @@
 					<div class="col-xl-12">
 						<div class="banner-content-wrap">
 							<div class="banner-title">
-								<h2>Tut Buße und glaubt an das Evangelium!</h2>
+								<h2>Ich bin die Auferstehung <br/>und das Leben.</h2>
 							</div>
 							<div class="banner-autor-info">
-								<p class="autor-desc">- Markus 1,15</p>
+								<p class="autor-desc">- Johannes 11,25</p>
 							</div>
 						</div>
 					</div>
@@ -34,21 +34,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row g-4 my-2">
 				{% for event in weekly_events %}
 					<div class="col-4">
 						<div class="single-service-box">
 							<div class="service-thumb two">
 								<div class="service-icon two">
-									<img src="/assets/images/solar/service-icon4.png" alt="icon">
+									<i class="fa-solid {{event.icon}} fa-3xl"></i>
 								</div>
 							</div>
 							<div class="service-content">
-								<h3 class="service-title two">Wind Financing Plans</h3>
-								<p>Environmental organizations maintaince
-								dedicated to protecting</p>
+								<h3 class="service-title two">{{ event.name }}</h3>
+								<p>{{ event.text }}</p>
 								{% if event.link %}
-								<a class="service-btn two" href="service-details.html">Explore More<i class="fa-solid fa-arrow-right-long"></i></a>
+								<a class="service-btn two" href="{{ event.link }}">Mehr erfahren<i class="fa-solid fa-arrow-right-long"></i></a>
 								{% endif %}
 							</div>
 						</div>			

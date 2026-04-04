@@ -33,7 +33,7 @@ var DREAMIT = {};
 			}
 		}
 	}
-	headerStyle();
+	// headerStyle();
 
 	let win = $(window);
 	let sticky_id = $(".header-area");
@@ -1267,14 +1267,14 @@ var DREAMIT = {};
 		});
 	});
 
-	window.addEventListener("scroll", function () {
-		const header = document.querySelector(".main-header");
-		if (window.scrollY > 100) {
-			header.classList.add("scrolled");
-		} else {
-			header.classList.remove("scrolled");
-		}
-	});
+	// window.addEventListener("scroll", function () {
+	// 	const header = document.querySelector(".main-header");
+	// 	if (window.scrollY > 100) {
+	// 		header.classList.add("scrolled");
+	// 	} else {
+	// 		header.classList.remove("scrolled");
+	// 	}
+	// });
 
 	//fade-top gsap animation
 	if (document.querySelectorAll(".fade-wrapper").length > 0) {

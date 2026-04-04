@@ -1,15 +1,51 @@
 {% extends 'email.base.html.twig' %}
 
 {% block body %}
-<div class="breadcumb-area">
-  <div class="auto-container">
-    <div class="row align-items-center">
-      <div class="col-lg-12 text-center">
-        <div class="breadcumb-content">
-          <div class="breadcumb-title">
-            <h4>Kontakt</h4>
-          </div>
-        </div>
+<div class="auto-container">
+  <div class="row align-items-center">
+    <div class="col-lg-12">
+      <div class="breadcumb-title">
+        <h4>Kontakt</h4>
+        <p>
+          Hallo Familie {{ familienname }},
+        </p>
+        <p>
+          herzlich Willkommen zum Baseballcamp {{ constant('CURRENT_YEAR') }}!
+          <br/>
+          <br/>
+          Hiermit bestätigen wir die Anmeldung und freuen uns schon auf das Event.
+          <br/>
+          <br/>
+          Bitte überweißt den unten genannten Betrag, damit die Anmeldung abgeschlossen werden kann.
+          <br/>
+          Solltet ihr noch Fragen oder Korrektur zu Anmeldedaten haben, dann schreibt uns gerne per E-mail an.
+          <br/>
+          <br/>
+          Nach Zahlungseingang erhaltet ihr dann eine Zahlungsbestätigung von uns.
+          <br/>
+          <br/>
+          Das BBC-Team freut sich auf eine tolle und spannende Zeit 🙂
+          <br/>
+          <br/>
+        </p>
+
+        <h3>Ihre Anmeldung im Überblick:</h3>
+        {{ gesamtpreis }}
+        <p>
+          <strong>Unsere Bankverbindung:</strong>
+          <br/>
+          Evangelisch-Freikirchliche Gemeinde Hückelhoven-Baal
+          <br/>
+          IBAN: DE88 3125 1220 0002 8023 87
+          <br/>
+          BIC: WELADED1ERK
+          <br/>
+          Kreditinstitut: Kreisparkasse Heinsberg
+          <br/>
+          Verwendungszweck: Baseball Camp {{ constant('CURRENT_YEAR') }} {{familienname}}
+          <br/>
+          Berechnung des Betrags: 1. Kind {{ constant('FIRST_KID_PRICE_FORMATTED') }} (Geschwisterkinder: {{ constant('NTH_KID_PRICE_FORMATTED') }})
+        </p>
       </div>
     </div>
   </div>

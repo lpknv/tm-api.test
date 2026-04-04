@@ -348,3 +348,31 @@ background-image: url("data:image/svg+xml,%3Csvg%20width%3D%22402%22%20height%3D
 label {
   color: var(--theme-color);
 }
+
+.sidebar-area .offcanvas-header .btn-close i {
+  width: 20px;
+  height: 20px;
+}
+  
+/* .header-solar-renewable-classic .main-box .main-menu .navigation > li > a {
+  color: inherit;
+} */
+
+.service-section-solar .single-service-box .service-thumb .service-icon.two {
+  color: var(--theme-color2) !important;
+  background: none;
+  width: auto;
+}
+
+.service-section-solar .single-service-box {
+  background: none;
+  padding: 0;
+}
+
+.fa-3xl {
+  font-size: 3rem;
+}
+
+.header-solar-renewable-classic .main-box .nav-outer {
+  justify-content: end;
+}

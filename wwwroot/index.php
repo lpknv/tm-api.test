@@ -14,7 +14,10 @@ use Sunspikes\Ratelimit\Throttle\Hydrator\HydratorFactory;
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/../functions.php';
 require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../validation.php';
 require_once __DIR__ . "/../src/Lime/App.php";
+
+$app = new App\Lime\App();
 
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
 $twig = new \Twig\Environment($loader, ['debug' => true]);
@@ -43,17 +46,30 @@ $home_data = [
     [
       'name' => 'Gottesdienst, Sonntag 10:00 Uhr',
       'text' => 'Jeden Sonntag um 10 Uhr kommen wir zusammen, um Gott zu feiern und zu erleben.',
-      'img' => 'godi'
+      'icon' => 'fa-cross'
     ],
     [
       'name' => 'Kinderstunde',
       'text' => 'Während des Gottesdienstes gibt es eine Kinderstunde für Kinder bis einschließlich der 4. Grundschulklasse.',
-      'img' => 'kinderstunde'
+      'icon' => 'fa-people'
     ],
     [
       'name' => 'Veranstaltungen',
       'text' => 'Unser Veranstaltungsangebot ist vielseitig und abwechslungsreich – sowohl von uns als auch in Zusammenarbeit mit anderen. Ob online oder vor Ort, für Kinder oder Erwachsene, es ist für jeden etwas dabei',
-      'img' => 'events'
+      'icon' => 'fa-calendar-check',
+      'link' => '/veranstaltungen'
+    ],
+    [
+      'name' => 'Gruppen',
+      'text' => 'Es gibt verschiedene Gemeindegruppen, wie Hauskreise, Bibelgruppen, Jugend- und Seniorengruppen, die Raum für Gemeinschaft und Austausch bieten.',
+      'icon' => 'fa-group',
+      'link' => '/gruppen'
+    ],
+    [
+      'name' => 'Teams',
+      'text' => 'Es gibt verschiedene Teams in unserer Gemeinde, wie das Küchenteam, das Gartenteam und das Bild- und Tontechnikteam, die durch ihren Einsatz maßgeblich zum Gemeindeleben beitragen.',
+      'icon' => 'fa-group',
+      'link' => '/teams'
     ],
   ]
 ];
@@ -63,14 +79,32 @@ $confirmation_data = [
   'gesamtpreis' => format_currency(150),
 ];
 
-$app = new App\Lime\App();
-
-$app->get("/test", function () use ($twig, $confirmation_data) {
-  echo $twig->render("email/baseballcamp/confirmation.html.twig", $confirmation_data);
-});
-
 $app->get("/", function () use ($twig, $home_data) {
   echo $twig->render("home.html.twig", $home_data);
+});
+$app->get("/gemeinde", function () use ($twig) {
+  echo $twig->render("about.html.twig");
+});
+$app->get("/glaubensgemeinschaft", function () use ($twig) {
+  echo $twig->render("whatwebelieve.html.twig");
+});
+$app->get("/finanzierung", function () use ($twig) {
+  echo $twig->render("finance.html.twig");
+});
+$app->get("/veranstaltungen", function () use ($twig) {
+  echo $twig->render("events.html.twig");
+});
+$app->get("/teams", function () use ($twig) {
+  echo $twig->render("teams.html.twig");
+});
+$app->get("/gruppen", function () use ($twig) {
+  echo $twig->render("groups.html.twig");
+});
+$app->get("/predigten", function () use ($twig) {
+  echo $twig->render("preaches.html.twig");
+});
+$app->get("/kontakt", function () use ($twig) {
+  echo $twig->render("contact.html.twig");
 });
 
 $app->get("/baseballcamp", function () use ($twig, $marketing, $ages, $tshirt_sizes) {
@@ -85,8 +119,6 @@ $app->get("/baseballcamp", function () use ($twig, $marketing, $ages, $tshirt_si
 });
 
 $app->post("/ajax/baseballcamp", function () use ($marketing, $ages, $tshirt_sizes) {
-  session_start();
-
   if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond('Method not allowed', 405);
   }
@@ -191,15 +223,15 @@ $app->post("/ajax/baseballcamp", function () use ($marketing, $ages, $tshirt_siz
   $total_pricing = FIRST_KID_PRICE;
 
   $anmeldedaten = "
-<p>
-  <strong>Familienname:</strong> $familienname<br/>
-  <strong>E-Mail-Adresse:</strong> $email<br/>
-  <strong>Telefonnummer / Handynummer der Eltern:</strong> $telefonnummer<br/>
-  <strong>Straße + Hausnummer:</strong> $strasse_hausnummer<br/>
-  <strong>Postleitzahl:</strong> $plz<br/>
-  <strong>Ort:</strong> $ort<br/>
-</p>
-";
+    <p>
+      <strong>Familienname:</strong> $familienname<br/>
+      <strong>E-Mail-Adresse:</strong> $email<br/>
+      <strong>Telefonnummer / Handynummer der Eltern:</strong> $telefonnummer<br/>
+      <strong>Straße + Hausnummer:</strong> $strasse_hausnummer<br/>
+      <strong>Postleitzahl:</strong> $plz<br/>
+      <strong>Ort:</strong> $ort<br/>
+    </p>
+  ";
 
   foreach ($kids as $key => $kid) {
     $nth_child = $key > 0;
@@ -211,71 +243,71 @@ $app->post("/ajax/baseballcamp", function () use ($marketing, $ages, $tshirt_siz
   $agbAkzeptiert = isset($agb) ? "✅" : "❌";
 
   $anmeldedaten .= "<h4>Allgemeine Informationen</h4>
-<p>
-<strong>Wie bist du auf unser Baseballcamp aufmerksam geworden: </strong> $how_did_you_find_out_about_us<br/>
-<strong>Weitere Informationen (Krankheiten, Allergien usw.): </strong> <br/>
-$infos
-<br/>
-<strong>Zustimmung Datenschutz:</strong> $datenschutzAkzeptiert<br/>
-<strong>Zustimmung AGB:</strong> $agbAkzeptiert<br/>
-</p>
-";
+  <p>
+    <strong>Wie bist du auf unser Baseballcamp aufmerksam geworden: </strong> $how_did_you_find_out_about_us<br/>
+    <strong>Weitere Informationen (Krankheiten, Allergien usw.): </strong> <br/>
+    $infos
+    <br/>
+    <strong>Zustimmung Datenschutz:</strong> $datenschutzAkzeptiert<br/>
+    <strong>Zustimmung AGB:</strong> $agbAkzeptiert<br/>
+    </p>
+    ";
 
   $gesamtpreis = sprintf("<p><strong style=\"border-bottom: 2px solid black;\">Zu zahlender Gesamtbetrag: %s</strong></p>", format_currency($total_pricing));
 
   $nachrichtAnTeilnehmer = "<html>
-<head>
-  <title>Baseballcamp " . CURRENT_YEAR . "</title>
-  <style>
-    html, body {
-      font-family: Inter, sans-serif;
-    }
-  </style>
-</head>            
-<body>
-  <p>
-    Hallo Familie $familienname,
-  </p>
-  <p>
-    herzlich Willkommen zum Baseballcamp " . CURRENT_YEAR . "!
-    <br/>
-    <br/>
-    Hiermit bestätigen wir die Anmeldung und freuen uns schon auf das Event.
-    <br/>
-    <br/>
-    Bitte überweißt den unten genannten Betrag, damit die Anmeldung abgeschlossen werden kann.
-    <br/>
-    Solltet ihr noch Fragen oder Korrektur zu Anmeldedaten haben, dann schreibt uns gerne per E-mail an.
-    <br/>
-    <br/>
-    Nach Zahlungseingang erhaltet ihr dann eine Zahlungsbestätigung von uns.
-    <br/>
-    <br/>
-    Das BBC-Team freut sich auf eine tolle und spannende Zeit 🙂
-    <br/>
-    <br/>
-  </p>
+    <head>
+      <title>Baseballcamp " . CURRENT_YEAR . "</title>
+      <style>
+        html, body {
+          font-family: Inter, sans-serif;
+        }
+      </style>
+    </head>            
+    <body>
+      <p>
+        Hallo Familie $familienname,
+      </p>
+      <p>
+        herzlich Willkommen zum Baseballcamp " . CURRENT_YEAR . "!
+        <br/>
+        <br/>
+        Hiermit bestätigen wir die Anmeldung und freuen uns schon auf das Event.
+        <br/>
+        <br/>
+        Bitte überweißt den unten genannten Betrag, damit die Anmeldung abgeschlossen werden kann.
+        <br/>
+        Solltet ihr noch Fragen oder Korrektur zu Anmeldedaten haben, dann schreibt uns gerne per E-mail an.
+        <br/>
+        <br/>
+        Nach Zahlungseingang erhaltet ihr dann eine Zahlungsbestätigung von uns.
+        <br/>
+        <br/>
+        Das BBC-Team freut sich auf eine tolle und spannende Zeit 🙂
+        <br/>
+        <br/>
+      </p>
 
-  <h3>Ihre Anmeldung im Überblick:</h3>
-  $gesamtpreis
-  <p>
-    <strong>Unsere Bankverbindung:</strong>
-    <br/>
-    Evangelisch-Freikirchliche Gemeinde Hückelhoven-Baal
-    <br/>
-    IBAN: DE88 3125 1220 0002 8023 87
-    <br/>
-    BIC: WELADED1ERK
-    <br/>
-    Kreditinstitut: Kreisparkasse Heinsberg
-    <br/>
-    Verwendung: Baseball Camp " . CURRENT_YEAR . " und $familienname
-    <br/>
-    Berechnung des Betrags: 1. Kind EUR " . FIRST_KID_PRICE . ",- (Geschwisterkinder: EUR " . NTH_KID_PRICE . ",-)
-  </p>
-</body>
-</html>
-";
+      <h3>Ihre Anmeldung im Überblick:</h3>
+      $gesamtpreis
+      <p>
+        <strong>Unsere Bankverbindung:</strong>
+        <br/>
+        Evangelisch-Freikirchliche Gemeinde Hückelhoven-Baal
+        <br/>
+        IBAN: DE88 3125 1220 0002 8023 87
+        <br/>
+        BIC: WELADED1ERK
+        <br/>
+        Kreditinstitut: Kreisparkasse Heinsberg
+        <br/>
+        Verwendung: Baseball Camp " . CURRENT_YEAR . " und $familienname
+        <br/>
+        Berechnung des Betrags: 1. Kind EUR " . FIRST_KID_PRICE . ",- (Geschwisterkinder: EUR " . NTH_KID_PRICE . ",-)
+      </p>
+    </body>
+    </html>
+  ";
 
   $mail = new PHPMailer(true);
 
@@ -326,6 +358,10 @@ $infos
     ], 500);
   }
 });
+
+// $twig->addGlobal('routes', $app->getRoutes());
+
+print_r($app->path());
 
 $app->on("after", function () use ($twig) {
   switch ($this->response->status) {

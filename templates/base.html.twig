@@ -24,9 +24,7 @@
     <!-- Main Header-->
     <header class="main-header header-solar-renewable-classic">
 
-      <!-- Header Lower -->
       <div class="header-lower">
-        <!-- Main box -->
         <div class="main-box">
           <div class="logo-box">
             <div class="logo"><a href="/"><img src="/assets/images/logo-white.png" alt="logo" title="econet"></a></div>
@@ -40,21 +38,25 @@
                 <li><a href="/">Start</a></li>
                 <li class="dropdown"><a href="#">Über uns</a>
                   <ul>
-                    <li><a href="">Gemeinde</a></li>
-                    <li><a href="">Glaubensgemeinschaft</a></li>
-                    <li><a href="">Finanzierung</a></li>
-                    <li><a href="">Teams</a></li>
+                    <li><a href="/gemeinde">Gemeinde</a></li>
+                    <li><a href="/glaubensgemeinschaft">Glaubensgemeinschaft</a></li>
+                    <li><a href="/finanzierung">Finanzierung</a></li>
+                    <li><a href="/gruppen">Gruppen</a></li>
+                    <li><a href="/teams">Teams</a></li>
                   </ul>
                 </li>
-                <li><a href="/gruppen">Gruppen</a></li>
-                <li><a href="/veranstaltungen">Veranstaltungen</a></li>
+                <li class="dropdown"><a href="/veranstaltungen">Veranstaltungen</a>
+                  <ul>
+                    <li><a href="/baseballcamp">Baseballcamp</a></li>
+                  </ul>
+                </li>
                 <li><a href="/predigten">Predigten</a></li>
                 <li><a href="/kontakt">Kontakt</a></li>
               </ul>
             </nav>
             <!-- Main Menu End-->
 
-            <div class="outer-box">
+            <div class="outer-box d-lg-none">
               <button class="menubars" type="button" data-bs-toggle="offcanvas" data-bs-target="#menubar">
                 <span></span>
                 <span></span>
@@ -66,9 +68,7 @@
           </div>
         </div>
       </div>
-      <!-- End Header Lower -->
 
-      <!-- Mobile Menu  -->
       <div class="mobile-menu">
         <div class="menu-backdrop"></div>
 
@@ -118,40 +118,8 @@
           </ul>
         </nav>
       </div><!-- End Mobile Menu -->
-
-
-
-      <!-- Sticky Header  -->
-      <div class="sticky-header">
-        <div class="auto-container">
-          <div class="inner-container">
-            <!--Logo-->
-            <div class="logo">
-              <a href="/"><img src="/assets/images/logo-2.png" alt=""></a>
-            </div>
-
-            <!--Right Col-->
-            <div class="nav-outer">
-              <!-- Main Menu -->
-              <nav class="main-menu">
-                <div class="navbar-collapse show collapse clearfix">
-                  <ul class="navigation clearfix">
-                    <!--Keep This Empty / Menu will come through Javascript-->
-                  </ul>
-                </div>
-              </nav><!-- Main Menu End-->
-
-              <!--Mobile Navigation Toggler-->
-              <div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Sticky Menu -->
     </header>
-    <!--End Main Header -->
 
-    <!-- Sidebar area start here -->
     <div class="sidebar-area offcanvas offcanvas-end" id="menubar">
         <div class="offcanvas-header">
             <a href="/" class="logo"> <img src="/assets/images/logo-white.png" alt="logo"></a>
@@ -223,20 +191,6 @@
             </div>
         </div>
     </div>
-    <!-- Sidebar area end here -->
-
-    <!-- Start Search Popup -->
-    <div class="search-popup">
-      <button class="close-search style-two"><i class="fas fa-times"></i></button>
-      <button class="close-search"><i class="fas fa-arrow-up"></i></button>
-      <form method="post" action="#">
-        <div class="form-group">
-          <input id="search1" type="search" name="search-field" value="" placeholder="Search Here" required="">
-          <button type="submit"><i class="fas fa-search"></i></button>
-        </div>
-      </form>
-    </div>
-    <!-- End Search Popup -->
 
     {% block body %}{% endblock %}
 

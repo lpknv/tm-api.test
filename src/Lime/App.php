@@ -265,6 +265,15 @@ class App implements \ArrayAccess
     return $this;
   }
 
+
+  /**
+   * get all routes
+   */
+  public function getRoutes()
+  {
+    return $this->routes;
+  }
+
   /**
    * stop application (exit)
    */
