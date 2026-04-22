@@ -3348,7 +3348,7 @@ Section Title
     Banner Section solar
 ==================================***/
 .banner-section-solar {
-  background-image: url(../images/hero.png);
+  background-image: url(../images/hero.webp);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -3591,7 +3591,7 @@ Section Title
     Banner Section solar classic
 ==================================***/
 .banner-section-solar-classic {
-  background-image: url(../images/hero.png);
+  background-image: url(../images/hero.webp);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -3599,13 +3599,13 @@ Section Title
   margin: -108px 0px 0px;
 }
 .banner-section-solar-classic.dark {
-  background-image: url(../images/hero.png);
+  background-image: url(../images/hero.webp);
 }
 .banner-section-solar-classic .econet-slider-height {
   height: 950px;
 }
 .banner-section-solar-classic .econet-slider-bg {
-  background-image: url(../images/hero.png);
+  background-image: url(../images/hero.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -11932,7 +11932,7 @@ Section Title
   background: var(--theme-color4);
   padding: 150px 0 70px;
   position: relative;
-  margin-top: -30px;
+  /* margin-top: -30px; */
 }
 .main-footer-one.classic {
   margin: 0;
@@ -16275,7 +16275,7 @@ Section Title
 }
 
 .breadcumb-area {
-  background-image: url(../images/hero.png);
+  background-image: url(../images/hero.webp);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

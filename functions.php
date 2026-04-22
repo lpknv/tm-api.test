@@ -67,22 +67,20 @@ function intl_date(string $value, string $pattern = 'dd. MMMM yyyy', string $loc
   return $formatter->format($date);
 }
 
-function prepare_upcoming_events(array $events): array
+function intl_time(string $value, string $pattern = 'HH:mm', string $locale = 'de_DE'): string
 {
-  $visibleEvents = [];
+  $date = new \DateTimeImmutable($value);
 
-  foreach ($events as $event) {
-    if (!event_is_visible($event['date_end'])) {
-      continue;
-    }
+  $formatter = new \IntlDateFormatter(
+    $locale,
+    \IntlDateFormatter::NONE,
+    \IntlDateFormatter::NONE,
+    $date->getTimezone(),
+    null,
+    $pattern
+  );
 
-    $event['date_start'] = format_datetime($event['date_start']);
-    $event['date_end'] = format_datetime($event['date_end']);
-
-    $visibleEvents[] = $event;
-  }
-
-  return $visibleEvents;
+  return $formatter->format($date);
 }
 
 function format_datetime(string $value): array
@@ -93,6 +91,18 @@ function format_datetime(string $value): array
     'year' => intl_date($value, 'yyyy'),
     'full' => intl_date($value, 'dd. MMMM yyyy'),
   ];
+}
+
+function format_time(string $value)
+{
+  return intl_time($value);
+}
+
+
+
+function find_current_event_by_slug($slug, $events)
+{
+  return $events[$slug];
 }
 
 function event_is_visible($end)

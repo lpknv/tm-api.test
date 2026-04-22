@@ -1,82 +1,120 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="banner-section-solar-classic">
-	<div class="econet-banner-wrapper">
-		<div class="econet-slider-height">
-			<div class="econet-slider-bg"></div>
-			<div class="auto-container">
-				<div class="row">
-					<div class="col-xl-12">
-						<div class="banner-content-wrap">
-							<div class="banner-title">
-								<h2>Ich bin die Auferstehung <br/>und das Leben.</h2>
-							</div>
-							<div class="banner-autor-info">
-								<p class="autor-desc">- Johannes 11,25</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <main>
-	<section class="service-section-solar">
+	<section>
 		<div class="auto-container">
 			<div class="row align-items-center">
 				<div class="col">
 					<div class="sec-title">
-						<h1 class="title">Willkommen</h1>
-						<p>Wir sind eine evangelische Freikirche in Hückelhoven-Baal und laden dich herzlich ein, unsere Gottesdienste und Veranstaltungen zu besuchen.</p>
+						<h2>Travel Memory Web App</h2>
+						<p>Personal travel memory web app for your travel locations.</p>
 					</div>
 				</div>
-			</div>
-			<div class="row g-4 my-2">
-				{% for event in weekly_events %}
-					<div class="col-4">
-						<div class="single-service-box">
-							<div class="service-thumb two">
-								<div class="service-icon two">
-									<i class="fa-solid {{event.icon}} fa-3xl"></i>
-								</div>
-							</div>
-							<div class="service-content">
-								<h3 class="service-title two">{{ event.name }}</h3>
-								<p>{{ event.text }}</p>
-								{% if event.link %}
-								<a class="service-btn two" href="{{ event.link }}">Mehr erfahren<i class="fa-solid fa-arrow-right-long"></i></a>
-								{% endif %}
-							</div>
-						</div>			
-					</div>
-				{%endfor%}
 			</div>
 		</div>
 	</section>
-	{% if upcoming_events|length > 0 %}
-		<section class="joint-event-section-charity" id="event">
-			<div class="auto-container">
-				<div class="row section-title-space align-items-center">
-					<div class="col-lg-6">
-						<div class="sec-title">
-							<div class="section-title">
-								<h1 class="title ">Bevorstehende</h1>
-								<h1 class="title ">Veranstaltungen</h1>
+
+	<section class="trip-list-section">
+		<div class="container">
+			<div class="row g-4">
+
+				{% for trip in trips %}
+					<div class="col-lg-6 col-xl-4">
+						<div class="trip-card">
+
+							<div class="trip-card-top">
+								<div class="trip-card-thumb">
+									{% if trip.image is defined and trip.image %}
+										<img src="{{ trip.image }}" alt="{{ trip.name }}">
+									{% else %}
+										<div class="trip-card-thumb-placeholder">
+											{{ trip.name|slice(0, 1) }}
+										</div>
+									{% endif %}
+								</div>
+
+								<div class="trip-actions">
+									<a href="/trips/{{ trip.id }}/locations" class="trip-action-btn trip-action-btn-light">Open</a>
+									<a href="/trips/{{ trip.id }}/edit" class="trip-action-btn trip-action-btn-edit">Edit</a>
+
+									<form class="trip-delete-form" data-id="{{ trip.id }}">
+										<button type="submit" class="trip-action-btn trip-action-btn-delete">
+											Delete
+										</button>
+									</form>
+								</div>
 							</div>
+
+							<div class="trip-card-content">
+								<h4 class="trip-card-title">
+									<a href="/trips/{{ trip.id }}">
+										{{ trip.name }}
+									</a>
+								</h4>
+
+								{% if trip.created_at is defined and trip.created_at %}
+									<div class="trip-card-date">
+										{{ trip.created_at|date('d M Y, H:i') }}
+									</div>
+								{% endif %}
+
+								<div class="trip-card-meta">
+									{{ trip.locations|length }} Locations
+								</div>
+
+								<p class="trip-card-text">
+									{% if trip.description is defined and trip.description %}
+										{{ trip.description }}
+									{% else %}
+										Öffne diesen Trip, um deine Reise-Timeline zu sehen.
+									{% endif %}
+								</p>
+							</div>
+
 						</div>
 					</div>
-					<div class="col-lg-6">
-						<div class="econet-button">
-							<a href="/veranstaltungen">Alle Veranstaltungen<i class="fa-solid fa-arrow-right"></i><span></span></a>
+				{% else %}
+					<div class="col-12">
+						<div class="trip-empty-state">
+							<h5>No trips yet</h5>
+							<p>Lege deinen ersten Trip an 🚀</p>
 						</div>
 					</div>
-				</div>
-				{% include 'components/upcoming_events.html.twig' with { upcoming_events: upcoming_events, show_link: true } %}
+				{% endfor %}
+
 			</div>
-		</section>
-	{% endif %}
+		</div>
+	</section>
 </main>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(document).on("submit", ".trip-delete-form", function(e) {
+			e.preventDefault();
+
+			const form = $(this);
+			const tripId = form.data("id");
+
+			if (!confirm("Trip wirklich löschen?")) return;
+
+			$.ajax({
+				url: "/trips/" + tripId + "/delete",
+				type: "POST",
+				dataType: "json",
+				success: function(response) {
+					if (response.success) {
+						form.closest(".trip-card").fadeOut(300, function() {
+							$(this).remove();
+							window.location.reload()
+						});
+					}
+				},
+				error: function(xhr) {
+					console.error(xhr.responseText);
+					alert("Fehler beim Löschen");
+				}
+			});
+		});
+	</script>
 {% endblock %}

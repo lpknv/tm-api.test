@@ -15,6 +15,7 @@ $envFile = file_exists(__DIR__ . '/.env.dev')
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, $envFile);
 $dotenv->load();
 
+define('BASE_PATH', dirname($_SERVER['DOCUMENT_ROOT']));
 define('MAX_KIDS_NUMBER', 5);
 define('FIRST_KID_PRICE', 80);
 define('NTH_KID_PRICE', 70);

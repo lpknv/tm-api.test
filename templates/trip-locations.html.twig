@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main>
+	<section>
+		<div class="auto-container">
+			<div class="row align-items-center">
+				<div class="col">
+					<div class="sec-title">
+						<h2>{{ trip.name }}</h2>
+						<p>{{ trip.description ?? 'Personal travel memory web app for your travel locations.' }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="trip-timeline-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="trip-timeline">
+						{% for location in trip.locations %}
+							<div class="trip-timeline-item {% if loop.index0 < active_index %}is-completed{% elseif loop.index0 == active_index %}is-active{% endif %}">
+								
+								<div class="trip-timeline-rail">
+									<span class="trip-timeline-dot"></span>
+
+									<div class="trip-timeline-thumb">
+										{% if location.image is defined and location.image %}
+											<img src="{{ location.image }}" alt="{{ location.name }}">
+										{% else %}
+											<div class="trip-timeline-thumb-placeholder">
+												{{ location.name|slice(0, 1) }}
+											</div>
+										{% endif %}
+									</div>
+								</div>
+
+								<div class="trip-timeline-card">
+									<div class="trip-timeline-card-top">
+										<div class="trip-timeline-heading">
+											<h5 class="trip-title">{{ location.name }}</h5>
+											{% if location.created_at is defined and location.created_at %}
+												<span class="trip-date">{{ location.created_at|date('d M Y, H:i') }}</span>
+											{% endif %}
+										</div>
+
+										<div class="trip-actions">
+											<a href="/locations/{{ location.id }}" class="trip-action-btn trip-action-btn-light">View</a>
+											<a href="/locations/{{ location.id }}/edit" class="trip-action-btn trip-action-btn-edit">Edit</a>
+											<form action="/locations/{{ location.id }}/delete" method="post" class="trip-action-form">
+												<button type="submit" class="trip-action-btn trip-action-btn-delete">Delete</button>
+											</form>
+										</div>
+									</div>
+
+									<p class="trip-text">
+										{% if location.description is defined and location.description %}
+											{{ location.description }}
+										{% else %}
+											Schöner Stop auf deiner Reise-Timeline.
+										{% endif %}
+									</p>
+								</div>
+
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+{% endblock %}
