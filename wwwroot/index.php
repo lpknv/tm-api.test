@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -44,6 +46,10 @@ $app->service("client", function () {
     'base_uri' => 'http://127.0.0.1:5001/',
     // You can set any number of default request options.
     'timeout'  => 5.0,
+    'headers' => [
+      'Authorization' => 'Bearer ' . ACCESS_TOKEN,
+      'Accept' => 'application/json',
+    ],
   ]);
   return $client;
 });
@@ -57,24 +63,63 @@ $app->service("twig", function () use ($twig) {
   return $twig;
 });
 
-$app->get("/", function () {
-  $response = $this->client->request('GET', 'api/trips');
+$app->get('/', function () {
+  requireLogin($this);
 
-  $status = $response->getStatusCode();
-  $body = (string) $response->getBody();
-  $trips = json_decode($body, true);
+  $this->reroute('/trips');
+});
+
+$app->get('/login', function () {
+  return $this->twig->render('login.html.twig');
+});
+
+$app->post('/login', function () {
+  $email = $_POST['email'] ?? null;
+  $password = $_POST['password'] ?? null;
+
+  try {
+    $loginResponse = $this->client->post('/api/auth/login', [
+      'json' => [
+        'email' => $email,
+        'password' => $password,
+      ],
+    ]);
+
+    $body = json_decode((string) $loginResponse->getBody(), true);
+
+    $_SESSION['token'] = $body['access_token'];
+
+    $this->reroute('/trips');
+  } catch (\Exception $e) {
+    return $this->twig->render('login.html.twig', [
+      'error' => 'Login fehlgeschlagen',
+    ]);
+  }
+});
+
+$app->get("/trips", function () {
+  requireLogin($this);
+
+  $response = $this->client->request('GET', '/api/trips', [
+    'headers' => authHeaders(),
+  ]);
+
+  $trips = json_decode((string) $response->getBody(), true);
 
   return $this->twig->render("home.html.twig", [
-    "api_status" => $status,
+    "api_status" => $response->getStatusCode(),
     "trips" => $trips,
   ]);
 });
 
 $app->get("/trips/:id/locations", function ($params) {
-  $response = $this->client->request("GET", "api/trips/" . $params["id"]);
+  requireLogin($this);
 
-  $body = (string)$response->getBody();
-  $trip = json_decode($body, true);
+  $response = $this->client->request("GET", "/api/trips/" . $params["id"], [
+    'headers' => authHeaders(),
+  ]);
+
+  $trip = json_decode((string)$response->getBody(), true);
 
   return $this->twig->render("trip-locations.html.twig", [
     "trip" => $trip,
@@ -82,6 +127,7 @@ $app->get("/trips/:id/locations", function ($params) {
 });
 
 $app->post("/trips/:id/delete", function ($params) {
+  requireLogin($this);
 
   try {
     $this->client->request('DELETE', 'api/trips/' . $params['id']);

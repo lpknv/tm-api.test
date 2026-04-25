@@ -54,6 +54,10 @@
 										</div>
 									</div>
 
+									<div class="trip-card-meta">
+										{{ location.photos|length }} Photos
+									</div>
+									
 									<p class="trip-text">
 										{% if location.description is defined and location.description %}
 											{{ location.description }}

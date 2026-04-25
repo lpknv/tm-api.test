@@ -1,5 +1,20 @@
 <?php
 
+function requireLogin($app)
+{
+  if (empty($_SESSION['token'])) {
+    $app->reroute('/login');
+  }
+}
+
+function authHeaders()
+{
+  return [
+    'Authorization' => 'Bearer ' . $_SESSION['token'],
+    'Accept' => 'application/json',
+  ];
+}
+
 function respond($message = null, int $statusCode = 200, $exit = true)
 {
   http_response_code($statusCode);

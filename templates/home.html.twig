@@ -55,7 +55,7 @@
 
 								{% if trip.created_at is defined and trip.created_at %}
 									<div class="trip-card-date">
-										{{ trip.created_at|date('d M Y, H:i') }}
+										Created at: {{ trip.created_at|date('d M Y, H:i') }}
 									</div>
 								{% endif %}
 
